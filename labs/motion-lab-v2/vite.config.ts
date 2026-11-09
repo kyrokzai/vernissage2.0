@@ -9,4 +9,13 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  // Две независимые страницы лаборатории: сцены V2 (index.html) и модуль M3.1 (m31.html)
+  build: {
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, "index.html"),
+        m31: path.resolve(__dirname, "m31.html"),
+      },
+    },
+  },
 });

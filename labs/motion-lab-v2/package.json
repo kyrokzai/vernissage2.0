@@ -9,7 +9,8 @@
     "preview": "python3 -m http.server 4173 --directory site --bind 127.0.0.1",
     "typecheck": "tsc -p tsconfig.check.json --noEmit",
     "bundle": "rm -rf dist bundle.html && parcel build index.html --dist-dir dist --no-source-maps && html-inline dist/index.html > vernissage-motion-lab-v2.html && rm -rf dist",
-    "lint": "oxlint"
+    "lint": "oxlint src tests",
+    "bundle:m31": "rm -rf dist && parcel build m31.html --dist-dir dist --no-source-maps && html-inline dist/m31.html > vernissage-m31-kitchen.html && rm -rf dist"
   },
   "dependencies": {
     "@hookform/resolvers": "^7.0.3",

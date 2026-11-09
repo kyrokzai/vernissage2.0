@@ -3,9 +3,15 @@ import { clamp, easeFn, type Ease } from "./math";
 export type ProgressEvents = {
   /** Каждый кадр, пока сглаженный прогресс догоняет цель. */
   onProgress: (current: number, target: number) => void;
-  /** Автовоспроизведение или перемотка к этапу закончились или были прерваны. */
+  /** Автовоспроизведение или перемотка закончились или были прерваны. */
   onTweenEnd?: (reason: "done" | "interrupted") => void;
+  /** Посетитель сам прокручивает, касается или нажимает клавиши прокрутки. */
+  onUserInput?: () => void;
+  /** События, которые не считаются прокруткой посетителя (например, касание кнопок панели управления). */
+  ignoreInput?: (e: Event) => boolean;
 };
+
+const SCROLL_KEYS = ["ArrowDown", "ArrowUp", "PageDown", "PageUp", " ", "Home", "End"];
 
 /**
  * Единое состояние прогресса сборки.
@@ -20,41 +26,51 @@ export class ScrollProgress {
   private raf = 0;
   private last = 0;
   private tweenRaf = 0;
+  private tweenExpectY = -1;
+  private top = 0;
+  private len = 1;
   private ro: ResizeObserver;
-  smoothing = 0.4; // 0 — без сглаживания, 1 — максимально мягко
-  reduced = false;
-
   private track: HTMLElement;
   private ev: ProgressEvents;
+  smoothing = 0.4; // 0 — без сглаживания, 1 — максимально мягко
+  reduced = false;
 
   constructor(track: HTMLElement, ev: ProgressEvents) {
     this.track = track;
     this.ev = ev;
     addEventListener("scroll", this.onScroll, { passive: true });
-    addEventListener("resize", this.onScroll);
+    addEventListener("resize", this.onResize);
+    addEventListener("orientationchange", this.onResize);
+    addEventListener("pageshow", this.onPageShow);
+    visualViewport?.addEventListener("resize", this.onResize);
     for (const t of ["wheel", "touchstart", "keydown"] as const) addEventListener(t, this.onUser, { passive: true });
-    this.ro = new ResizeObserver(this.onScroll);
+    this.ro = new ResizeObserver(this.onResize);
     this.ro.observe(track);
+    this.measure();
     this.target = this.current = this.fromScroll();
     this.ev.onProgress(this.current, this.target);
   }
 
   destroy() {
     removeEventListener("scroll", this.onScroll);
-    removeEventListener("resize", this.onScroll);
+    removeEventListener("resize", this.onResize);
+    removeEventListener("orientationchange", this.onResize);
+    removeEventListener("pageshow", this.onPageShow);
+    visualViewport?.removeEventListener("resize", this.onResize);
     for (const t of ["wheel", "touchstart", "keydown"] as const) removeEventListener(t, this.onUser);
     this.ro.disconnect();
     cancelAnimationFrame(this.raf);
     cancelAnimationFrame(this.tweenRaf);
+    this.raf = this.tweenRaf = 0;
   }
 
-  private range() {
-    const top = this.track.getBoundingClientRect().top + scrollY;
-    return { top, len: Math.max(1, this.track.offsetHeight - innerHeight) };
+  /** Размеры дорожки кэшируются: при прокрутке читается только scrollY, без пересчёта раскладки. */
+  private measure() {
+    this.top = this.track.getBoundingClientRect().top + scrollY;
+    this.len = Math.max(1, this.track.offsetHeight - innerHeight);
   }
   fromScroll() {
-    const { top, len } = this.range();
-    return clamp((scrollY - top) / len);
+    return clamp((scrollY - this.top) / this.len);
   }
   get value() {
     return this.current;
@@ -70,14 +86,22 @@ export class ScrollProgress {
       this.raf = requestAnimationFrame(this.step);
     }
   };
+  private onResize = () => {
+    this.measure();
+    this.onScroll();
+  };
+  /** Возврат на страницу (в том числе из кэша Safari): состояние сразу берётся из прокрутки, без анимации. */
+  private onPageShow = () => {
+    this.measure();
+    this.target = this.current = this.fromScroll();
+    this.ev.onProgress(this.current, this.target);
+  };
 
   private onUser = (e: Event) => {
-    if (!this.tweenRaf) return;
-    if (e.type === "keydown") {
-      const k = (e as KeyboardEvent).key;
-      if (!["ArrowDown", "ArrowUp", "PageDown", "PageUp", " ", "Home", "End"].includes(k)) return;
-    }
-    this.stop("interrupted");
+    if (e.type === "keydown" && !SCROLL_KEYS.includes((e as KeyboardEvent).key)) return;
+    if (this.ev.ignoreInput?.(e)) return;
+    this.ev.onUserInput?.();
+    if (this.tweenRaf) this.stop("interrupted");
   };
 
   private step = (now: number) => {
@@ -91,11 +115,18 @@ export class ScrollProgress {
     this.raf = this.current !== this.target ? requestAnimationFrame(this.step) : 0;
   };
 
+  /** Сглаженный прогресс сразу становится равен прокрутке (например, после смены режима движения). */
+  snap() {
+    this.measure();
+    this.target = this.current = this.fromScroll();
+    this.ev.onProgress(this.current, this.target);
+  }
+
   /** Перевести сборку на прогресс p: мгновенно (ползунок) или плавной перемоткой (кнопки этапов). */
   seek(p: number, durMs = 0, ease: Ease = "cinema") {
     this.stop();
-    const { top, len } = this.range();
-    const to = top + clamp(p) * len;
+    this.measure();
+    const to = Math.round(this.top + clamp(p) * this.len);
     if (durMs <= 0 || this.reduced) {
       scrollTo({ top: to, behavior: "instant" as ScrollBehavior });
       return;
@@ -103,9 +134,18 @@ export class ScrollProgress {
     const from = scrollY;
     const t0 = performance.now();
     const f = easeFn(ease);
+    this.tweenExpectY = from;
     const tick = (now: number) => {
+      // Если прокрутка ушла не туда, куда её ставила перемотка (полоса прокрутки, жест) — уступаем посетителю.
+      if (Math.abs(scrollY - this.tweenExpectY) > 3) {
+        this.tweenRaf = 0;
+        this.ev.onTweenEnd?.("interrupted");
+        return;
+      }
       const k = clamp((now - t0) / durMs);
-      scrollTo({ top: from + (to - from) * f(k), behavior: "instant" as ScrollBehavior });
+      const y = Math.round(from + (to - from) * f(k));
+      scrollTo({ top: y, behavior: "instant" as ScrollBehavior });
+      this.tweenExpectY = scrollY;
       if (k < 1) this.tweenRaf = requestAnimationFrame(tick);
       else {
         this.tweenRaf = 0;
