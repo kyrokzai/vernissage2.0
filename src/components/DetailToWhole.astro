@@ -1,0 +1,60 @@
+---
+/**
+ * Авторский блок VERNISSAGE «От детали — к целому».
+ * Прокрутка ведёт камеру: макро материала → детали производства → готовый интерьер (видео) → знак VERNISSAGE.
+ * При prefers-reduced-motion и без JavaScript показывается статичная раскладка из четырёх глав.
+ */
+import { DETAIL_TO_WHOLE as CH } from '../data/site';
+import { img, ph } from '../data/media';
+import { getImage } from 'astro:assets';
+
+const base = import.meta.env.BASE_URL;
+const film = CH[2].shots[0];
+const posterLand = await getImage({ src: img(film.img).meta, width: 1600, format: 'webp', quality: 70 });
+const posterPort = await getImage({ src: img(film.portImg).meta, width: 900, format: 'webp', quality: 70 });
+const shots = CH.flatMap((c) => c.shots.filter((s) => !('video' in s)));
+---
+<section class="dw" id="detail" aria-labelledby="dw-h">
+  <div class="dw-pin">
+    <div class="dw-stage" aria-hidden="true">
+      {shots.map((s, i) => <div class="dw-shot" data-s={i}><span class={ph(s.img)}></span></div>)}
+      <div class="dw-shot dw-film" data-s="film">
+        <span class={`${ph(film.img)} dw-film-ph`}></span>
+        <video class="dw-video" muted playsinline loop preload="none" disablepictureinpicture
+          data-land={`${base}media/video/${film.video.land}`} data-port={`${base}media/video/${film.video.port}`}
+          data-poster-land={posterLand.src} data-poster-port={posterPort.src}></video>
+      </div>
+      <div class="dw-final">
+        <span class="dw-glow"></span>
+        <span class="dw-logo"></span>
+      </div>
+      <div class="dw-shade"></div>
+    </div>
+
+    <div class="wrap dw-ui">
+      <div class="dw-head">
+        <p class="label">Почерк Vernissage</p>
+        <h2 id="dw-h">От детали — <span class="gt">к целому</span></h2>
+      </div>
+      <ol class="dw-ch">
+        {CH.map((c, i) => (
+          <li class={i === 0 ? 'on' : undefined}>
+            {c.shots[0] ? <span class={`dw-ch-img ${ph(c.shots[0].img)}`} aria-hidden="true"></span> : <span class="dw-ch-img dw-ch-logo" aria-hidden="true"></span>}
+            <span class="dw-n">{c.n}<i></i>{c.label}</span>
+            <h3>{c.title}</h3>
+            <p>{c.text}</p>
+            {i === CH.length - 1 && <a class="btn btn-primary" href="#quiz">Рассчитать мой проект</a>}
+          </li>
+        ))}
+      </ol>
+      <div class="dw-rail" aria-hidden="true">
+        {CH.map((c) => <span><b>{c.n}</b></span>)}
+        <i class="dw-rail-p"></i>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  import { initDetailToWhole } from '../scripts/detail';
+  initDetailToWhole();
+</script>

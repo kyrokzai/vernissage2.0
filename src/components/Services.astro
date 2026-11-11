@@ -1,0 +1,27 @@
+---
+import Sbg from './Sbg.astro';
+import { ph } from '../data/media';
+const SV = [
+  { n: '01', l: 'Дизайн', h: 'Архитектурное проектирование', p: 'Делаем проект с учётом реальных размеров и особенностей объекта. Сразу продумываем, как всё будет реализовано на практике.', a: 'Рассчитать проект', img: 'res-wide', alt: 'Кухня-гостиная по дизайн-проекту VERNISSAGE', pos: '35% 50%' },
+  { n: '02', l: 'Ремонт', h: 'Инженерная реализация', p: 'Работаем строго по проекту. Все инженерные решения заранее согласованы, а качество мы проверяем лично, от черновых работ до финальной сдачи.', a: 'Рассчитать ремонт', img: 'res-1680', alt: 'Гостиная после ремонта: стеновые панели и ТВ-зона', pos: '50% 50%' },
+  { n: '03', l: 'Мебель', h: 'Интерьерное наполнение', p: 'Изготавливаем мебель под проект в собственном цеху: кухни, шкафы, гардеробные. Устанавливаем после ремонта.', a: 'Рассчитать мебель', img: 'res-study', alt: 'Встроенный стеллаж и шкафы в кабинете', pos: '60% 50%' },
+];
+---
+<section id="uslugi" class="sec-bg" style="padding-top:clamp(20px,4vw,60px)">
+  <Sbg img="r10" style="--o:.3;--b:.55;--tint:radial-gradient(60% 50% at 90% 10%,rgba(217,162,78,.25),transparent 70%),radial-gradient(50% 50% at 0% 90%,rgba(27,90,70,.45),transparent 70%)" />
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label">Что мы делаем</p>
+      <h2 data-split>Полный цикл работ в одной компании</h2>
+      <p class="lead">Учитываем все детали объекта и делаем всё в одном процессе, без несостыковок между дизайном, ремонтом и мебелью.</p>
+    </div>
+    <div class="stack">
+      {SV.map((s, i) => (
+        <article class="sv spot" style={`--i:${i}`}>
+          <div class="sv-txt"><span class="sv-n">{s.n}</span><span class="label">{s.l}</span><h3>{s.h}</h3><p>{s.p}</p><a class="link" href="#quiz" data-pick={['Дизайн-проект', 'Ремонт', 'Мебель на заказ'][i]}><i></i>{s.a}</a></div>
+          <div class="sv-ph"><span class="pz" data-par=".06"><span class={ph(s.img)} style={`background-position:${s.pos}`} role="img" aria-label={s.alt}></span></span></div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

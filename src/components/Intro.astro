@@ -1,0 +1,31 @@
+---
+import Brand from './Brand.astro';
+import { CONTACTS } from '../data/site';
+import { ph } from '../data/media';
+const DOOR = 'rest-wide';
+const words = [['Интерьер'], ['под'], ['ключ.'], ['Без', 'gt'], ['переделок.', 'gt']];
+---
+<div class="intro" id="intro" role="dialog" aria-modal="true" aria-label="Добро пожаловать в Vernissage">
+  <div class="in-door in-l"><div class={ph(DOOR, false).replace('ph', 'in-ph ph')} aria-hidden="true"></div></div>
+  <div class="in-door in-r"><div class={ph(DOOR, false).replace('ph', 'in-ph ph')} aria-hidden="true"></div></div>
+  <div class="in-seam" aria-hidden="true"></div>
+  <div class="in-core">
+    <div class="in-frame" aria-hidden="true"></div>
+    <div class="in-top ii" style="--d:1.5s"><span>Мебельная компания · Астана</span><a href={CONTACTS.phoneHref}>{CONTACTS.phone}</a></div>
+    <div class="in-brand"><Brand big /></div>
+    <p class="in-h" role="heading" aria-level="2" aria-label="Интерьер под ключ. Без переделок.">
+      {words.map(([w, c], i) => <><span class="wd" aria-hidden="true"><i style={`--i:${i}`} class={c}>{w}</i></span>{' '}</>)}
+    </p>
+    <p class="in-sub ii" style="--d:1.95s">Дизайн, ремонт и мебель из собственного цеха одной командой. Стоимость и сроки фиксируем в договоре.</p>
+    <div class="in-cta ii" style="--d:2.2s">
+      <a class="btn btn-primary" href="#quiz" data-go="#quiz">Узнать стоимость за 1 минуту</a>
+      <a class="btn btn-ghost" href="#top" data-go="">Войти на сайт</a>
+    </div>
+    <div class="in-facts ii" style="--d:2.5s"><div><b>20+</b><span>лет в мебели</span></div><div><b>500+</b><span>проектов</span></div><div><b>НДС</b><span>работаем по договору</span></div></div>
+    <button class="in-hint ii" style="--d:2.7s" type="button" data-go="">Прокрутите, чтобы войти<i></i></button>
+  </div>
+</div>
+<script>
+  import { initIntro } from '../scripts/intro';
+  initIntro();
+</script>

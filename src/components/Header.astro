@@ -1,0 +1,46 @@
+---
+import Brand from './Brand.astro';
+import { CONTACTS, waLink } from '../data/site';
+const NAV = [['#uslugi', 'Услуги'], ['#mebel', 'Мебель'], ['#etapy', 'Этапы'], ['#portfolio', 'Проекты'], ['#faq', 'Вопросы'], ['#contact', 'Контакты']];
+---
+<header class="site-header">
+  <div class="wrap">
+    <div class="bar">
+      <a class="logo" href="#top" aria-label="Vernissage, на главную"><Brand /></a>
+      <nav class="nav" aria-label="Разделы">
+        {NAV.map(([h, t]) => <a href={h}>{t}</a>)}
+      </nav>
+      <div class="hdr-right">
+        <a class="hdr-phone" href={CONTACTS.phoneHref}>{CONTACTS.phone}</a>
+        <button class="theme-btn" id="theme-btn" type="button" aria-label="Переключить тему: светлая или тёмная" aria-pressed="false">
+          <svg class="ic-sun" viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.35 5.35l1.55 1.55M17.1 17.1l1.55 1.55M18.65 5.35 17.1 6.9M6.9 17.1l-1.55 1.55"/></svg>
+          <svg class="ic-moon" viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.3 14.5A8.5 8.5 0 0 1 9.5 3.7a8.5 8.5 0 1 0 10.8 10.8z"/></svg>
+        </button>
+        <a class="btn btn-primary hdr-cta" href="#quiz">Рассчитать</a>
+        <button class="menu-btn" id="menu-btn" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Меню" hidden>
+  <div class="menu-in">
+    <nav class="menu-nav" aria-label="Разделы">
+      {NAV.map(([h, t], i) => <a href={h} style={`--i:${i}`}><span>{String(i + 1).padStart(2, '0')}</span>{t}</a>)}
+    </nav>
+    <div class="menu-foot">
+      <a class="menu-phone" href={CONTACTS.phoneHref}>{CONTACTS.phone}</a>
+      <div class="menu-act">
+        <a class="btn btn-primary" href="#quiz">Рассчитать стоимость</a>
+        <a class="btn btn-ghost" href={waLink('Здравствуйте! Меня интересуют ваши услуги. Хочу узнать стоимость.')} target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+      <p class="menu-meta">{CONTACTS.hours.join(' · ')}</p>
+    </div>
+  </div>
+</div>
+<script>
+  import { initTheme } from '../scripts/theme';
+  import { initMenu } from '../scripts/menu';
+  initTheme();
+  initMenu();
+</script>

@@ -1,0 +1,52 @@
+---
+import '../styles/global.css';
+import '../styles/identity.css';
+import ImageStyles from '../components/ImageStyles.astro';
+import { CONTACTS } from '../data/site';
+import favicon from '../assets/logo/mark.svg';
+
+interface Props { title: string; description: string }
+const { title, description } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const canonical = new URL(base, Astro.site).href;
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'HomeAndConstructionBusiness',
+  name: 'VERNISSAGE',
+  description,
+  url: canonical,
+  telephone: '+77475613005',
+  foundingDate: '2003',
+  address: { '@type': 'PostalAddress', streetAddress: 'улица Альмукана Сембинова, 19/1', addressLocality: 'Астана', addressCountry: 'KZ' },
+  openingHoursSpecification: [
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '10:00', closes: '19:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '10:00', closes: '16:00' },
+  ],
+  sameAs: CONTACTS.social.map((s) => s.href),
+};
+---
+<!doctype html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="theme-color" content="#0A0E0C" />
+  <meta name="format-detection" content="telephone=no" />
+  <link rel="canonical" href={canonical} />
+  <link rel="icon" type="image/svg+xml" href={favicon.src} />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <script is:inline>(function(){var h=document.documentElement;var t='dark';try{var v=localStorage.getItem('vn_theme');if(v==='light'||v==='dark')t=v}catch(e){}h.setAttribute('data-theme',t);h.classList.add('js');var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;if((location.hash&&location.hash.length>1)||/[?&]nointro/.test(location.search)){h.classList.add('skip-intro')}else{h.classList.add('lock')}if(rm)h.classList.add('rm')})()</script>
+  <noscript><style>.js [data-r],.js [data-split] .wi{opacity:1!important;transform:none!important;clip-path:none!important;filter:none!important}</style></noscript>
+  <ImageStyles />
+  <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+</head>
+<body>
+  <slot />
+</body>
+</html>

@@ -1,0 +1,147 @@
+/* VERNISSAGE 2.0 — собственные дополнения поверх дизайн-системы референса:
+   доступность, мобильное меню, пометки демо-материалов, авторский блок «От детали — к целому»,
+   оригинальный знак в подвале, видео в галерее. Фирменный тёмно-синий: --vn-navy. */
+:root{--vn-navy:#00105F;--vn-navy-rgb:0,16,95}
+
+/* доступность */
+.skip{position:fixed;left:16px;top:-80px;z-index:400;padding:12px 18px;border-radius:12px;background:var(--g-gold);color:var(--on-accent);font-weight:700;text-decoration:none;transition:top .3s var(--ease)}
+.skip:focus{top:calc(12px + env(safe-area-inset-top,0px))}
+#main{position:absolute;outline:none}
+.intro:focus{outline:none}
+.hdr-phone{text-decoration:none;color:inherit}
+.hdr-phone:hover{color:var(--accent-ink)}
+.btn[aria-disabled=true]{opacity:.5;box-shadow:none}
+.btn[aria-disabled=true]::after{display:none}
+
+/* мобильное меню */
+.menu-btn{display:none;position:relative;flex:none;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:rgba(var(--bgc),.2);color:var(--ink);cursor:pointer;padding:0}
+.menu-btn i{position:absolute;left:14px;right:14px;height:1.5px;background:currentColor;border-radius:2px;transition:transform .45s var(--ease),top .45s var(--ease)}
+.menu-btn i:first-child{top:18px}.menu-btn i:last-child{top:26px}
+.menu-btn[aria-expanded=true] i:first-child{top:22px;transform:rotate(45deg)}
+.menu-btn[aria-expanded=true] i:last-child{top:22px;transform:rotate(-45deg)}
+@media (max-width:1159px){.menu-btn{display:block}}
+html.menu-open{overflow:hidden}
+html.menu-open .site-header{z-index:120}
+.menu{position:fixed;inset:0;z-index:110;--bg:#070A09;--ink:#F2F4F1;--muted:#BAC5BF;--line:rgba(255,255,255,.1);--accent-ink:#E9BF72;--bgc:7,10,9;color:var(--ink);background:radial-gradient(80% 60% at 100% 0%,rgba(var(--vn-navy-rgb),.55),transparent 70%),radial-gradient(70% 50% at 0% 100%,rgba(27,90,70,.35),transparent 70%),#070A09;opacity:0;transition:opacity .45s ease;overflow-y:auto;overscroll-behavior:contain}
+.menu.on{opacity:1}
+.menu-in{min-height:100%;display:flex;flex-direction:column;justify-content:space-between;gap:36px;padding:calc(110px + env(safe-area-inset-top,0px)) max(22px,env(safe-area-inset-right,0px)) calc(30px + env(safe-area-inset-bottom,0px)) max(22px,env(safe-area-inset-left,0px));max-width:720px;margin:0 auto}
+.menu-nav{display:flex;flex-direction:column}
+.menu-nav a{display:flex;align-items:baseline;gap:18px;padding:14px 0;border-bottom:1px solid var(--line);font-family:var(--f-display);font-weight:300;font-size:clamp(1.5rem,7vw,2.2rem);letter-spacing:-.02em;text-decoration:none;opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease),transform .7s var(--ease),color .3s ease;transition-delay:calc(.08s + var(--i)*.05s)}
+.menu-nav a span{font-family:var(--f-body);font-size:.72rem;font-weight:600;letter-spacing:.2em;color:var(--accent-ink)}
+.menu-nav a:hover{color:var(--accent-ink)}
+.menu.on .menu-nav a{opacity:1;transform:none}
+.menu-foot{display:flex;flex-direction:column;gap:18px}
+.menu-phone{font-family:var(--f-display);font-weight:300;font-size:1.35rem;text-decoration:none}
+.menu-act{display:flex;flex-wrap:wrap;gap:12px}
+.menu-act .btn{flex:1 1 200px}
+.menu-meta{color:var(--muted);font-size:.85rem}
+.menu .btn-ghost{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.03)}
+
+/* таймлайн: линия вынесена из <ol> для валидной разметки */
+.tl-wrap{position:relative;--p:0}
+
+/* пометки демонстрационных материалов */
+.demo-chip{position:absolute;right:16px;bottom:auto;top:20px;z-index:3;display:inline-flex;align-items:center;padding:6px 11px;border-radius:999px;font:700 .64rem/1 var(--f-body);letter-spacing:.16em;text-transform:uppercase;color:#F2F4F1;background:rgba(var(--vn-navy-rgb),.72);border:1px solid rgba(255,255,255,.22);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.cs .frame .demo-chip{right:auto;left:22px;top:62px}
+.lb-demo{position:static;margin-left:auto}
+.demo-note{margin-top:22px;font-size:.8rem;color:var(--muted);opacity:.85;max-width:72ch}
+.marq + .demo-note{margin-top:18px}
+
+/* квиз: сообщения об ошибках */
+.q-err{min-height:0;margin:6px 0 0;font-size:.86rem;color:#F0A884}
+.q-err:empty{display:none}
+.q-err-nav{text-align:right;margin-top:12px}
+[data-theme=light] .q-err{color:#A3361A}
+.field input[aria-invalid=true],.area-val input[aria-invalid=true]{border-color:#E07A5F!important}
+.quiz.shake{animation:qshake .45s ease}
+@keyframes qshake{20%{transform:translateX(-6px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(2px)}}
+.est-k{display:block;margin-bottom:6px;font:700 .66rem/1.2 var(--f-body);letter-spacing:.18em;text-transform:uppercase;color:var(--accent-ink)}
+.result h3:focus{outline:none}
+.res-note a{text-decoration:none;border-bottom:1px solid var(--accent)}
+
+/* контакты */
+.ct-phone{font-family:var(--f-display);font-size:1.35rem;font-weight:300;letter-spacing:-.02em;border-bottom:0!important}
+.ct-phone:hover{color:var(--accent-ink)}
+
+/* подвал: гигантская надпись — оригинальный логотип VERNISSAGE, золото уходит в темноту */
+.mega{line-height:0}
+.mega-wm{display:block;width:min(100%,1180px);margin:0 auto;aspect-ratio:277.5/39;background:linear-gradient(180deg,rgba(247,228,184,.62),rgba(217,162,78,.14) 75%,transparent);-webkit-mask:var(--wm-url) center/contain no-repeat;mask:var(--wm-url) center/contain no-repeat}
+
+/* ====== ОТ ДЕТАЛИ — К ЦЕЛОМУ ====== */
+.dw{position:relative;height:440vh;padding:0;background:#050807;color:#F2F4F1;--ink:#F2F4F1;--muted:#BAC5BF;--line:rgba(255,255,255,.1);--accent-ink:#E9BF72;--bgc:5,8,7;--g-text:linear-gradient(100deg,#FBE9BF 0%,#EBC27A 50%,#DDA751 100%)}
+.dw-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.dw-stage{position:absolute;inset:0;overflow:hidden;background:#050807}
+.dw-shot{position:absolute;inset:0;opacity:0;visibility:hidden;will-change:transform,opacity;transform-origin:50% 50%}
+.dw-shot>.ph{position:absolute;inset:0}
+.dw-shot[data-s="0"]{transform-origin:40% 60%}
+.dw-shot[data-s="2"]{transform-origin:60% 40%}
+.dw-film{will-change:transform,opacity,clip-path,filter;clip-path:inset(22% 30% round 28px)}
+.dw-film-ph,.dw-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.dw-video{opacity:0;transition:opacity .8s ease}
+.dw-video[src]{opacity:1}
+.dw-shade{position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(90deg,rgba(5,8,7,.86) 0%,rgba(5,8,7,.45) 36%,rgba(5,8,7,0) 62%),
+  linear-gradient(0deg,rgba(5,8,7,.75) 0%,rgba(5,8,7,0) 34%),
+  linear-gradient(180deg,rgba(5,8,7,.6) 0%,rgba(5,8,7,0) 22%)}
+.dw-final{--q:0;position:absolute;inset:0;z-index:1;display:grid;place-items:center;visibility:hidden;opacity:var(--q)}
+.dw-glow{position:absolute;inset:-10%;background:radial-gradient(42% 46% at 62% 50%,rgba(var(--vn-navy-rgb),.85),rgba(var(--vn-navy-rgb),.28) 55%,transparent 75%);transform:scale(calc(.8 + var(--q)*.2))}
+.dw-logo{position:relative;left:12%;width:min(34vw,420px);aspect-ratio:348.13/212.97;background:linear-gradient(115deg,#B9852F 0%,#F6DDA4 30%,#D9A24E 52%,#9C6A22 78%,#E8BC6C 100%);background-size:260% 100%;-webkit-mask:url(../assets/logo/vernissage-logo-vertical.svg) center/contain no-repeat;mask:url(../assets/logo/vernissage-logo-vertical.svg) center/contain no-repeat;clip-path:inset(0 0 calc((1 - var(--q))*100%) 0);transform:translateY(calc((1 - var(--q))*24px)) scale(calc(.94 + var(--q)*.06));filter:drop-shadow(0 10px 40px rgba(0,0,0,.6));animation:mkshine 8s ease-in-out infinite}
+.dw-ui{position:relative;z-index:2;height:100%;display:grid;grid-template-rows:auto 1fr;padding-top:calc(116px + env(safe-area-inset-top,0px));padding-bottom:clamp(28px,6vh,64px)}
+.dw-head{display:flex;flex-direction:column;gap:12px;max-width:520px}
+.dw-head .label::before{content:"";display:inline-block;width:34px;height:1px;background:currentColor;margin-right:14px;vertical-align:middle}
+.dw-head h2{font-size:clamp(1.4rem,2.6vw,2.2rem);text-shadow:0 2px 24px rgba(0,0,0,.6)}
+.dw-ch{list-style:none;margin:0;padding:0;position:relative;align-self:end;max-width:460px;min-height:230px}
+.dw-ch li{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;gap:12px;opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .9s var(--ease);pointer-events:none}
+.dw-ch li.on{opacity:1;transform:none;pointer-events:auto}
+.dw-ch-img{display:none}
+.dw-n{display:flex;align-items:center;gap:14px;font:600 .76rem/1 var(--f-body);letter-spacing:.2em;text-transform:uppercase;color:var(--accent-ink)}
+.dw-n i{width:46px;height:1px;background:linear-gradient(90deg,#D9A24E,transparent)}
+.dw-ch h3{font-size:clamp(1.25rem,2.2vw,1.8rem);font-weight:300;letter-spacing:-.02em;text-shadow:0 2px 20px rgba(0,0,0,.7)}
+.dw-ch p{color:#D2DBD6;max-width:42ch;text-shadow:0 1px 16px rgba(0,0,0,.8)}
+.dw-ch .btn{align-self:flex-start;margin-top:10px}
+.dw-rail{position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:clamp(22px,5vh,46px);padding-right:18px}
+.dw-rail::before{content:"";position:absolute;right:0;top:0;bottom:0;width:1px;background:rgba(255,255,255,.18)}
+.dw-rail-p{position:absolute;right:-1px;top:0;bottom:0;width:3px;border-radius:3px;background:var(--g-gold);transform-origin:top;transform:scaleY(0);box-shadow:0 0 14px rgba(217,162,78,.6)}
+.dw-rail span{font:600 .7rem/1 var(--f-body);letter-spacing:.18em;color:rgba(242,244,241,.45);transition:color .5s ease}
+.dw-rail span.on{color:#E9BF72}
+@media (min-width:1500px){.dw-rail{right:calc((100vw - var(--maxw))/2 - 60px)}}
+@media (max-width:760px){
+  .dw{height:400vh}
+  .dw-shade{background:linear-gradient(180deg,rgba(5,8,7,.75) 0%,rgba(5,8,7,.1) 30%,rgba(5,8,7,.1) 48%,rgba(5,8,7,.92) 82%)}
+  .dw-ch{max-width:none;min-height:250px}
+  .dw-rail{top:auto;bottom:auto;right:auto;left:0;transform:none;position:relative;flex-direction:row;gap:20px;padding:0 0 10px;margin-top:4px}
+  .dw-rail::before{left:0;right:0;top:auto;bottom:0;width:auto;height:1px}
+  .dw-rail-p{display:none}
+  .dw-ui{grid-template-rows:auto auto 1fr}
+  .dw-ui>.dw-rail{grid-row:2}
+  .dw-ui>.dw-ch{grid-row:3}
+  .dw-glow{background:radial-gradient(70% 40% at 50% 42%,rgba(var(--vn-navy-rgb),.85),rgba(var(--vn-navy-rgb),.25) 60%,transparent 80%)}
+  .dw-logo{left:0;top:-12%;width:min(62vw,300px)}
+}
+/* статичная раскладка: уменьшение движения или нет JavaScript */
+.rm .dw,html:not(.js) .dw{height:auto;padding-block:clamp(70px,10vw,140px)}
+.rm .dw-pin,html:not(.js) .dw-pin{position:relative;height:auto;overflow:visible}
+.rm .dw-stage,.rm .dw-rail,html:not(.js) .dw-stage,html:not(.js) .dw-rail{display:none}
+.rm .dw-ui,html:not(.js) .dw-ui{height:auto;padding-top:0;padding-bottom:0;display:block}
+.rm .dw-ch,html:not(.js) .dw-ch{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:18px;max-width:none;min-height:0;margin-top:36px}
+.rm .dw-ch li,html:not(.js) .dw-ch li{position:relative;opacity:1;transform:none;pointer-events:auto;padding:0 0 8px}
+.rm .dw-ch-img,html:not(.js) .dw-ch-img{display:block;aspect-ratio:4/5;border-radius:22px;border:1px solid var(--line);margin-bottom:8px}
+.dw-ch-logo{background:radial-gradient(60% 60% at 50% 50%,rgba(var(--vn-navy-rgb),.9),#050807);position:relative}
+.dw-ch-logo::after{content:"";position:absolute;inset:22%;background:var(--g-gold);-webkit-mask:url(../assets/logo/vernissage-logo-vertical.svg) center/contain no-repeat;mask:url(../assets/logo/vernissage-logo-vertical.svg) center/contain no-repeat}
+
+/* видео в полноэкранной галерее */
+.lb-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .6s ease}
+.lb-vid.on,.lb-vid[controls]{opacity:1}
+.lb-play{position:absolute;left:50%;bottom:-34px;transform:translateX(-50%);font:700 .62rem/1 var(--f-body);letter-spacing:.2em;text-transform:uppercase;color:var(--accent-ink);display:flex;align-items:center;gap:8px}
+.lb-play::before{content:"";width:0;height:0;border-left:7px solid currentColor;border-top:4.5px solid transparent;border-bottom:4.5px solid transparent}
+.lb-bar{gap:12px}
+
+/* доработки шапки для узких экранов: появилась кнопка меню */
+@media (max-width:520px){.menu-btn{width:42px;height:42px}.menu-btn i{left:13px;right:13px}.menu-btn i:first-child{top:16px}.menu-btn i:last-child{top:24px}.menu-btn[aria-expanded=true] i{top:20px!important}}
+@media (max-width:420px){.hdr-cta{display:none}}
+@media (max-width:390px){.menu-btn{width:38px;height:38px}.menu-btn i{left:11px;right:11px}.menu-btn i:first-child{top:14px}.menu-btn i:last-child{top:22px}.menu-btn[aria-expanded=true] i{top:18px!important}}
+
+@media (prefers-reduced-motion:reduce){
+  .menu-nav a{opacity:1;transform:none}
+  .dw-logo{animation:none}
+}

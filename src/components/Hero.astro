@@ -1,0 +1,48 @@
+---
+import { HERO_SLIDES } from '../data/site';
+import { ph } from '../data/media';
+const words: [string, string?][] = [['Дизайн,'], ['ремонт', 'gt'], ['и'], ['мебель'], ['в'], ['одной'], ['команде']];
+---
+<section class="hero">
+  <div class="sbg" data-par=".16" aria-hidden="true"><div class={`sbg-img ${ph('m30', false)}`}></div></div>
+  <div class="hero-shade"></div>
+  <span class="blob b1"></span><span class="blob b2"></span>
+  <div class="wrap hero-in">
+    <div class="hero-copy">
+      <p class="label rise" style="--d:.1s">Астана · дизайн · ремонт · мебель</p>
+      <h1 aria-label="Дизайн, ремонт и мебель в одной команде">
+        {words.map(([w, c], i) => <><span class="wd" aria-hidden="true"><i style={`--i:${i}`} class={c}>{w}</i></span>{' '}</>)}
+      </h1>
+      <p class="lead rise" style="--d:.85s">Ведём проект от идеи до готового интерьера без переделок. Стоимость и сроки фиксируем в договоре, мебель делаем в собственном цеху.</p>
+      <div class="hero-cta rise" style="--d:1s">
+        <a class="btn btn-primary" href="#quiz">Узнать стоимость за 1 минуту</a>
+        <a class="btn btn-ghost" href="#portfolio">Смотреть проекты</a>
+      </div>
+      <p class="hero-note rise" style="--d:1.15s">Предварительный расчёт без выезда и обязательств</p>
+    </div>
+    <figure class="hero-card glass" id="hcard" role="button" tabindex="0" aria-label="Показать следующий объект">
+      <div class="tilt" id="tilt">
+        <div class="frame">
+          {HERO_SLIDES.map((s, i) => (
+            <div class={`${ph(s.img, i > 0)} slide${i === 0 ? ' on' : ''}`} style={`background-position:${s.pos ?? '50% 50%'}`} data-l={s.l} data-t={s.t} role="img" aria-label={s.alt}></div>
+          ))}
+        </div>
+        <figcaption><span class="label" id="hc-l">{HERO_SLIDES[0].l}</span><span id="hc-t">{HERO_SLIDES[0].t}</span>
+          <span class="hc-nav"><span class="hc-dots" aria-hidden="true">{HERO_SLIDES.map((_, i) => <i class={i === 0 ? 'on' : undefined}></i>)}</span><span class="hc-arr" aria-hidden="true">→</span></span>
+        </figcaption>
+      </div>
+    </figure>
+  </div>
+  <div class="wrap">
+    <div class="facts glass" role="list">
+      <div class="fact" role="listitem"><b><span data-count="20">20</span>+</b><span>лет в производстве мебели</span></div>
+      <div class="fact" role="listitem"><b><span data-count="500">500</span>+</b><span>выполненных проектов в Астане</span></div>
+      <div class="fact" role="listitem"><b>от 70 000 ₸</b><span>за м² качественного ремонта</span></div>
+      <div class="fact" role="listitem"><b>НДС</b><span>работаем официально по договору</span></div>
+    </div>
+  </div>
+</section>
+<script>
+  import { initHeroCard } from '../scripts/herocard';
+  initHeroCard();
+</script>

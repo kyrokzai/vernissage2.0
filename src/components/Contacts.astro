@@ -1,0 +1,34 @@
+---
+import Sbg from './Sbg.astro';
+import { CONTACTS, waLink } from '../data/site';
+const year = new Date().getFullYear();
+---
+<section class="contacts sec-bg" id="contact">
+  <Sbg img="rest-wide" style="--o:.34;--tint:linear-gradient(180deg,rgba(var(--bgc),.2),rgba(var(--bgc),.7)),radial-gradient(50% 50% at 10% 20%,rgba(217,162,78,.25),transparent 70%)" />
+  <div class="wrap">
+    <div class="ct-grid">
+      <div>
+        <p class="label">Контакты</p>
+        <h2 data-split>Готовы обсудить <span class="gt">ваш проект?</span></h2>
+        <p class="lead" style="margin-bottom:30px">Оставьте заявку, и мы свяжемся с вами. Предварительную смету подготовим в течение 15 минут в рабочее время.</p>
+        <div class="res-act">
+          <a class="btn btn-primary" href="#quiz">Получить расчёт</a>
+          <a class="btn btn-ghost" href={waLink('Здравствуйте! Меня интересуют ваши услуги. Хочу узнать стоимость.')} target="_blank" rel="noopener">Написать в WhatsApp</a>
+        </div>
+      </div>
+      <dl class="ct-list">
+        <div><dt>Телефон менеджера</dt><dd><a class="ct-phone" href={CONTACTS.phoneHref}>{CONTACTS.phone}</a></dd></div>
+        <div><dt>Адрес</dt><dd>{CONTACTS.address}<br /><a href={CONTACTS.map} target="_blank" rel="noopener">Открыть в 2ГИС</a></dd></div>
+        <div><dt>Время работы</dt><dd>{CONTACTS.hours[0]}<br />{CONTACTS.hours[1]}</dd></div>
+        <div><dt>Мы в соцсетях</dt><dd class="soc">
+          {CONTACTS.social.map((s) => <a href={s.href} target="_blank" rel="noopener">{s.name}</a>)}
+        </dd></div>
+      </dl>
+    </div>
+    <p class="mega" aria-hidden="true" data-r="up"><span class="mega-wm"></span></p>
+    <div class="foot">
+      <span class="foot-id"><i class="mk" aria-hidden="true"></i>© {year} Vernissage, Астана · с 2003 года</span>
+      <a href={CONTACTS.privacy} target="_blank" rel="noopener">Политика конфиденциальности</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+---
+import Sbg from './Sbg.astro';
+import { PORTFOLIO, CONTACTS } from '../data/site';
+import { ph } from '../data/media';
+---
+<section id="portfolio" class="sec-bg" style="padding-top:clamp(20px,4vw,60px)">
+  <Sbg img="m29" style="--o:.36;--tint:radial-gradient(60% 50% at 90% 10%,rgba(217,162,78,.22),transparent 70%)" />
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label">Выполненные работы</p>
+      <h2 data-split>Проекты, которые уже живут <span class="gt">в Астане</span></h2>
+      <p class="lead">Реальные объекты Vernissage: квартира под ключ, ресторан и детский бутик. Нажмите на проект, чтобы открыть фото и видео.</p>
+    </div>
+    <div class="pf-grid">
+      {PORTFOLIO.map((p, i) => (
+        <figure class="pf" tabindex="0" role="button" aria-haspopup="dialog" data-i={i} aria-label={`${p.title}: открыть галерею`}>
+          <div class="frame"><span class="pz" data-par=".05"><span class={ph(p.img)} style={p.pos ? `background-position:${p.pos}` : undefined} role="img" aria-label={p.alt}></span></span></div>
+          <figcaption><span class="label">{p.label}</span><b>{p.title}</b></figcaption>
+        </figure>
+      ))}
+    </div>
+    <div class="pf-more">
+      <a class="btn btn-ghost" href={CONTACTS.allProjects} target="_blank" rel="noopener">Все реализованные проекты</a>
+      <a class="btn btn-primary" href="#quiz">Хочу также</a>
+    </div>
+  </div>
+</section>

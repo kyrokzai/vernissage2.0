@@ -1,0 +1,31 @@
+---
+/**
+ * Генерирует CSS-классы фоновых изображений `.i-<ключ>` в AVIF и WebP двух размеров.
+ * Фон не загружается, пока у элемента есть класс `lz` (его снимает scripts/lazy.ts по мере прокрутки).
+ * Без JavaScript правило `:not(.js .lz)` загружает все изображения сразу.
+ */
+import { getImage } from 'astro:assets';
+import { IMAGES } from '../data/media';
+
+const SIZES = [960, 1800];
+const rules: string[] = [];
+const big: string[] = [];
+for (const { key, meta } of Object.values(IMAGES)) {
+  const out: Record<number, { avif: string; webp: string }> = {};
+  for (const w of SIZES) {
+    const width = Math.min(w, meta.width);
+    const [avif, webp] = await Promise.all([
+      getImage({ src: meta, width, format: 'avif', quality: 58 }),
+      getImage({ src: meta, width, format: 'webp', quality: 74 }),
+    ]);
+    out[w] = { avif: avif.src, webp: webp.src };
+  }
+  const set = (s: { avif: string; webp: string }) =>
+    `background-image:url("${s.webp}");background-image:image-set(url("${s.avif}") type("image/avif"),url("${s.webp}") type("image/webp"))`;
+  const sel = `.i-${key}:not(.js .lz)`;
+  rules.push(`${sel}{${set(out[960])}}`);
+  if (meta.width > 960) big.push(`${sel}{${set(out[1800])}}`);
+}
+const css = rules.join('\n') + `\n@media (min-width:1100px){\n${big.join('\n')}\n}`;
+---
+<style is:inline set:html={css}></style>

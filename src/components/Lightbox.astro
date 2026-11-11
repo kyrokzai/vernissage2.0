@@ -1,0 +1,11 @@
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Галерея проектов" aria-hidden="true" inert>
+  <div class="lb-stage" id="lb-stage"></div>
+  <div class="lb-bar"><div class="lb-title" id="lb-title"></div><span class="demo-chip lb-demo" id="lb-demo" hidden>Демонстрационное фото</span><button class="lb-x" id="lb-x" type="button" aria-label="Закрыть галерею">✕</button></div>
+  <button class="lb-nav lb-prev" id="lb-prev" type="button" aria-label="Предыдущее фото">‹</button>
+  <button class="lb-nav lb-next" id="lb-next" type="button" aria-label="Следующее фото">›</button>
+  <div class="lb-foot"><div class="lb-cap" id="lb-cap" aria-live="polite"></div><div class="lb-thumbs" id="lb-thumbs"></div><div class="lb-dots" id="lb-dots" aria-hidden="true"></div><div class="lb-count" id="lb-count"></div></div>
+</div>
+<script>
+  import { initGallery } from '../scripts/gallery';
+  initGallery();
+</script>

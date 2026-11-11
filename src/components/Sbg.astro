@@ -1,0 +1,6 @@
+---
+import { ph } from '../data/media';
+interface Props { img: string; style?: string; par?: string; flip?: boolean }
+const { img, style, par = '.12', flip = false } = Astro.props;
+---
+<div class="sbg" data-par={par} aria-hidden="true"><div class:list={['sbg-img', { flip }, ph(img)]} style={style}></div></div>

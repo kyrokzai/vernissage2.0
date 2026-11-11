@@ -1,0 +1,77 @@
+---
+import Base from '../layouts/Base.astro';
+import Intro from '../components/Intro.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Strip from '../components/Strip.astro';
+import Problem from '../components/Problem.astro';
+import Services from '../components/Services.astro';
+import Furniture from '../components/Furniture.astro';
+import DetailToWhole from '../components/DetailToWhole.astro';
+import Statement from '../components/Statement.astro';
+import Quiz from '../components/Quiz.astro';
+import Why from '../components/Why.astro';
+import Process from '../components/Process.astro';
+import Portfolio from '../components/Portfolio.astro';
+import Cases from '../components/Cases.astro';
+import Offer from '../components/Offer.astro';
+import Faq from '../components/Faq.astro';
+import Contacts from '../components/Contacts.astro';
+import Lightbox from '../components/Lightbox.astro';
+import { FURNITURE, MARQUEE, PORTFOLIO, PORTFOLIO_MORE, CASES, SHOW_DEMO_MARKS, type GalleryItem } from '../data/site';
+import { img } from '../data/media';
+
+const base = import.meta.env.BASE_URL;
+const item = (it: GalleryItem) => ({
+  c: 'i-' + img(it.img).key,
+  cap: it.cap,
+  demo: SHOW_DEMO_MARKS && img(it.img).demo,
+  ...(it.video ? { video: `${base}media/video/${it.video}` } : {}),
+});
+const GAL: Record<string, unknown> = {};
+for (const [k, g] of Object.entries(FURNITURE)) GAL[k] = { t: g.t, k: g.k, i: g.items.map(item) };
+GAL.works = { t: 'Примеры нашей мебели', k: 'Работы', i: MARQUEE.map((m) => item({ img: m.img, cap: m.cap })) };
+GAL.portfolio = {
+  t: 'Проекты, которые уже живут в Астане', k: 'Портфолио', pick: null,
+  cta: ['Хотите так же?', 'Покажем, во сколько обойдётся <span class="gt">ваш проект</span>'],
+  i: [...PORTFOLIO.map((p) => item({ img: p.img, cap: p.label + ' · ' + p.title })), ...PORTFOLIO_MORE.map(item)],
+};
+for (const c of CASES) GAL['cs_' + c.id] = {
+  t: c.name, k: (c.demo && SHOW_DEMO_MARKS ? 'Демо-кейс · ' : 'B2B-кейс · ') + c.type.replace('B2B · ', ''), pick: null,
+  cta: ['Нужен такой же результат?', 'Рассчитаем <span class="gt">ваш объект</span> за 1 минуту'], i: c.items.map(item),
+};
+---
+<Base
+  title="Vernissage — дизайн, ремонт и мебель на заказ в Астане"
+  description="Дизайн-проект, ремонт под ключ и мебель из собственного цеха одной командой. 20+ лет, 500+ проектов, работаем по договору с НДС. Расчёт стоимости за 1 минуту."
+>
+  <a class="skip" href="#main">Перейти к содержимому</a>
+  <div class="progress" aria-hidden="true"></div>
+  <div id="glow" aria-hidden="true"></div>
+  <Intro />
+  <Header />
+  <main id="top">
+    <span id="main" tabindex="-1"></span>
+    <Hero />
+    <Strip />
+    <Problem />
+    <Services />
+    <Furniture />
+    <DetailToWhole />
+    <Statement />
+    <Quiz />
+    <Why />
+    <Process />
+    <Portfolio />
+    <Cases />
+    <Offer />
+    <Faq />
+    <Contacts />
+  </main>
+  <Lightbox />
+  <script type="application/json" id="vn-gal" set:html={JSON.stringify(GAL)} />
+  <script>
+    import { initCore } from '../scripts/core';
+    initCore();
+  </script>
+</Base>

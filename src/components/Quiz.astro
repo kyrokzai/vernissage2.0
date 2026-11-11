@@ -1,0 +1,107 @@
+---
+import Sbg from './Sbg.astro';
+import { CONTACTS, RATE_FROM } from '../data/site';
+const obj = [['Квартира в новостройке', 'Квартира в новостройке'], ['Вторичное жильё, реновация', 'Реновация жилья'], ['Офис или коммерческое помещение', 'Офис, коммерция'], ['Загородный дом', 'Загородный дом']];
+const when = [['В ближайшее время', 'В ближайшее время'], ['В течение 1–2 месяцев', 'В течение 1–2 месяцев'], ['Выбираю исполнителя', 'Пока подбираю исполнителя'], ['Объект на стадии строительства', 'Объект ещё строится']];
+---
+<section class="quiz-sec sec-bg" id="quiz">
+  <Sbg img="m30" flip style="--o:.4;--tint:linear-gradient(180deg,rgba(var(--bgc),.4),rgba(var(--bgc),.1))" />
+  <span class="blob b1"></span><span class="blob b2"></span>
+  <div class="wrap">
+    <div class="quiz-grid">
+      <div class="quiz-intro">
+        <p class="label">Расчёт за 1 минуту</p>
+        <h2 data-split>Узнайте стоимость и сроки <span class="gt">вашего проекта</span></h2>
+        <p class="lead">Ответьте на пять коротких вопросов. Мы подготовим предварительную смету и подберём примеры похожих проектов.</p>
+        <ul class="quiz-bul">
+          <li>Предварительная стоимость без выезда и обязательств</li>
+          <li>Смета в течение 15 минут после заявки в рабочее время</li>
+          <li>Подборка реализованных объектов под ваш запрос</li>
+        </ul>
+      </div>
+      <div class="quiz" id="quiz-card" data-rate={RATE_FROM} data-wa={CONTACTS.whatsapp}>
+        <form id="quiz-form" novalidate>
+          <div class="q-top"><span id="q-label" aria-live="polite">Шаг 1 из 5</span><span>Vernissage</span></div>
+          <div class="q-bar" role="progressbar" aria-label="Прогресс расчёта" aria-valuemin="1" aria-valuemax="5" aria-valuenow="1"><i id="q-prog"></i></div>
+
+          <fieldset class="qstep" data-step="0">
+            <legend tabindex="-1">Какой у вас объект?</legend>
+            <p class="q-hint">Выберите один вариант</p>
+            <div class="opts">
+              {obj.map(([v, t]) => <label class="opt"><input type="radio" name="object" value={v} /><span class="mk r"></span><span class="tx">{t}</span></label>)}
+            </div>
+          </fieldset>
+
+          <fieldset class="qstep" data-step="1" hidden>
+            <legend tabindex="-1">Что нужно сделать?</legend>
+            <p class="q-hint">Можно выбрать несколько вариантов</p>
+            <div class="opts one">
+              {['Дизайн-проект', 'Ремонт', 'Мебель на заказ'].map((v) => <label class="opt"><input type="checkbox" name="service" value={v} /><span class="mk"></span><span class="tx">{v}</span></label>)}
+              <label class="opt"><input type="checkbox" id="svc-all" value="all" /><span class="mk"></span><span class="tx">Всё под ключ<small>Дизайн, ремонт и мебель в одном договоре</small></span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="qstep" data-step="2" hidden>
+            <legend tabindex="-1">Какая площадь объекта?</legend>
+            <p class="q-hint">Передвиньте ползунок или впишите число</p>
+            <div class="area-box">
+              <div class="area-val">
+                <input id="area-num" type="number" inputmode="numeric" min="20" max="1000" value="80" aria-label="Площадь в квадратных метрах" aria-describedby="area-err" />
+                <span>м²</span>
+              </div>
+              <input id="area" type="range" min="20" max="400" step="5" value="80" aria-label="Площадь, ползунок" />
+              <div class="scale"><span>20</span><span>100</span><span>200</span><span>300</span><span>400+</span></div>
+              <p class="q-err" id="area-err" aria-live="polite"></p>
+            </div>
+          </fieldset>
+
+          <fieldset class="qstep" data-step="3" hidden>
+            <legend tabindex="-1">Когда планируете начать?</legend>
+            <p class="q-hint">Выберите один вариант</p>
+            <div class="opts one">
+              {when.map(([v, t]) => <label class="opt"><input type="radio" name="when" value={v} /><span class="mk r"></span><span class="tx">{t}</span></label>)}
+            </div>
+          </fieldset>
+
+          <fieldset class="qstep" data-step="4" hidden>
+            <legend tabindex="-1">Куда отправить расчёт?</legend>
+            <p class="q-hint">Пришлём предварительную смету и портфолио похожих объектов</p>
+            <div class="field">
+              <label for="q-name">Как к вам обращаться</label>
+              <input id="q-name" type="text" autocomplete="given-name" placeholder="Имя" aria-describedby="name-err" />
+              <p class="q-err" id="name-err" aria-live="polite"></p>
+            </div>
+            <div class="field">
+              <label for="q-phone">Телефон</label>
+              <input id="q-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (7__) ___-__-__" aria-describedby="phone-err" />
+              <p class="q-err" id="phone-err" aria-live="polite"></p>
+            </div>
+            <label class="consent"><input id="q-consent" type="checkbox" /> <span>Согласен на обработку персональных данных. <a href={CONTACTS.privacy} target="_blank" rel="noopener">Политика конфиденциальности</a></span></label>
+          </fieldset>
+
+          <div class="q-nav" id="q-nav">
+            <button type="button" class="btn btn-ghost" id="q-back" hidden>Назад</button>
+            <button type="submit" class="btn btn-primary" id="q-next" style="margin-left:auto" aria-disabled="true">Далее</button>
+          </div>
+        </form>
+
+        <div class="result" id="q-result" hidden>
+          <p class="label">Заявка собрана</p>
+          <h3 id="r-title" tabindex="-1">Остался один шаг</h3>
+          <p id="r-text" class="lead" style="font-size:1rem"></p>
+          <dl class="sum" id="r-sum"></dl>
+          <div class="est" id="r-est" hidden><small class="est-k">Ориентировочно, не окончательная смета</small><b id="r-est-val"></b><span id="r-est-note"></span></div>
+          <div class="res-act">
+            <a class="btn btn-primary" id="r-wa" href="#" target="_blank" rel="noopener">Отправить в WhatsApp</a>
+            <button type="button" class="btn btn-ghost" id="r-again">Пройти заново</button>
+          </div>
+          <p class="res-note">Или позвоните: <a href={CONTACTS.phoneHref} style="font-family:var(--f-mono);font-weight:700">{CONTACTS.phone}</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  import { initQuiz } from '../scripts/quiz';
+  initQuiz();
+</script>

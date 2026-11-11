@@ -1,0 +1,31 @@
+---
+import Sbg from './Sbg.astro';
+import { CASES, SHOW_DEMO_MARKS } from '../data/site';
+import { ph } from '../data/media';
+---
+<section id="b2b" class="sec-bg" style="padding-top:clamp(20px,4vw,60px)">
+  <Sbg img="rest-panel" style="--o:.2;--tint:radial-gradient(60% 50% at 8% 90%,rgba(217,162,78,.2),transparent 70%)" />
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label">B2B-кейсы</p>
+      <h2 data-split>Интерьеры для бизнеса, которые <span class="gt">работают на бренд</span></h2>
+      <p class="lead">Клубы, магазины, кафе и офисы: проектируем и меблируем коммерческие пространства под фирменный стиль заказчика.</p>
+    </div>
+    <div class="cs-grid">
+      {CASES.map((c) => (
+        <figure class="cs" data-case={c.id} tabindex="0" role="button" aria-haspopup="dialog" aria-label={`${c.name}: открыть галерею${c.demo && SHOW_DEMO_MARKS ? ' (демонстрационный кейс)' : ''}`}>
+          <div class="frame">
+            <span class="pz" data-par=".05"><span class={ph(c.items[0].img)} role="img" aria-label={c.alt}></span></span>
+            <span class="bt-n">{c.items.length} фото{c.items.some((i) => i.video) ? ' и видео' : ''}</span>
+            {c.demo && SHOW_DEMO_MARKS && <span class="demo-chip">Демо-кейс</span>}
+          </div>
+          <figcaption><span class="label">{c.type}</span><b>{c.name}</b><span class="cs-sub">{c.sub}</span></figcaption>
+        </figure>
+      ))}
+    </div>
+    {SHOW_DEMO_MARKS && <p class="demo-note">«Демо-кейс» — пример из утверждённого макета. Названия и фотографии будут подтверждены или заменены перед публикацией.</p>}
+    <div class="pf-more">
+      <a class="btn btn-primary" href="#quiz" data-pick="Дизайн-проект" data-pick-text="Коммерческий объект">Рассчитать мой объект</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,16 @@
+---
+import Sbg from './Sbg.astro';
+import { FAQ } from '../data/site';
+---
+<section id="faq" class="sec-bg">
+  <Sbg img="res-kitchen" style="--o:.26;--b:.7;--tint:radial-gradient(60% 60% at 90% 90%,rgba(27,90,70,.5),transparent 70%)" />
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label">Вопросы</p>
+      <h2 data-split>Часто задаваемые вопросы</h2>
+    </div>
+    <div class="faq">
+      {FAQ.map(([q, a], i) => <details open={i === 0}><summary>{q}</summary><p>{a}</p></details>)}
+    </div>
+  </div>
+</section>

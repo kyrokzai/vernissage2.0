@@ -1,0 +1,6 @@
+---
+/** Фирменный знак: оригинальные SVG-знак и надпись VERNISSAGE, окрашенные золотым градиентом через маску. */
+interface Props { big?: boolean; tag?: string }
+const { big = false, tag = 'Мебельная компания · 2003' } = Astro.props;
+---
+<span class:list={['brand', { big }]} role="img" aria-label="Vernissage, мебельная компания, с 2003 года"><span class="mk"></span><span class="bw"><span class="wm"></span><span class="tg">{tag}</span></span></span>

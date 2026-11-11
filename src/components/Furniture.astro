@@ -1,0 +1,40 @@
+---
+import Sbg from './Sbg.astro';
+import { FURNITURE, MARQUEE, SHOW_DEMO_MARKS } from '../data/site';
+import { ph, isDemo } from '../data/media';
+const TILES = [
+  { cls: 'bt-k', gal: 'dark' },
+  { cls: 'bt-w', gal: 'wardrobe' },
+  { cls: 'bt-b', gal: 'bath' },
+  { cls: 'bt-k2', gal: 'light' },
+];
+const anyDemo = Object.values(FURNITURE).some((g) => g.items.some((i) => isDemo(i.img))) || MARQUEE.some((m) => isDemo(m.img));
+---
+<section id="mebel" class="sec-bg" style="padding-top:clamp(20px,4vw,60px)">
+  <Sbg img="m28" style="--o:.42;--tint:radial-gradient(70% 60% at 15% 20%,rgba(27,90,70,.5),transparent 70%),radial-gradient(50% 50% at 95% 90%,rgba(217,162,78,.25),transparent 70%)" />
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label">Мебель на заказ</p>
+      <h2 data-split>Мебель, которую мы делаем <span class="gt">в собственном цеху</span></h2>
+      <p class="lead">Кухни, шкафы, гардеробные и мебель для санузлов. Проектируем под размеры вашего объекта и устанавливаем после ремонта.</p>
+    </div>
+    <div class="bento">
+      {TILES.map((t) => {
+        const g = FURNITURE[t.gal];
+        return (
+          <a class={`bt ${t.cls}`} href="#quiz" data-gal={t.gal} aria-haspopup="dialog">
+            <span class="pz" data-par=".06">
+              {g.items.map((it, i) => <span class={`${ph(it.img)} cyc${i === 0 ? ' on' : ''}`} role={i === 0 ? 'img' : undefined} aria-label={i === 0 ? it.cap : undefined} aria-hidden={i === 0 ? undefined : 'true'}></span>)}
+            </span>
+            <span class="bt-n">Смотреть {g.items.length} фото</span>
+            <span class="bt-cap"><div><span class="label">{g.k}</span><b>{g.t}</b></div><span class="bt-arr"></span></span>
+          </a>
+        );
+      })}
+    </div>
+  </div>
+  <div class="marq" aria-label="Примеры мебели Vernissage"><div class="marq-track" data-loop>
+    {MARQUEE.map((m) => <div class={`mqi ${ph(m.img)}`} style={`--ar:${m.ar}`} role="img" aria-label={m.cap} data-img={m.img}></div>)}
+  </div></div>
+  {SHOW_DEMO_MARKS && anyDemo && <p class="wrap demo-note">Часть фотографий в разделе демонстрационная: они из утверждённого макета и будут заменены или подтверждены. Работы VERNISSAGE подписаны в галерее.</p>}
+</section>
