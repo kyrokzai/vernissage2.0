@@ -70,3 +70,15 @@ python3 tests/pair.py test-results/cmp test-results/pairs # склейка «р�
 
 Playwright в проект не устанавливается: тесты используют глобально доступный `playwright`
 (`npm i -g playwright && npx playwright install chromium webkit`).
+
+## Приватное превью (claude.ai Artifact)
+
+Для визуальной приёмки без публикации на GitHub Pages:
+
+```bash
+npx astro build --base / --outDir /tmp/vn-preview
+python3 tools/preview-artifact.py /tmp/vn-preview
+```
+
+Папка `/tmp/vn-preview` публикуется как приватный Artifact (страница видна только владельцу аккаунта).
+Точка возврата перед превью: ветка `checkpoint/stage-b-69a1eaa`.
