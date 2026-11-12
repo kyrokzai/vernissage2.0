@@ -31,9 +31,10 @@ export function initCore() {
       [...node.childNodes].forEach((n) => {
         if (n.nodeType === 3) {
           const frag = d.createDocumentFragment();
-          (n.nodeValue || '').split(/(\s+)/).forEach((p) => {
+          // неразрывный пробел (U+00A0) не считается границей слова: «производства — по» не разрывается
+          (n.nodeValue || '').split(/([ \t\n\r]+)/).forEach((p) => {
             if (!p) return;
-            if (/^\s+$/.test(p)) { frag.appendChild(d.createTextNode(' ')); return; }
+            if (/^[ \t\n\r]+$/.test(p)) { frag.appendChild(d.createTextNode(' ')); return; }
             const o = d.createElement('span'); o.className = 'w'; o.setAttribute('aria-hidden', 'true');
             const i = d.createElement('span'); i.className = 'wi' + (inGt ? ' gt' : ''); i.style.setProperty('--k', String(k++)); i.textContent = p;
             o.appendChild(i); frag.appendChild(o);
@@ -94,6 +95,12 @@ export function initCore() {
       requestAnimationFrame(f);
     }), { threshold: 0.6 });
     $('[data-count]').forEach((el) => co.observe(el));
+  }
+
+  /* 4б. фоновые анимации, которые перерисовывают страницу, работают только на экране */
+  if ('IntersectionObserver' in w) {
+    const vo = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle('in-view', e.isIntersecting)));
+    $('.offer-box').forEach((el) => vo.observe(el));
   }
 
   /* 5. подсветка под курсором */

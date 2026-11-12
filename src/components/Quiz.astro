@@ -1,7 +1,7 @@
 ---
 import Sbg from './Sbg.astro';
 import { CONTACTS, RATE_FROM } from '../data/site';
-const obj = [['Квартира в новостройке', 'Квартира в новостройке'], ['Вторичное жильё, реновация', 'Реновация жилья'], ['Офис или коммерческое помещение', 'Офис, коммерция'], ['Загородный дом', 'Загородный дом']];
+const obj = [['Квартира в новостройке', 'Квартира в новостройке'], ['Ремонт и обновление интерьера', 'Ремонт и обновление интерьера'], ['Офис или коммерческое помещение', 'Офис, коммерция'], ['Загородный дом', 'Загородный дом']];
 const when = [['В ближайшее время', 'В ближайшее время'], ['В течение 1–2 месяцев', 'В течение 1–2 месяцев'], ['Выбираю исполнителя', 'Пока подбираю исполнителя'], ['Объект на стадии строительства', 'Объект ещё строится']];
 ---
 <section class="quiz-sec sec-bg" id="quiz">
@@ -92,9 +92,10 @@ const when = [['В ближайшее время', 'В ближайшее вре
           <dl class="sum" id="r-sum"></dl>
           <div class="est" id="r-est" hidden><small class="est-k">Ориентировочно, не окончательная смета</small><b id="r-est-val"></b><span id="r-est-note"></span></div>
           <div class="res-act">
-            <a class="btn btn-primary" id="r-wa" href="#" target="_blank" rel="noopener">Отправить в WhatsApp</a>
+            <a class="btn btn-primary btn-wa" id="r-wa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.2 21.8l5.1-1.3A9.7 9.7 0 1 0 12 2.2zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.7-1.8c-.2-.5-.4-.4-.5-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.6-.4z"/></svg><span id="r-wa-t">Обсудить проект в WhatsApp</span></a>
             <button type="button" class="btn btn-ghost" id="r-again">Пройти заново</button>
           </div>
+          <p class="res-note" id="r-wa-note" hidden>WhatsApp открыт в новой вкладке с готовым сообщением. Отправьте его, чтобы менеджер получил параметры проекта.</p>
           <p class="res-note">Или позвоните: <a href={CONTACTS.phoneHref} style="font-family:var(--f-mono);font-weight:700">{CONTACTS.phone}</a></p>
         </div>
       </div>

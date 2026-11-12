@@ -21,7 +21,7 @@ export const CONTACTS = {
   social: [
     { name: 'Instagram', href: 'https://www.instagram.com/company_vernissage/' },
     { name: 'TikTok', href: 'https://www.tiktok.com/@guleke_znaet' },
-    { name: 'YouTube', href: 'https://youtube.com/@gulnarakarabayeva' },
+    // YouTube временно скрыт по просьбе заказчика (12.11.2026): { name: 'YouTube', href: 'https://youtube.com/@gulnarakarabayeva' },
   ],
 } as const;
 

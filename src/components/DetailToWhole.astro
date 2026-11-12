@@ -13,18 +13,23 @@ const film = CH[2].shots[0];
 const posterLand = await getImage({ src: img(film.img).meta, width: 1600, format: 'webp', quality: 70 });
 const posterPort = await getImage({ src: img(film.portImg).meta, width: 900, format: 'webp', quality: 70 });
 const shots = CH.flatMap((c) => c.shots.filter((s) => !('video' in s)));
+// размытый фон кадра: крошечная копия фото, растянутая браузером, — вместо дорогого filter: blur()
+const soft = await Promise.all(shots.map((s) => getImage({ src: img(s.img).meta, width: 40, format: 'webp', quality: 60 })));
 ---
 <section class="dw" id="detail" aria-labelledby="dw-h">
   <div class="dw-pin">
     <div class="dw-stage" aria-hidden="true">
-      {shots.map((s, i) => <div class="dw-shot" data-s={i}><span class={`dw-bg ${ph(s.img)}`}></span><span class="dw-win"><span class={`dw-in ${ph(s.img)}`}></span></span></div>)}
+      {shots.map((s, i) => <div class="dw-shot" data-s={i}><span class="dw-bg" style={`background-image:url("${soft[i].src}")`}></span><span class="dw-win"><span class={`dw-in ${ph(s.img)}`}></span></span></div>)}
       <span class="dw-win dw-probe"></span>
       <div class="dw-shot dw-film" data-s="film">
-        <span class={`${ph(film.img)} dw-film-ph`}></span>
-        <video class="dw-video" muted playsinline loop preload="none" disablepictureinpicture
-          data-land={`${base}media/video/${film.video.land}`} data-port={`${base}media/video/${film.video.port}`}
-          data-poster-land={posterLand.src} data-poster-port={posterPort.src}></video>
-        <span class="dw-dim"></span>
+        {/* раскрытие «окна»: внешний слой масштабируется, внутренний — обратно (только transform) */}
+        <div class="dw-film-in"><div class="dw-film-z">
+          <span class={`${ph(film.img)} dw-film-ph`}></span>
+          <video class="dw-video" muted playsinline loop preload="none" disablepictureinpicture
+            data-land={`${base}media/video/${film.video.land}`} data-port={`${base}media/video/${film.video.port}`}
+            data-poster-land={posterLand.src} data-poster-port={posterPort.src}></video>
+          <span class="dw-dim"></span>
+        </div></div>
       </div>
       <div class="dw-final">
         <span class="dw-glow"></span>
@@ -35,8 +40,8 @@ const shots = CH.flatMap((c) => c.shots.filter((s) => !('video' in s)));
 
     <div class="wrap dw-ui">
       <div class="dw-head">
-        <p class="label">Почерк Vernissage</p>
-        <h2 id="dw-h">От детали — <span class="gt">к целому</span></h2>
+        <p class="label">От детали к целому</p>
+        <h2 id="dw-h">Почерк VERNISSAGE&nbsp;— <span class="gt">в каждой детали</span></h2>
       </div>
       <ol class="dw-ch">
         {CH.map((c, i) => (

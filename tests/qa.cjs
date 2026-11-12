@@ -116,9 +116,15 @@ async function run(engine, w) {
     ok(await p.locator('#q-result').isHidden(), `${T} квиз: без согласия заявка не собирается`);
     await p.locator('#q-consent').check(); await p.locator('#q-next').click({ force: true }); await p.waitForTimeout(1200);
     ok(await p.locator('#q-result').isVisible(), `${T} квиз: итоговая сводка`);
-    const est = await p.locator('#r-est-val').textContent();
+    const est = (await p.locator('#r-est-val').textContent()).replace(/\u00a0/g, ' ');
     ok(est === 'Ремонт от 8 400 000 ₸', `${T} квиз: ориентировочный расчёт 120 м² × 70 000 ₸`, est);
     ok((await p.locator('#r-est .est-k').textContent()).includes('не окончательная'), `${T} квиз: цена помечена как ориентировочная`);
+    ok((await p.locator('#r-wa-t').textContent()) === 'Обсудить проект в WhatsApp' && await p.locator('#r-wa').isVisible(), `${T} квиз: заметная кнопка «Обсудить проект в WhatsApp»`);
+    const waBefore = await p.getAttribute('#r-wa', 'href');
+    await p.route('https://wa.me/**', (r) => r.fulfill({ status: 200, body: 'wa' }));
+    for (let i = 0; i < 2; i++) { const [pop] = await Promise.all([p.waitForEvent('popup', { timeout: 5000 }).catch(() => null), p.locator('#r-wa').click({ force: true })]); if (pop) await pop.close(); await p.waitForTimeout(400); }
+    ok((await p.getAttribute('#r-wa', 'href')) === waBefore && (await p.locator('#r-wa-t').textContent()).includes('ещё раз') && await p.locator('#r-wa-note').isVisible() && await p.locator('#q-result').isVisible(), `${T} квиз: повторное нажатие WhatsApp не создаёт новую заявку`);
+    ok(await p.locator('input[name=object][value="Ремонт и обновление интерьера"]').count() === 1 && !(await p.locator('input[value*="еновац"]').count()), `${T} квиз: вариант «Ремонт и обновление интерьера»`);
     const wa = await p.getAttribute('#r-wa', 'href');
     const msg = decodeURIComponent(wa.split('text=')[1] || '');
     ok(wa.startsWith('https://wa.me/77475613005?text=') && msg.includes('Площадь: 120 м²') && msg.includes('+7 (707) 123-45-67'), `${T} квиз: готовое сообщение в WhatsApp`);
@@ -212,7 +218,10 @@ async function run(engine, w) {
     ok(ext.every((l) => l.t === '_blank' && l.r.includes('noopener')), `${T} внешние ссылки открываются в новой вкладке с noopener`);
     ok(links.some((l) => l.h === 'tel:+77475613005'), `${T} телефон — ссылка tel:`);
     ok(links.some((l) => l.h.startsWith('https://wa.me/77475613005')), `${T} ссылка WhatsApp`);
-    ok(links.some((l) => l.h.includes('2gis.kz')) && links.some((l) => l.h.includes('instagram.com/company_vernissage')), `${T} 2ГИС и соцсети`);
+    ok(links.some((l) => l.h.includes('2gis.kz')) && links.some((l) => l.h.includes('instagram.com/company_vernissage')) && links.some((l) => l.h.includes('tiktok.com')), `${T} 2ГИС, Instagram, TikTok`);
+    ok(!links.some((l) => /youtu/.test(l.h)), `${T} ссылка YouTube скрыта`);
+    const order = await p.evaluate(() => { const ix = (s) => [...document.querySelectorAll('main > section, main > div')].indexOf(document.querySelector(s)); return { stm: ix('.stm'), problem: ix('section:has(.cmp)'), services: ix('#uslugi'), etapy: ix('#etapy'), mebel: ix('#mebel') }; });
+    ok(order.stm < order.problem && order.problem < order.services && order.services < order.etapy && order.etapy < order.mebel, `${T} порядок: миссия → комплексный подход → услуги → этапы → мебель`, JSON.stringify(order));
     const hashes = links.filter((l) => l.h.startsWith('#') && l.h.length > 1).map((l) => l.h);
     const dead = await p.evaluate((hs) => [...new Set(hs)].filter((h) => !document.querySelector(h)), hashes);
     ok(dead.length === 0, `${T} все якорные ссылки ведут на разделы`, dead.join(','));

@@ -19,6 +19,8 @@ export function initQuiz() {
   const svcAll = $<HTMLInputElement>('svc-all');
   const svcs = [...form.querySelectorAll<HTMLInputElement>('input[name=service]')];
   let cur = 0;
+  /** заявка собрана: повторные отправки формы не создают новую */
+  let done = false;
 
   const digits = (s: string) => (s || '').replace(/\D/g, '');
   function fmtPhone(dg: string) {
@@ -117,9 +119,12 @@ export function initQuiz() {
     finish();
   });
 
-  const money = (n: number) => (Math.round(n / 1000) * 1000).toLocaleString('ru-RU').replace(/ /g, ' ') + ' ₸';
+  // неразрывные пробелы: сумма не разрывается между строками («5 600 000 ₸»)
+  const money = (n: number) => (Math.round(n / 1000) * 1000).toLocaleString('ru-RU').replace(/\s/g, '\u00a0') + '\u00a0₸';
 
   function finish() {
+    if (done) return;
+    done = true;
     const data = {
       object: checkedVal('object'),
       services: services(),
@@ -150,7 +155,9 @@ export function initQuiz() {
       'Объект: ' + data.object + '\n' + 'Что нужно: ' + data.services.join(', ') + '\n' +
       'Площадь: ' + data.area + ' м²\n' + 'Старт: ' + data.when + '\n' +
       'Имя: ' + data.name + '\n' + 'Телефон: ' + data.phone + estLine;
-    ($('r-wa') as HTMLAnchorElement).href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg);
+    const wa = $('r-wa') as HTMLAnchorElement;
+    wa.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg);
+    wa.removeAttribute('data-opened'); $('r-wa-t').textContent = 'Обсудить проект в WhatsApp'; $('r-wa-note').hidden = true;
     $('r-title').textContent = data.name + ', ответы приняты';
     $('r-text').textContent = 'Отправьте заявку в WhatsApp, и менеджер пришлёт предварительную смету и подборку похожих проектов.';
     form!.hidden = true; hint.textContent = '';
@@ -162,8 +169,19 @@ export function initQuiz() {
   $('r-again').addEventListener('click', () => {
     form.reset();
     area.value = '80'; areaNum.value = '80';
-    $('q-result').hidden = true; form.hidden = false;
+    $('q-result').hidden = true; form.hidden = false; done = false;
     show(0, true);
+  });
+
+  /* WhatsApp: ссылка с одним и тем же готовым сообщением. Повторное нажатие лишь снова открывает чат
+     и не формирует новую заявку; сайт сам ничего не отправляет. */
+  $('r-wa').addEventListener('click', (e) => {
+    const a = e.currentTarget as HTMLAnchorElement;
+    if (!a.href.startsWith('https://wa.me/')) { e.preventDefault(); return; }
+    if (!a.hasAttribute('data-opened')) {
+      a.setAttribute('data-opened', '');
+      setTimeout(() => { $('r-wa-t').textContent = 'Открыть чат WhatsApp ещё раз'; $('r-wa-note').hidden = false; }, 300);
+    }
   });
 
   /** Выбор услуги извне (полоса услуг, карточки, галерея). */
