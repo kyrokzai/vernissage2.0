@@ -22,7 +22,7 @@ async function page(browser, w, opts = {}) {
 }
 const scrollAll = async (p) => {
   const total = await p.evaluate(() => document.documentElement.scrollHeight);
-  for (let y = 0; y <= total; y += 500) { await p.evaluate((y) => scrollTo(0, y), y); await p.waitForTimeout(40); }
+  for (let y = 0; y <= total; y += 500) { await p.evaluate((y) => scrollTo({ top: y, behavior: 'instant' }), y); await p.waitForTimeout(40); }
   await p.waitForTimeout(500);
 };
 
@@ -77,7 +77,7 @@ async function run(engine, w) {
       await p.locator('#menu-btn').click({ force: true }); await p.waitForTimeout(500); await p.keyboard.press('Escape'); await p.waitForTimeout(600);
       ok(!(await p.locator('#menu').isVisible()), `${T} Esc закрывает меню`);
     } else ok(await p.locator('.nav').isVisible(), `${T} навигация в шапке видна`);
-    await p.evaluate(() => scrollTo(0, 0));
+    await p.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
     await p.locator('#theme-btn').click({ force: true }); await p.waitForTimeout(1400);
     ok((await p.getAttribute('html', 'data-theme')) === 'light', `${T} переключение на светлую тему`);
     await p.reload({ waitUntil: 'networkidle' });
@@ -122,7 +122,7 @@ async function run(engine, w) {
     ok(wa.startsWith('https://wa.me/77475613005?text=') && msg.includes('Площадь: 120 м²') && msg.includes('+7 (707) 123-45-67'), `${T} квиз: готовое сообщение в WhatsApp`);
     await p.locator('#r-again').click({ force: true }); await p.waitForTimeout(400);
     ok((await p.locator('#q-label').textContent()) === 'Шаг 1 из 5', `${T} квиз: «Пройти заново»`);
-    await p.evaluate(() => scrollTo(0, 0));
+    await p.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
     await p.locator('.strip a[data-pick="Мебель на заказ"]').click({ force: true }); await p.waitForTimeout(900);
     ok((await p.locator('#q-pick').textContent()).includes('Мебель на заказ'), `${T} квиз: выбор услуги из полосы услуг`);
     ok(errors.length === 0, `${T} квиз без ошибок JavaScript`, errors.join(' | '));
@@ -169,14 +169,14 @@ async function run(engine, w) {
     const { ctx, p } = await page(browser, w);
     await p.goto(URL_ + '?nointro', { waitUntil: 'networkidle' });
     const r = await p.evaluate(() => { const s = document.getElementById('detail'); return { t: s.getBoundingClientRect().top + scrollY, span: s.offsetHeight - innerHeight }; });
-    await p.evaluate((y) => scrollTo(0, y), Math.round(r.t + r.span * 0.68)); await p.waitForTimeout(2200);
+    await p.evaluate((y) => scrollTo({ top: y, behavior: 'instant' }), Math.round(r.t + r.span * 0.68)); await p.waitForTimeout(2200);
     const v = await p.evaluate(() => { const v = document.querySelector('.dw-video'); return { src: v.currentSrc.split('/').pop(), paused: v.paused, t: v.currentTime }; });
     ok(v.src && !v.paused && v.t > 0, `${T} видео интерьера воспроизводится`, JSON.stringify(v));
     ok(await p.locator('.dw-ch li.on h3').textContent() === 'Детали складываются в целое', `${T} главы меняются по прокрутке`);
-    await p.evaluate((y) => scrollTo(0, y), Math.round(r.t + r.span * 0.99)); await p.waitForTimeout(800);
+    await p.evaluate((y) => scrollTo({ top: y, behavior: 'instant' }), Math.round(r.t + r.span * 0.99)); await p.waitForTimeout(800);
     const q = await p.evaluate(() => parseFloat(getComputedStyle(document.querySelector('.dw-final')).getPropertyValue('--q')));
     ok(q > 0.95, `${T} финал: знак VERNISSAGE`, 'q=' + q);
-    await p.evaluate(() => scrollTo(0, 0)); await p.waitForTimeout(800);
+    await p.evaluate(() => scrollTo({ top: 0, behavior: 'instant' })); await p.waitForTimeout(800);
     ok(await p.evaluate(() => document.querySelector('.dw-video').paused), `${T} видео ставится на паузу вне экрана`);
     await ctx.close();
   }

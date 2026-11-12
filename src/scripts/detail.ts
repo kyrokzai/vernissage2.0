@@ -23,6 +23,7 @@ export function initDetailToWhole() {
   const rm = matchMedia('(prefers-reduced-motion: reduce)');
   const shots = [...sec.querySelectorAll<HTMLElement>('.dw-shot:not(.dw-film)')];
   const film = sec.querySelector<HTMLElement>('.dw-film')!;
+  const filmDim = sec.querySelector<HTMLElement>('.dw-dim')!;
   const video = sec.querySelector<HTMLVideoElement>('.dw-video')!;
   const fin = sec.querySelector<HTMLElement>('.dw-final')!;
   const lis = [...sec.querySelectorAll<HTMLElement>('.dw-ch li')];
@@ -77,7 +78,7 @@ export function initDetailToWhole() {
     film.style.clipPath = `inset(${f2(win.t)}% ${f2(win.r)}% ${f2(win.b)}% ${f2(win.l)}% round ${(win.rad * k).toFixed(1)}px)`;
     film.style.transform = `scale(${lerp(1.08, 1, open).toFixed(4)})`;
     const dim = ease(clamp((p - 0.78) / 0.1));
-    film.style.filter = `brightness(${lerp(1, 0.32, dim).toFixed(3)}) saturate(${lerp(1, 0.6, dim).toFixed(3)})`;
+    filmDim.style.opacity = (dim * 0.68).toFixed(3);
     // финал: знак VERNISSAGE
     const q = clamp((p - 0.8) / 0.14);
     fin.style.setProperty('--q', ease(q).toFixed(4));

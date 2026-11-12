@@ -162,11 +162,12 @@ export function initCore() {
     const wide = innerWidth > 860;
     stack.forEach((el, i) => {
       const nx = stack[i + 1];
-      if (!nx || !wide) { el.style.transform = ''; el.style.filter = ''; return; }
+      if (!nx || !wide) { el.style.transform = ''; el.style.removeProperty('--dim'); return; }
       const st = 96 + i * 22, nt = nx.getBoundingClientRect().top;
       const p = Math.max(0, Math.min(1, 1 - (nt - (st + 22)) / (el.offsetHeight * 0.9)));
       el.style.transform = `scale(${(1 - p * 0.05).toFixed(4)})`;
-      el.style.filter = `brightness(${(1 - p * 0.5).toFixed(3)})`;
+      // затемнение оверлеем вместо filter: brightness — дешевле для Safari
+      el.style.setProperty('--dim', (p * 0.5).toFixed(3));
     });
     if (tl && tlw) {
       const tr = tl.getBoundingClientRect();
@@ -177,6 +178,6 @@ export function initCore() {
   const req = () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } };
   w.addEventListener('scroll', req, { passive: true });
   w.addEventListener('resize', req);
-  rmq.addEventListener('change', () => { rm = rmq.matches; h.classList.toggle('rm', rm); if (rm) { pars.forEach((el) => (el.style.transform = '')); stack.forEach((el) => { el.style.transform = ''; el.style.filter = ''; }); } req(); });
+  rmq.addEventListener('change', () => { rm = rmq.matches; h.classList.toggle('rm', rm); if (rm) { pars.forEach((el) => (el.style.transform = '')); stack.forEach((el) => { el.style.transform = ''; el.style.removeProperty('--dim'); }); } req(); });
   frame();
 }

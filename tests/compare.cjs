@@ -1,10 +1,10 @@
 /*
  * Сравнительные скриншоты «референс / VERNISSAGE 2.0» по секциям.
- * node tests/compare.cjs <URL_референса> <URL_сайта> <папка> [ширины через запятую] [chromium|webkit]
+ * node tests/compare.cjs <URL_референса> <URL_сайта> <папка> [ширины через запятую] [chromium|webkit] [dark|light]
  */
 const pw = require('playwright');
 const fs = require('fs');
-const [REF, SITE, OUT, widths = '1920,1440,768,390,375', engine = 'chromium'] = process.argv.slice(2);
+const [REF, SITE, OUT, widths = '1920,1440,768,390,375', engine = 'chromium', theme = ''] = process.argv.slice(2);
 const SECTIONS = [
   ['hero', '.hero'], ['strip', '.strip'], ['problem', 'section:has(> .wrap > .cmp)'], ['services', '#uslugi'],
   ['furniture', '#mebel'], ['statement', '.stm'], ['quiz', '#quiz'], ['why', 'section:has(.why-grid)'],
@@ -18,7 +18,7 @@ async function grab(browser, url, w, tag, theme) {
   const p = await ctx.newPage();
   await p.goto(url, { waitUntil: 'networkidle' });
   const total = await p.evaluate(() => document.documentElement.scrollHeight);
-  for (let y = 0; y < total; y += 600) { await p.evaluate((y) => scrollTo(0, y), y); await p.waitForTimeout(90); }
+  for (let y = 0; y < total; y += 600) { await p.evaluate((y) => scrollTo({ top: y, behavior: 'instant' }), y); await p.waitForTimeout(90); }
   await p.waitForTimeout(800);
   await p.addStyleTag({ content: '*,*::before,*::after{transition-duration:0s!important;animation-play-state:paused!important}.progress,#glow{display:none!important}' });
   for (const [name, sel] of SECTIONS) {
@@ -33,8 +33,8 @@ async function grab(browser, url, w, tag, theme) {
 (async () => {
   const b = await pw[engine].launch();
   for (const w of widths.split(',').map(Number)) {
-    await grab(b, REF + '#top', w, 'ref');
-    await grab(b, SITE + '?nointro', w, 'new');
+    await grab(b, REF + '#top', w, 'ref', theme);
+    await grab(b, SITE + '?nointro', w, 'new', theme);
     console.log('done', w);
   }
   await b.close();

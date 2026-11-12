@@ -81,7 +81,8 @@ html.menu-open .site-header{z-index:120}
 .dw-in{position:absolute;inset:0;will-change:transform}
 .dw-shot[data-s="0"] .dw-in{transform-origin:40% 60%}
 .dw-shot[data-s="2"] .dw-in{transform-origin:60% 40%}
-.dw-film{will-change:transform,opacity,clip-path,filter;clip-path:inset(22% 30% round 28px)}
+.dw-dim{position:absolute;inset:0;background:#050807;opacity:0}
+.dw-film{will-change:transform,opacity,clip-path;clip-path:inset(22% 30% round 28px)}
 .dw-film-ph,.dw-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .dw-video{opacity:0;transition:opacity .8s ease}
 .dw-video[src]{opacity:1}
@@ -153,3 +154,23 @@ html.menu-open .site-header{z-index:120}
   .menu-nav a{opacity:1;transform:none}
   .dw-logo{animation:none}
 }
+
+/* при открытом меню шапка становится частью тёмного слоя (и в светлой теме) */
+html.menu-open .site-header{--ink:#F2F4F1;--muted:#BAC5BF;--line:rgba(255,255,255,.1);--bgc:7,10,9;--accent-ink:#E9BF72;color:#F2F4F1}
+html.menu-open .bar{background:rgba(8,12,10,.55)!important;box-shadow:none!important}
+
+/* световые пятна: радиальный градиент вместо filter: blur(90px) — тот же вид без тяжёлых слоёв в Safari */
+.blob{filter:none}
+.hero .blob.b1{width:700px;height:700px;right:-210px;top:calc(10% - 90px);background:radial-gradient(closest-side,rgba(217,162,78,.42),rgba(217,162,78,.16) 55%,transparent)}
+.hero .blob.b2{width:640px;height:640px;left:-250px;bottom:calc(10% - 90px);background:radial-gradient(closest-side,rgba(27,90,70,.6),rgba(27,90,70,.22) 55%,transparent)}
+.quiz-sec .blob.b1{width:660px;height:660px;left:-230px;top:calc(20% - 90px);background:radial-gradient(closest-side,rgba(217,162,78,.38),rgba(217,162,78,.14) 55%,transparent)}
+.quiz-sec .blob.b2{width:600px;height:600px;right:-210px;bottom:calc(10% - 90px);background:radial-gradient(closest-side,rgba(27,90,70,.65),rgba(27,90,70,.24) 55%,transparent)}
+
+/* карточки услуг: затемнение при наложении — оверлей вместо filter */
+.sv::before{content:"";position:absolute;inset:0;z-index:3;background:#000;opacity:var(--dim,0);pointer-events:none}
+
+/* Стабильность Safari/WebKit: меньше одновременно видимых тяжёлых слоёв.
+   Появление «zoom» — без размытия; карточки FAQ — плотный фон вместо backdrop-filter. */
+.js [data-r=zoom]{filter:none}
+.faq details{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(13,19,17,.86)}
+[data-theme=light] .faq details{background:rgba(255,255,255,.88)}

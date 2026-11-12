@@ -54,7 +54,8 @@ section{position:relative;padding-block:clamp(70px,10vw,140px)}
 .sec-bg{isolation:isolate;overflow:clip;background:var(--bg)}
 .sec-bg::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,var(--bg) 0%,rgba(var(--bgc),0) 26%,rgba(var(--bgc),0) 74%,var(--bg) 100%)}
 .sbg{position:absolute;inset:-18% 0;z-index:-2;will-change:transform}
-.sbg-img{position:absolute;inset:0;background-size:cover;background-position:center;opacity:var(--o,.3);filter:saturate(.8) brightness(var(--b,1))}
+/* VERNISSAGE: без CSS filter — крупные слои с фильтрами роняли WebKit; яркость задаётся прозрачностью */
+.sbg-img{position:absolute;inset:0;background-size:cover;background-position:center;opacity:calc(var(--o,.3)*var(--b,1))}
 .sbg-img.flip{transform:scaleX(-1)}
 .sbg::after{content:"";position:absolute;inset:0;background:var(--tint,none)}
 .pz{position:absolute;inset:-9% 0;will-change:transform}
@@ -529,7 +530,7 @@ p{line-height:1.65}
   .bar{background:rgba(8,12,10,.82)}
   .hero-shade{background:linear-gradient(180deg,rgba(var(--bgc),.82) 0%,rgba(var(--bgc),.7) 45%,rgba(var(--bgc),.94) 100%)}
   .hero .blob.b1{opacity:.5}
-  .sbg-img{opacity:calc(var(--o,.3)*.7)}
+  .sbg-img{opacity:calc(var(--o,.3)*var(--b,1)*.7)}
   .stm .sbg-img{opacity:.22!important}
   .stm .lead,.quiz-intro .lead{color:#D2DBD6}
   .lead{font-size:1.02rem}
@@ -642,7 +643,9 @@ html.theming,html.theming *,html.theming *::before,html.theming *::after{transit
 [data-theme=light] .hero .blob.b1{opacity:.45}
 [data-theme=light] .hero-card{box-shadow:0 30px 70px -30px rgba(70,46,10,.45)}
 [data-theme=light] .hc-dots i{background:rgba(48,32,8,.2)}
-[data-theme=light] .sbg-img{mix-blend-mode:multiply;opacity:calc(var(--o,.3)*.85);filter:saturate(.7) brightness(1.55) contrast(.85)}
+[data-theme=light] .sbg-img{mix-blend-mode:multiply;opacity:calc(var(--o,.3)*.85)}
+[data-theme=light] .sbg::before{content:"";position:absolute;inset:0;z-index:1;background:rgba(246,242,234,.42)}
+[data-theme=light] .sbg::after{z-index:2}
 [data-theme=light] .strip{background:linear-gradient(90deg,rgba(176,122,42,0),rgba(176,122,42,.1) 50%,rgba(176,122,42,0))}
 [data-theme=light] .cmp .bad{background:rgba(255,255,255,.72)}
 [data-theme=light] .cmp .good{background:linear-gradient(160deg,rgba(176,122,42,.16),rgba(27,90,70,.07) 60%,rgba(255,255,255,.4)),rgba(255,253,248,.9);box-shadow:0 30px 80px -34px rgba(176,122,42,.55)}

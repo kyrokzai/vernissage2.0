@@ -24,6 +24,7 @@ const shots = CH.flatMap((c) => c.shots.filter((s) => !('video' in s)));
         <video class="dw-video" muted playsinline loop preload="none" disablepictureinpicture
           data-land={`${base}media/video/${film.video.land}`} data-port={`${base}media/video/${film.video.port}`}
           data-poster-land={posterLand.src} data-poster-port={posterPort.src}></video>
+        <span class="dw-dim"></span>
       </div>
       <div class="dw-final">
         <span class="dw-glow"></span>
