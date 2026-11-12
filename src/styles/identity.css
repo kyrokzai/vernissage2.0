@@ -72,9 +72,12 @@ html.menu-open .site-header{z-index:120}
 .dw-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
 .dw-stage{position:absolute;inset:0;overflow:hidden;background:#050807}
 .dw-shot{position:absolute;inset:0;opacity:0;visibility:hidden;will-change:transform,opacity;transform-origin:50% 50%}
-.dw-shot>.ph{position:absolute;inset:0}
-.dw-shot[data-s="0"]{transform-origin:40% 60%}
-.dw-shot[data-s="2"]{transform-origin:60% 40%}
+.dw-bg{position:absolute;inset:-6%;filter:blur(34px) brightness(.34) saturate(1.1);transform:scale(1.1)}
+.dw-win{position:absolute;top:50%;right:max(7vw,calc((100vw - var(--maxw))/2 + 70px));width:min(38vw,500px,calc(68vh*.8));aspect-ratio:4/5;margin-top:calc(min(38vw,500px,calc(68vh*.8))*-.625);border-radius:28px;overflow:hidden;box-shadow:0 40px 90px -30px rgba(0,0,0,.8),0 0 0 1px rgba(232,184,102,.28);will-change:transform}
+.dw-probe{visibility:hidden;pointer-events:none}
+.dw-in{position:absolute;inset:0;will-change:transform}
+.dw-shot[data-s="0"] .dw-in{transform-origin:40% 60%}
+.dw-shot[data-s="2"] .dw-in{transform-origin:60% 40%}
 .dw-film{will-change:transform,opacity,clip-path,filter;clip-path:inset(22% 30% round 28px)}
 .dw-film-ph,.dw-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .dw-video{opacity:0;transition:opacity .8s ease}
@@ -117,6 +120,8 @@ html.menu-open .site-header{z-index:120}
   .dw-ui>.dw-ch{grid-row:3}
   .dw-glow{background:radial-gradient(70% 40% at 50% 42%,rgba(var(--vn-navy-rgb),.85),rgba(var(--vn-navy-rgb),.25) 60%,transparent 80%)}
   .dw-logo{left:0;top:-12%;width:min(62vw,300px)}
+  .dw-win{right:auto;left:50%;top:calc(226px + env(safe-area-inset-top,0px));margin:0;width:auto;height:min(36svh,400px);transform:translateX(-50%)}
+  .dw-rail{margin-top:14px}
 }
 /* статичная раскладка: уменьшение движения или нет JavaScript */
 .rm .dw,html:not(.js) .dw{height:auto;padding-block:clamp(70px,10vw,140px)}

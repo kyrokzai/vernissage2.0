@@ -8,10 +8,10 @@ const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
 // окно появления кадра [a, b], масштаб от s0 к s1 (камера «отъезжает» от макро)
 const SHOTS = [
-  { a: 0.0, b: 0.17, s0: 1.5, s1: 1.18 },
-  { a: 0.13, b: 0.3, s0: 1.42, s1: 1.14 },
-  { a: 0.26, b: 0.43, s0: 1.34, s1: 1.08 },
-  { a: 0.39, b: 0.56, s0: 1.28, s1: 1.04 },
+  { a: 0.0, b: 0.17, s0: 1.38, s1: 1.04 },
+  { a: 0.13, b: 0.3, s0: 1.32, s1: 1.02 },
+  { a: 0.26, b: 0.43, s0: 1.3, s1: 1.02 },
+  { a: 0.39, b: 0.56, s0: 1.26, s1: 1 },
 ];
 const FADE = 0.045;
 const CHAPTERS = [0, 0.27, 0.53, 0.8];
@@ -28,12 +28,23 @@ export function initDetailToWhole() {
   const lis = [...sec.querySelectorAll<HTMLElement>('.dw-ch li')];
   const rail = sec.querySelector<HTMLElement>('.dw-rail-p')!;
   const ticks = [...sec.querySelectorAll<HTMLElement>('.dw-rail span')];
+  const probe = sec.querySelector<HTMLElement>('.dw-probe')!;
+  const ins = shots.map((el) => el.querySelector<HTMLElement>('.dw-in')!);
+  const wins = shots.map((el) => el.querySelector<HTMLElement>('.dw-win')!);
   let visible = false, near = false, loaded = false, chap = -1, top = 0, span = 1;
+  // «окно» детали в процентах сцены: из него раскрывается готовый интерьер
+  let win = { t: 22, r: 30, b: 22, l: 30, rad: 28 };
 
   const measure = () => {
     const r = sec.getBoundingClientRect();
     top = r.top + scrollY;
     span = Math.max(1, sec.offsetHeight - innerHeight);
+    const st = probe.parentElement!.getBoundingClientRect(), w = probe.getBoundingClientRect();
+    if (st.width && w.width) win = {
+      t: ((w.top - st.top) / st.height) * 100, b: ((st.bottom - w.bottom) / st.height) * 100,
+      l: ((w.left - st.left) / st.width) * 100, r: ((st.right - w.right) / st.width) * 100,
+      rad: parseFloat(getComputedStyle(probe).borderTopLeftRadius) || 28,
+    };
   };
 
   function loadVideo() {
@@ -52,17 +63,19 @@ export function initDetailToWhole() {
       const o = clamp((p - s.a) / FADE) * clamp((s.b - p) / FADE);
       const t = ease(clamp((p - s.a) / (s.b - s.a)));
       el.style.opacity = o.toFixed(3);
-      el.style.transform = `scale(${lerp(s.s0, s.s1, t).toFixed(4)})`;
       el.style.visibility = o > 0 ? 'visible' : 'hidden';
+      if (o <= 0) return;
+      ins[i].style.transform = `scale(${lerp(s.s0, s.s1, t).toFixed(4)})`;
+      wins[i].style.translate = `0 ${lerp(26, -26, t).toFixed(1)}px`;
     });
     // фильм: из «окна» в полный кадр
     const fo = clamp((p - 0.52) / FADE);
     const open = ease(clamp((p - 0.53) / 0.2));
-    const iy = lerp(22, 0, open), ix = lerp(30, 0, open), rr = lerp(28, 0, open);
+    const k = 1 - open, f2 = (v: number) => (v * k).toFixed(2);
     film.style.opacity = fo.toFixed(3);
     film.style.visibility = fo > 0 ? 'visible' : 'hidden';
-    film.style.clipPath = `inset(${iy.toFixed(2)}% ${ix.toFixed(2)}% round ${rr.toFixed(1)}px)`;
-    film.style.transform = `scale(${lerp(1.12, 1, open).toFixed(4)})`;
+    film.style.clipPath = `inset(${f2(win.t)}% ${f2(win.r)}% ${f2(win.b)}% ${f2(win.l)}% round ${(win.rad * k).toFixed(1)}px)`;
+    film.style.transform = `scale(${lerp(1.08, 1, open).toFixed(4)})`;
     const dim = ease(clamp((p - 0.78) / 0.1));
     film.style.filter = `brightness(${lerp(1, 0.32, dim).toFixed(3)}) saturate(${lerp(1, 0.6, dim).toFixed(3)})`;
     // финал: знак VERNISSAGE

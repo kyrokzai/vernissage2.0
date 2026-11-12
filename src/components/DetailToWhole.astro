@@ -17,7 +17,8 @@ const shots = CH.flatMap((c) => c.shots.filter((s) => !('video' in s)));
 <section class="dw" id="detail" aria-labelledby="dw-h">
   <div class="dw-pin">
     <div class="dw-stage" aria-hidden="true">
-      {shots.map((s, i) => <div class="dw-shot" data-s={i}><span class={ph(s.img)}></span></div>)}
+      {shots.map((s, i) => <div class="dw-shot" data-s={i}><span class={`dw-bg ${ph(s.img)}`}></span><span class="dw-win"><span class={`dw-in ${ph(s.img)}`}></span></span></div>)}
+      <span class="dw-win dw-probe"></span>
       <div class="dw-shot dw-film" data-s="film">
         <span class={`${ph(film.img)} dw-film-ph`}></span>
         <video class="dw-video" muted playsinline loop preload="none" disablepictureinpicture
