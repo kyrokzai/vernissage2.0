@@ -25,6 +25,8 @@ export function initQuiz() {
     if (!dg) return '';
     if (dg[0] === '8') dg = '7' + dg.slice(1);
     if (dg[0] !== '7') dg = '7' + dg;
+    // после автоподстановки «+7 (» посетитель часто вводит номер целиком: 8 707… или 7 707…
+    if (dg[1] === '8' || (dg.length > 11 && dg[1] === '7')) dg = '7' + dg.slice(2);
     dg = dg.slice(0, 11);
     let o = '+7';
     if (dg.length > 1) o += ' (' + dg.slice(1, 4);

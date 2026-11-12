@@ -12,7 +12,21 @@ export function initMenu() {
     if (open) setTimeout(() => menu.querySelector<HTMLElement>('a')?.focus({ preventScroll: true }), 60);
   };
   btn.addEventListener('click', () => set(btn.getAttribute('aria-expanded') !== 'true'));
-  menu.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('a')) set(false); });
+  // пока меню открыто, страница заблокирована: сначала закрываем, затем прокручиваем к разделу
+  menu.addEventListener('click', (e) => {
+    const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a');
+    if (!a) return;
+    const href = a.getAttribute('href') || '';
+    set(false);
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const t = d.querySelector(href);
+      requestAnimationFrame(() => {
+        t?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+        history.replaceState(null, '', href);
+      });
+    }
+  });
   d.addEventListener('keydown', (e) => {
     if (btn.getAttribute('aria-expanded') !== 'true') return;
     if (e.key === 'Escape') { set(false); btn.focus(); }

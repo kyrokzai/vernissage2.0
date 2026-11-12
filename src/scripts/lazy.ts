@@ -5,7 +5,7 @@
  */
 export function initLazy() {
   const d = document;
-  const GROUPS = '.marq, .bt, .dw-stage, .hero-card';
+  const GROUPS = '.marq, .bt, .dw-stage, .dw-ch, .hero-card';
   const reveal = (el: Element) => {
     if (el.matches(GROUPS)) el.querySelectorAll('.lz').forEach((n) => n.classList.remove('lz'));
     el.classList.remove('lz');
