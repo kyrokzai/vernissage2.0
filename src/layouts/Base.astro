@@ -4,6 +4,10 @@ import '../styles/identity.css';
 import ImageStyles from '../components/ImageStyles.astro';
 import { CONTACTS } from '../data/site';
 import favicon from '../assets/logo/mark.svg';
+import fUnbCyr from '../assets/fonts/unbounded-cyr.woff2?url';
+import fUnbLat from '../assets/fonts/unbounded-lat.woff2?url';
+import fManCyr from '../assets/fonts/manrope-cyr.woff2?url';
+import fManLat from '../assets/fonts/manrope-lat.woff2?url';
 
 interface Props { title: string; description: string }
 const { title, description } = Astro.props;
@@ -35,6 +39,8 @@ const ld = {
   <meta name="theme-color" content="#0A0E0C" />
   <meta name="format-detection" content="telephone=no" />
   <link rel="canonical" href={canonical} />
+  {/* шрифты первого экрана загружаются сразу: без этого заголовки «прыгают» при подмене шрифта (CLS) */}
+  {[fUnbCyr, fUnbLat, fManCyr, fManLat].map((f) => <link rel="preload" href={f} as="font" type="font/woff2" crossorigin />)}
   <link rel="icon" type="image/svg+xml" href={favicon.src} />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="ru_RU" />

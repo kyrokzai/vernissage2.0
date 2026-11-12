@@ -1,11 +1,11 @@
 /**
  * Отложенная загрузка фоновых фото: класс `lz` отключает background-image (см. ImageStyles.astro).
- * Снимаем его, когда элемент подходит к экрану. Группы (`.marq`, `.bt`, `.dw-stage`) загружаются целиком,
+ * Снимаем его, когда элемент подходит к экрану. Группы (лента, плитки, рамки с «шторкой», сцены) загружаются целиком,
  * потому что их содержимое скрыто обрезкой или прозрачностью.
  */
 export function initLazy() {
   const d = document;
-  const GROUPS = '.marq, .bt, .dw-stage, .dw-ch, .hero-card';
+  const GROUPS = '.marq, .bt, .dw-stage, .dw-ch, .hero-card, .sv-ph, .pf .frame, .cs .frame';
   const reveal = (el: Element) => {
     if (el.matches(GROUPS)) el.querySelectorAll('.lz').forEach((n) => n.classList.remove('lz'));
     el.classList.remove('lz');
