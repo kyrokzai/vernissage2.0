@@ -69,7 +69,7 @@ export function initCore() {
       el.style.setProperty('--d', (Math.min(i, 5) * 0.09).toFixed(2) + 's');
     });
   });
-  const pending = new Set($('[data-r], [data-split]'));
+  const pending = new Set<Element>($('[data-r], [data-split]'));
   const show = (el: Element) => { el.classList.add('in'); pending.delete(el); io?.unobserve(el); };
   let io: IntersectionObserver | null = null;
   if ('IntersectionObserver' in w) {

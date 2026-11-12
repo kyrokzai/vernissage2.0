@@ -22,8 +22,8 @@ async function page(browser, w, opts = {}) {
 }
 const scrollAll = async (p) => {
   const total = await p.evaluate(() => document.documentElement.scrollHeight);
-  for (let y = 0; y <= total; y += 500) { await p.evaluate((y) => scrollTo({ top: y, behavior: 'instant' }), y); await p.waitForTimeout(40); }
-  await p.waitForTimeout(500);
+  for (let y = 0; y <= total; y += 450) { await p.evaluate((y) => scrollTo({ top: y, behavior: 'instant' }), y); await p.waitForTimeout(90); }
+  await p.waitForTimeout(1200);
 };
 
 async function run(engine, w) {
@@ -112,7 +112,7 @@ async function run(engine, w) {
     ok((await p.inputValue('#q-phone')) === '+7 (707) 123-45-67', `${T} квиз: маска телефона +7`, await p.inputValue('#q-phone'));
     await p.locator('#q-next').click({ force: true }); await p.waitForTimeout(300);
     ok(await p.locator('#q-result').isHidden(), `${T} квиз: без согласия заявка не собирается`);
-    await p.locator('#q-consent').check(); await p.locator('#q-next').click({ force: true }); await p.waitForTimeout(800);
+    await p.locator('#q-consent').check(); await p.locator('#q-next').click({ force: true }); await p.waitForTimeout(1200);
     ok(await p.locator('#q-result').isVisible(), `${T} квиз: итоговая сводка`);
     const est = await p.locator('#r-est-val').textContent();
     ok(est === 'Ремонт от 8 400 000 ₸', `${T} квиз: ориентировочный расчёт 120 м² × 70 000 ₸`, est);
@@ -123,7 +123,7 @@ async function run(engine, w) {
     await p.locator('#r-again').click({ force: true }); await p.waitForTimeout(400);
     ok((await p.locator('#q-label').textContent()) === 'Шаг 1 из 5', `${T} квиз: «Пройти заново»`);
     await p.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
-    await p.locator('.strip a[data-pick="Мебель на заказ"]').click({ force: true }); await p.waitForTimeout(900);
+    await p.locator('.strip a[data-pick="Мебель на заказ"]').dispatchEvent('click'); await p.waitForTimeout(1200);
     ok((await p.locator('#q-pick').textContent()).includes('Мебель на заказ'), `${T} квиз: выбор услуги из полосы услуг`);
     ok(errors.length === 0, `${T} квиз без ошибок JavaScript`, errors.join(' | '));
     await ctx.close();

@@ -174,3 +174,11 @@ html.menu-open .bar{background:rgba(8,12,10,.55)!important;box-shadow:none!impor
 .js [data-r=zoom]{filter:none}
 .faq details{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(13,19,17,.86)}
 [data-theme=light] .faq details{background:rgba(255,255,255,.88)}
+
+/* Наведение на фото: осветление через ослабление затемняющего градиента, без CSS filter
+   (filter на крупных фото под курсором во время прокрутки ронял WebKit). */
+.bt:hover .ph,.pf:hover .ph,.cs:hover .ph,.pf:hover .frame .ph,.cs:hover .frame .ph,.mqi:hover,.mqi:focus-visible{filter:none}
+.bt::before,.pf .frame::after,.cs .frame::after{transition:opacity .5s ease}
+.bt:hover::before{opacity:.8}
+.pf:hover .frame::after,.cs:hover .frame::after{opacity:.78}
+.mqi:hover,.mqi:focus-visible{transform:translateY(-4px)}
