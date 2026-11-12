@@ -20,7 +20,7 @@ async function grab(browser, url, w, tag, theme) {
   const total = await p.evaluate(() => document.documentElement.scrollHeight);
   for (let y = 0; y < total; y += 600) { await p.evaluate((y) => scrollTo({ top: y, behavior: 'instant' }), y); await p.waitForTimeout(90); }
   await p.waitForTimeout(800);
-  await p.addStyleTag({ content: '*,*::before,*::after{transition-duration:0s!important;animation-play-state:paused!important}.progress,#glow{display:none!important}' });
+  await p.addStyleTag({ content: '*,*::before,*::after{transition-duration:0s!important;animation-play-state:paused!important}.progress,#glow,.skip{display:none!important}' });
   for (const [name, sel] of SECTIONS) {
     const el = p.locator(sel).first();
     if (!(await el.count())) continue;

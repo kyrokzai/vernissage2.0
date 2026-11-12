@@ -13,6 +13,8 @@ const ok = (cond, name, info = '') => { rows.push(`${cond ? '✓' : '✗'} ${nam
 
 async function page(browser, w, opts = {}) {
   const ctx = await browser.newContext({ viewport: { width: w, height: H[w] || 900 }, hasTouch: w < 800, isMobile: false, reducedMotion: opts.rm ? 'reduce' : 'no-preference' });
+  // плавная прокрутка сайта (scroll-behavior: smooth) сдвигает элементы во время кликов Playwright в WebKit
+  await ctx.addInitScript(() => document.addEventListener('DOMContentLoaded', () => { const s = document.createElement('style'); s.textContent = 'html{scroll-behavior:auto!important}'; document.head.appendChild(s); }));
   const p = await ctx.newPage();
   const errors = [], bad = [];
   p.on('pageerror', (e) => errors.push(e.message));
