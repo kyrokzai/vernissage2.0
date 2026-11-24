@@ -1,0 +1,74 @@
+/* VERNISSAGE v9 — утверждённая светлая версия (макет «VERNISSAGE 2.0 Visual Design v9»): палитра, шрифты, шапка, кнопки.
+   Пока главная страница не перенесена на v9, этот файл используют только страницы в новом дизайне («Создать в 3D»).
+   Старый тёмный global.css сюда не подключается. */
+@font-face{font-family:'VN Cormorant';font-style:normal;font-weight:400;font-display:swap;src:url(../assets/fonts/cormorant-cyr-400-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'VN Cormorant';font-style:normal;font-weight:400;font-display:swap;src:url(../assets/fonts/cormorant-lat-400-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'VN Cormorant';font-style:normal;font-weight:500;font-display:swap;src:url(../assets/fonts/cormorant-cyr-500-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'VN Cormorant';font-style:normal;font-weight:500;font-display:swap;src:url(../assets/fonts/cormorant-lat-500-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'VN Cormorant';font-style:italic;font-weight:400;font-display:swap;src:url(../assets/fonts/cormorant-cyr-400-italic.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'VN Cormorant';font-style:italic;font-weight:400;font-display:swap;src:url(../assets/fonts/cormorant-lat-400-italic.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'VN Manrope';font-style:normal;font-weight:200 900;font-display:swap;src:url(../assets/fonts/manrope-cyr.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'VN Manrope';font-style:normal;font-weight:200 900;font-display:swap;src:url(../assets/fonts/manrope-lat.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+:root{
+  color-scheme:light;
+  --ivory:#F6F1E8; --paper:#F2EBE0; --stone:#EDE4D6; --stone-2:#E4D9C9; --ink:#241F1A; --ink-2:#4A4239; --muted:#6A6055;
+  --bronze:#8E6A43; --bronze-text:#73512F; --bronze-line:#A8885F; --line:#DCD1C1; --line-2:#CFC3B1; --btn:#2A2521;
+  --serif:'VN Cormorant','Cormorant Garamond','Times New Roman',Georgia,serif;
+  --sans:'VN Manrope','Manrope','Segoe UI',system-ui,-apple-system,sans-serif;
+  --logo:url(../assets/logo/vernissage-logo-horizontal.svg);
+  --ease-out:cubic-bezier(.22,.8,.2,1);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--ivory);color:var(--ink);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased;font-feature-settings:"lnum" 1}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--bronze-text);outline-offset:3px}
+[hidden]{display:none!important}
+.sr{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* шапка v9 */
+.v-hdr{display:flex;align-items:center;height:96px;padding-inline:max(72px,env(safe-area-inset-left,0px)) max(72px,env(safe-area-inset-right,0px));border-bottom:1px solid var(--line-2);background:var(--ivory)}
+.v-logo{display:block;width:214px;height:54px;flex:none;background:var(--ink);-webkit-mask:var(--logo) no-repeat left center/contain;mask:var(--logo) no-repeat left center/contain}
+.v-div{width:1px;height:34px;background:var(--line-2);margin:0 44px 0 40px}
+.v-nav{display:flex;gap:40px;font:500 20px/1 var(--serif)}
+.v-nav a{padding-block:8px;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .3s}
+.v-nav a:hover,.v-nav a[aria-current="page"]{border-color:var(--bronze-line)}
+.v-hr{margin-left:auto;display:flex;align-items:center;gap:40px}
+.v-phone{font:500 20px/1 var(--serif);white-space:nowrap;text-decoration:none;padding-block:8px}
+.v-wa{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 20px;border:1px solid var(--ink);border-radius:4px;font:500 20px/1 var(--serif);text-decoration:none}
+.v-wa svg,.v-ic svg{width:20px;height:20px}
+.v-ic{display:none;width:44px;height:44px;border-radius:50%;border:1px solid var(--line-2);align-items:center;justify-content:center;background:rgba(246,241,232,.8);color:var(--ink);padding:0;cursor:pointer;text-decoration:none}
+
+/* кнопки v9 */
+.v-btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:56px;padding:0 32px;border-radius:3px;font:600 20px/1 var(--serif);text-decoration:none;white-space:nowrap}
+.v-btn--p{background:var(--btn);color:var(--ivory)}
+.v-btn--s{background:var(--ivory);color:var(--ink);border:1px solid var(--bronze-line)}
+
+/* меню (телефон, планшет) */
+.x-menu{position:fixed;inset:0;z-index:50;background:var(--ivory);display:flex;flex-direction:column;gap:28px;overflow-y:auto;
+  padding:calc(14px + env(safe-area-inset-top,0px)) max(22px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(22px,env(safe-area-inset-left,0px))}
+.x-menu-top{display:flex;align-items:center;justify-content:space-between;height:52px;border-bottom:1px solid var(--line-2)}
+.x-menu-top .v-logo{width:132px;height:36px}
+.x-menu-x{width:44px;height:44px;border-radius:50%;border:1px solid var(--line-2);background:transparent;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink)}
+.x-menu-x svg{width:18px;height:18px}
+.x-menu nav{display:grid}
+.x-menu nav a{font:500 34px/1 var(--serif);padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none}
+.x-menu-foot{margin-top:auto;display:grid;gap:10px}
+.x-menu-foot .v-btn{width:100%}
+.x-menu-tel{font:500 24px/1 var(--serif);text-align:center;padding:10px;text-decoration:none}
+
+@media (max-width:1100px){
+  .v-hdr{padding-inline:max(32px,env(safe-area-inset-left,0px)) max(32px,env(safe-area-inset-right,0px))}
+  .v-nav,.v-div,.v-phone{display:none}
+  .v-ic{display:inline-flex}
+  .v-hr{gap:12px}
+}
+@media (max-width:600px){
+  .v-hdr{height:60px;padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px))}
+  .v-logo{width:132px;height:36px}
+  .v-wa{display:none}
+  .v-hr{gap:8px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+/* обычные (не «старого стиля») цифры Cormorant, как в v9: «3D», «+7 747…», «2003» — шорткат font сбрасывает настройку,
+   поэтому она задаётся для всех элементов и с приоритетом */
+*{font-feature-settings:"lnum" 1!important}

@@ -1,0 +1,89 @@
+---
+// «Создать в 3D»: 3D-конструктор VERNISSAGE на странице сайта. Сам конструктор — отдельный продукт во фрейме
+// (src/data/create3d.ts); страница даёт шапку и меню сайта, передаёт выбор (что создать, планировка, отделка) и предлагает
+// открыть конструктор на весь экран, если фрейм не загрузился. Цен на странице нет; заявку отправляет сам конструктор.
+import V9 from '../../layouts/V9.astro';
+import '../../styles/create3d.css';
+import { CONTACTS, waLink } from '../../data/site';
+import { STARTS, frameSrc, createLink } from '../../data/create3d';
+const base = import.meta.env.BASE_URL;
+// Разделы главной. Пока главная не перенесена на v9 — якоря текущей опубликованной главной.
+const NAV: [string, string][] = [
+  ['Работы', base + '#portfolio'], ['Изготовление', base + '#mebel'], ['3D-конструктор', base + 'create-3d/'], ['Как заказать', base + '#etapy'], ['Контакты', base + '#contact'],
+];
+const wa = waLink('Здравствуйте! Вопрос по 3D-конструктору на сайте.');
+const phoneText = CONTACTS.phone.replace(/[()]/g, '');
+const ico = {
+  wa: '<path d="M4.6 19.4l1.1-3.4a8 8 0 1 1 3 2.8z"/><path d="M9.3 8.6c.2 2.6 3.4 5.8 6 6l1.2-1.4-2-1.2-.9.8c-1-.4-2.1-1.5-2.5-2.5l.8-.9-1.2-2z"/>',
+  menu: '<path d="M4 8.5h16M4 15.5h16"/>',
+  x: '<path d="M6 6l12 12M18 6L6 18"/>',
+};
+const svg = (d: string) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const full = frameSrc('', false);
+---
+<V9 title="Создать в 3D — VERNISSAGE" description="Соберите кухню, шкаф или другую мебель в 3D: модель, размеры, цвет — и отправьте проект на расчёт менеджеру VERNISSAGE." path="create-3d/" pageClass="c3-page">
+  <div class="c3">
+    <header class="v-hdr">
+      <a class="v-logo" href={base} aria-label="VERNISSAGE — на главную"></a>
+      <span class="v-div" aria-hidden="true"></span>
+      <nav class="v-nav" aria-label="Разделы">{NAV.map(([label, href]) => <a href={href} aria-current={label === '3D-конструктор' ? 'page' : undefined}>{label}</a>)}</nav>
+      <div class="v-hr">
+        <a class="v-phone" href={CONTACTS.phoneHref}>{phoneText}</a>
+        <a class="v-wa" href={wa} target="_blank" rel="noopener noreferrer"><Fragment set:html={svg(ico.wa)} />WhatsApp</a>
+        <a class="v-ic" href={wa} target="_blank" rel="noopener noreferrer" aria-label="Написать в WhatsApp"><Fragment set:html={svg(ico.wa)} /></a>
+        <button class="v-ic" type="button" data-menu-open aria-controls="c3-menu" aria-expanded="false" aria-label="Открыть меню"><Fragment set:html={svg(ico.menu)} /></button>
+      </div>
+    </header>
+    <div class="c3-intro">
+      <div>
+        <h1>Создайте мебель в 3D</h1>
+        <p>Выберите модель, размеры и цвет — и отправьте проект на расчёт. Стоимость считает менеджер после бесплатного замера.</p>
+      </div>
+      <nav class="c3-pick" aria-label="Что создать"><span>Что создать:</span>{STARTS.map(([start, label]) => <a href={createLink(base, start)} data-start={start}>{label}</a>)}</nav>
+    </div>
+    <main class="c3-stage">
+      <h1 class="sr">Создайте мебель в 3D</h1>
+      <iframe class="c3-frame" id="c3-frame" title="3D-конструктор VERNISSAGE" allow="fullscreen; clipboard-write" referrerpolicy="strict-origin-when-cross-origin" data-src={frameSrc('')}></iframe>
+      <div class="c3-wait" data-wait><p>Загружаем 3D-конструктор…</p></div>
+      <div class="c3-fallback" data-fallback hidden>
+        <strong>Конструктор не загрузился</strong>
+        <p>Проверьте подключение к интернету или откройте конструктор отдельно — проект сохранится в этом браузере.</p>
+        <a class="v-btn v-btn--p" data-full href={full} target="_blank" rel="noopener">Открыть конструктор</a>
+      </div>
+      <noscript><div class="c3-fallback"><strong>Для 3D-конструктора нужен JavaScript</strong><a class="v-btn v-btn--p" href={full}>Открыть конструктор</a></div></noscript>
+    </main>
+    <footer class="c3-ftr">
+      <span>© VERNISSAGE, 2003–2026. Мебель на заказ, Астана</span>
+      <a data-full href={full} target="_blank" rel="noopener">Открыть конструктор на весь экран</a>
+    </footer>
+  </div>
+  <div class="x-menu" id="c3-menu" role="dialog" aria-modal="true" aria-label="Меню" hidden>
+    <div class="x-menu-top"><a class="v-logo" href={base} aria-label="VERNISSAGE — на главную"></a><button class="x-menu-x" type="button" data-menu-close aria-label="Закрыть меню"><Fragment set:html={svg(ico.x)} /></button></div>
+    <nav aria-label="Меню разделов">{NAV.map(([label, href]) => <a href={href}>{label}</a>)}</nav>
+    <div class="x-menu-foot">
+      <a class="v-btn v-btn--s" data-full href={full} target="_blank" rel="noopener">Конструктор на весь экран</a>
+      <a class="v-btn v-btn--p" href={wa} target="_blank" rel="noopener noreferrer">Написать в WhatsApp</a>
+      <a class="x-menu-tel" href={CONTACTS.phoneHref}>{phoneText}</a>
+    </div>
+  </div>
+  <script>
+    import { frameSrc } from '../../data/create3d';
+    // Фрейм получает только разрешённые параметры адреса страницы. «На весь экран» — тот же выбор без встраивания.
+    const frame = document.getElementById('c3-frame') as HTMLIFrameElement;
+    const wait = document.querySelector<HTMLElement>('[data-wait]')!, fallback = document.querySelector<HTMLElement>('[data-fallback]')!;
+    let loaded = false;
+    frame.addEventListener('load', () => { loaded = true; wait.hidden = true; fallback.hidden = true; });
+    frame.src = frameSrc(location.search);
+    for (const a of document.querySelectorAll<HTMLAnchorElement>('[data-full]')) a.href = frameSrc(location.search, false);
+    setTimeout(() => { if (!loaded) { wait.hidden = true; fallback.hidden = false; } }, 20000);
+    const start = new URLSearchParams(location.search).get('start');
+    for (const a of document.querySelectorAll<HTMLAnchorElement>('[data-start]')) if (a.dataset.start === start) a.setAttribute('aria-current', 'true');
+    // меню
+    const menu = document.getElementById('c3-menu')!, open = document.querySelector<HTMLButtonElement>('[data-menu-open]')!, close = menu.querySelector<HTMLButtonElement>('[data-menu-close]')!;
+    const show = (v: boolean) => { menu.hidden = !v; open.setAttribute('aria-expanded', String(v)); (v ? close : open).focus(); };
+    open.addEventListener('click', () => show(true));
+    close.addEventListener('click', () => show(false));
+    addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) show(false); });
+    menu.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('nav a')) menu.hidden = true; });
+  </script>
+</V9>
