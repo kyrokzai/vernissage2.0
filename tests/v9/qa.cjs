@@ -99,6 +99,8 @@ async function run(engine) {
     await p.keyboard.press('Escape'); await sleep(200);
     const closed = await p.$eval('.x-menu', (x) => x.hidden);
     ok(m.open && /x-menu-x/.test(m.focus) && !m.bar && closed, E('меню: открывается, фокус на «Закрыть», панель прячется, Esc закрывает'), JSON.stringify(m));
+    const ctl = await p.$eval('.v-hdr [data-menu-open]', (b) => { const id = b.getAttribute('aria-controls'); return !!id && !!document.getElementById(id) && document.getElementById(id).classList.contains('x-menu'); });
+    ok(ctl, E('меню: aria-controls кнопки указывает на панель меню'));
     await p.$eval('#contact', (e) => e.scrollIntoView({ block: 'center' })); await sleep(1500);
     ok(!(await barOn()), E('панель: прячется у формы'));
     await p.$eval('#cats .c-enf', (e) => { e.scrollIntoView({ block: 'center' }); e.scrollBy({ left: 260, behavior: 'instant' }); }); await sleep(500);
