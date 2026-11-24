@@ -1,0 +1,18 @@
+---
+import Ph from './Ph.astro';
+import { CONTACTS, waLink } from '../../data/site';
+import { createLink, CATEGORY_LINKS } from '../../data/create3d';
+const base = import.meta.env.BASE_URL;
+const wa = waLink('Здравствуйте! Хочу рассчитать мебель на заказ.');
+---
+<header class="v-hdr">
+      <a class="v-logo" href={base} aria-label="VERNISSAGE — на главную"></a>
+      <span class="v-div" aria-hidden="true"></span>
+      <nav class="v-nav" aria-label="Разделы"><a href={base + '#works'}>Работы</a><a href={base + '#cats'}>Изготовление</a><a href={base + 'create-3d/'}>3D-конструктор</a><a href={base + '#how'}>Как заказать</a><a href={base + '#contact'}>Контакты</a></nav>
+      <div class="v-hr">
+        <a class="v-phone" href={CONTACTS.phoneHref}>+7 747 561 3005</a>
+        <a class="v-wa" href={wa} target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.6 19.4l1.1-3.4a8 8 0 1 1 3 2.8z"/><path d="M9.3 8.6c.2 2.6 3.4 5.8 6 6l1.1-1.4-1.9-1-1 .8a5 5 0 0 1-2.5-2.5l.8-1-1-1.9z"/></svg> WhatsApp</a>
+        <a class="v-ic" href={wa} target="_blank" rel="noopener noreferrer" aria-label="Написать в WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.6 19.4l1.1-3.4a8 8 0 1 1 3 2.8z"/><path d="M9.3 8.6c.2 2.6 3.4 5.8 6 6l1.1-1.4-1.9-1-1 .8a5 5 0 0 1-2.5-2.5l.8-1-1-1.9z"/></svg></a>
+        <button class="v-ic" type="button" data-menu-open aria-controls="x-menu" aria-expanded="false" aria-label="Открыть меню"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8.5h16M4 15.5h16"/></svg></button>
+      </div>
+    </header>

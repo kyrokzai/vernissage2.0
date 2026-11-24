@@ -1,0 +1,217 @@
+/* ================= v8 · VISUAL IMPACT: свет, тени, глубина (только категории, работы, 3D) =================
+   Единый свет: тёплый, сверху справа (как окно на фото первого экрана) → все тени уходят вниз-влево.
+   Тени тёплые коричневые, не серые; три уровня: контакт (у основания), ближняя, широкая рассеянная. */
+.site{
+  --sh-c:rgba(58,38,22,.16); --sh-n:rgba(58,38,22,.30); --sh-f:rgba(58,38,22,.34);
+  --lift-1:0 1px 1px var(--sh-c),-5px 9px 14px -9px var(--sh-n);
+  --lift-2:0 1px 2px var(--sh-c),-8px 14px 20px -12px var(--sh-n),-26px 40px 56px -36px var(--sh-f);
+  --sh-n3:rgba(58,38,22,.36); --sh-f3:rgba(58,38,22,.44);
+  --lift-3:0 2px 3px var(--sh-c),-12px 20px 26px -14px var(--sh-n3),-36px 54px 72px -44px var(--sh-f3);
+  --walnut:#2E2119; --walnut-2:#3E2D21; --k-ink:#F4ECDF; --k-soft:#D9CBB7; --k-line:rgba(244,236,223,.2);
+}
+
+/* ---------- 1. Категории: арки-ниши на каменном полу ---------- */
+.c-sec{background:var(--ivory)}
+.c-stage{position:relative}
+.c-stage::before{content:"";position:absolute;z-index:0;left:-72px;right:-72px;top:var(--horizon,503px);bottom:-144px;
+  background:linear-gradient(180deg,#E0D3BF 0,#E9DFCF 30%,var(--ivory) 100%);pointer-events:none}
+.c-stage::after{content:"";position:absolute;z-index:0;left:-72px;right:-72px;top:calc(var(--horizon,503px) - 1px);height:1px;background:rgba(120,92,62,.22)}
+.c-enf{position:relative;z-index:1}
+.c-sec .c-rail,.c-sec .c-more{position:relative;z-index:1}
+.c-arch{position:relative}
+.c-frame{z-index:1;box-shadow:var(--lift-1);}
+.c-arch.on .c-frame{box-shadow:var(--lift-3)}
+/* контактная тень на полу: короче и плотнее у основания, сдвинута влево */
+.c-sh{position:absolute;z-index:0;left:-16%;right:8%;top:calc(var(--horizon,503px) - 10px);height:34px;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(58,38,22,.30),rgba(58,38,22,.12) 55%,transparent);opacity:.75;transition:opacity .7s var(--ease-out),transform .7s var(--ease-out);transform:scaleX(.9)}
+.c-arch.on .c-sh{opacity:1;transform:scaleX(1.04)}
+/* фото внутри арки: при открытии медленно приближается */
+.c-frame .ph{transform:scale(1.001);transition:transform 1.8s var(--ease-out)}
+.c-arch.on .c-frame .ph{transform:scale(1.06)}
+/* мягкий тёплый свет следует за курсором по открытой арке (только компьютер, только при наведении) */
+.c-frame::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity .6s var(--ease-out);
+  background:radial-gradient(circle at var(--lx,70%) var(--ly,30%),rgba(255,238,212,.30),rgba(255,238,212,0) 42%)}
+.c-arch.on:hover .c-frame::before{opacity:1}
+/* одноразовое появление: фото уже видно, только «оседает» и получает тень */
+.c-pre .c-frame .ph{transform:scale(1.16)}
+.c-pre .c-frame{box-shadow:0 1px 1px var(--sh-c)}
+.c-pre .c-sh{opacity:0;transform:scaleX(.6)}
+.c-in .c-frame .ph,.c-in .c-frame,.c-in .c-sh{transition-delay:calc(var(--i,0) * 90ms)}
+
+/* ---------- 2. Работы: объёмная интерьерная фотография ---------- */
+.w-sec{background:var(--stone)}
+.w-stage{position:relative;margin-bottom:8px}
+.w-main{overflow:hidden;box-shadow:var(--lift-2);}
+.w-main .ph{transform:scale(1.06);transition:opacity .7s var(--ease-soft),transform 1.4s var(--ease-out)}
+.w-main .ph.on{transform:scale(1.001)}
+.w-stage:hover .w-main{box-shadow:var(--lift-3)}
+.w-stage:hover .w-main .ph.on{transform:scale(1.035)}
+/* деталь — крупный план из той же фотографии, ближе к зрителю */
+.w-detail{position:absolute;z-index:2;left:-44px;bottom:-48px;width:236px;aspect-ratio:1;border:7px solid var(--ivory);border-radius:2px;overflow:hidden;background:var(--ivory);
+  box-shadow:var(--lift-3);transition:transform .9s var(--ease-out)}
+.w-detail .ph{position:absolute;inset:0;opacity:0;transform:translate(10px,14px) scale(1.04);transition:opacity .55s var(--ease-soft) .14s,transform 1s var(--ease-out) .14s}
+.w-detail .ph.on{opacity:1;transform:none}
+.w-stage:hover .w-detail{transform:translate(-6px,6px)}
+.w-dcap{position:absolute;z-index:2;left:206px;bottom:-40px;font:italic 400 17px/1.3 var(--serif);color:var(--ink-2);max-width:18em}
+.w-strip{margin-top:74px;padding-left:220px}
+.w-th span{box-shadow:var(--lift-1);transition:opacity .35s,transform .5s var(--ease-out)}
+.w-th:hover span{transform:translateY(-3px)}
+.w-th[aria-pressed="true"] span{transform:translateY(-6px);box-shadow:var(--lift-2)}
+.w-th:active span{transform:translateY(-2px) scale(.97)}
+/* коммерческие интерьеры: два кадра внахлёст, высокий ближе к зрителю */
+.w-fig .frm{box-shadow:var(--lift-2);}
+.w-fig .ph{transition:transform 1.4s var(--ease-out)}
+.w-fig:hover .frm{box-shadow:var(--lift-3)}
+.w-fig:hover .ph{transform:scale(1.035)}
+.w-fig.tall{position:relative;z-index:2;margin-left:-96px;margin-top:180px}
+.w-fig.tall .frm{border:8px solid var(--ivory);box-shadow:var(--lift-3)}
+.w-pre .w-main .ph.on{transform:scale(1.12)}
+.w-pre .w-detail{transform:translate(18px,-10px);box-shadow:var(--lift-1)}
+
+/* ---------- 3. 3D: общая сцена (светлый вариант по умолчанию) ---------- */
+.k-sec{background:radial-gradient(60% 70% at 74% 30%,rgba(255,251,243,.6) 0%,rgba(255,251,243,0) 70%),var(--stone)}
+.k-grid{grid-template-columns:4fr 8fr;gap:72px}
+.k-stage{padding:22px 22px 0}
+.k-arch{border-color:var(--bronze-line);opacity:.6;aspect-ratio:1144/1044}
+.k-niche{aspect-ratio:1100/1000;
+  background:linear-gradient(250deg,rgba(255,250,240,.75) 0%,rgba(255,250,240,0) 38%),linear-gradient(transparent 76%,rgba(150,118,80,.12) 84%,rgba(150,118,80,.2)),linear-gradient(#F6EFE3,#F1E7D8 70%,#E9DDCB);
+  box-shadow:inset -30px 34px 56px -34px rgba(70,46,28,.32),inset 18px 0 30px -26px rgba(70,46,28,.16)}
+.k-view{left:-6%;right:-6%}
+.k-view .r{transform:scale(1.03)}
+.k-view .r.on{transform:none}
+.k-ledge{position:relative;z-index:1;height:14px;margin:0 -12px;border-radius:1px;background:linear-gradient(180deg,#F3EADB,#DDCEB6);box-shadow:0 1px 0 rgba(255,250,240,.7) inset,var(--lift-2)}
+.k-plate{margin-top:28px}
+.k-fin .sw{position:relative;box-shadow:var(--lift-1)}
+.k-fin .sw::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(225deg,rgba(255,246,230,.3),rgba(255,246,230,0) 42%);pointer-events:none}
+.k-fin button[aria-pressed="true"] .sw{transform:translateY(-10px);box-shadow:0 0 0 2px var(--stone),0 0 0 3px var(--ink),var(--lift-3)}
+.k-plan button[aria-pressed="true"]{box-shadow:var(--lift-1)}
+
+/* ---------- 3D: ореховый вариант (экспериментальный, для сравнения) ---------- */
+.k-sec.k-dark{background:radial-gradient(60% 70% at 74% 30%,#5B4231 0%,rgba(91,66,49,0) 70%),linear-gradient(180deg,var(--walnut-2),var(--walnut));color:var(--k-ink)}
+.k-dark .x-h2{color:var(--k-ink)}
+.k-dark .x-lead{color:var(--k-soft)}
+.k-dark .k-ctrl legend{color:#E3C9A3}
+.k-dark .k-plan button{background:rgba(244,236,223,.04);border-color:var(--k-line);color:var(--k-soft);box-shadow:0 1px 0 rgba(255,240,220,.06) inset}
+.k-dark .k-plan button:hover{border-color:rgba(244,236,223,.5);color:var(--k-ink)}
+.k-dark .k-plan button[aria-pressed="true"]{background:var(--k-ink);border-color:var(--k-ink);color:var(--ink);box-shadow:-8px 14px 24px -12px rgba(0,0,0,.6)}
+.k-dark .k-fin button{color:var(--k-soft)}
+.k-dark .k-fin button[aria-pressed="true"]{color:var(--k-ink)}
+.k-dark .k-fin .sw{box-shadow:0 1px 1px rgba(0,0,0,.35),-6px 10px 16px -8px rgba(0,0,0,.55)}
+.k-dark .k-fin button[aria-pressed="true"] .sw{box-shadow:0 0 0 1px rgba(255,236,210,.75),0 2px 2px rgba(0,0,0,.3),-12px 22px 30px -12px rgba(0,0,0,.7)}
+.k-dark .k-cta p{color:var(--k-soft)}
+.k-dark .k-cta p b{color:#E3C9A3}
+.k-dark .v-btn--s{border-color:var(--k-ink)}
+.k-dark .k-stage::before{content:"";position:absolute;z-index:0;inset:-12% -14% 6% 18%;pointer-events:none;background:radial-gradient(closest-side,rgba(255,214,160,.22),rgba(255,214,160,0))}
+.k-dark .k-arch{border-color:rgba(227,201,163,.55);opacity:1}
+.k-dark .k-niche{box-shadow:inset -30px 34px 56px -34px rgba(70,46,28,.42),inset 18px 0 30px -26px rgba(70,46,28,.2)}
+.k-dark .k-niche .v-branch{opacity:.34}
+.k-dark .k-ledge{background:linear-gradient(180deg,#EFE4D2,#D9C9B0);box-shadow:0 1px 0 rgba(255,250,240,.6) inset,-18px 26px 40px -16px rgba(0,0,0,.7),0 3px 4px rgba(0,0,0,.35)}
+.k-dark .k-plate{border-top-color:var(--k-line)}
+.k-dark .k-state{color:var(--k-ink)}
+.k-dark .k-plate small{color:var(--k-soft)}
+
+.w-spread>*{min-width:0}
+@container (min-width: 601px) and (max-width: 1100px){
+  .w-strip{padding-left:150px;margin-top:64px}
+  .w-detail{width:170px;left:-24px;bottom:-40px}
+  .w-dcap{left:160px}
+}
+/* ---------- телефон ---------- */
+@container (max-width: 600px){
+  .c-stage::before,.c-stage::after{display:none}
+  .c-enf{padding:8px 22px 30px}
+  .c-sh{display:none}
+  .c-arch .c-frame{transform:scale(.93);transform-origin:50% 100%;transition:transform .5s var(--ease-out)}
+  .c-arch.on .c-frame{transform:none}
+  .c-arch:active .c-frame{transform:scale(.97)}
+  .c-arch.on .c-frame .ph{transform:scale(1.04)}
+  .c-rail{margin-top:0}
+  .w-main{margin:0;border-radius:3px}
+  .w-detail{width:128px;left:-10px;bottom:-34px;border-width:5px}
+  .w-dcap{left:134px;bottom:-62px;font-size:16px}
+  .w-strip{margin-top:84px;padding-left:22px}
+  .w-fig.wide .frm{margin:0;border-radius:3px}
+  .w-fig.tall{margin:4px 0 0;width:78%}
+  .k-grid{grid-template-columns:minmax(0,1fr);gap:0}
+  .k-stage{padding:12px 12px 0}
+  .k-arch{aspect-ratio:1124/962}
+  .k-niche{aspect-ratio:1100/950}
+  .k-view{left:-3%;right:-3%}
+  .k-plate small{display:none}
+  .k-plate{margin-top:14px;padding-top:12px}
+  .k-ledge{height:10px;margin:0 -8px}
+}
+@media (prefers-reduced-motion:reduce){.site .c-frame::before{display:none}}
+
+
+/* ---------- v9: та же система света на первом экране, в форме и на странице проекта ---------- */
+.v-photo{box-shadow:var(--lift-2)}
+.v-inset{box-shadow:var(--lift-3)}
+.x-form{box-shadow:var(--lift-2)}
+.pj-hero{box-shadow:var(--lift-2)}
+.pj-hero .ph{transform:scale(1.001);transition:transform 1.8s var(--ease-out)}
+.pj-hero:hover .ph{transform:scale(1.03)}
+.pj-frm{overflow:hidden;border-radius:3px;box-shadow:var(--lift-1);}
+.pj-frm .ph{border-radius:0;transition:transform 1.4s var(--ease-out)}
+.pj-fig:hover .pj-frm{box-shadow:var(--lift-2)}
+.pj-fig:hover .pj-frm .ph{transform:scale(1.03)}
+.pj-fig.hl .pj-frm{box-shadow:var(--lift-3)}
+.pj-fig.hl figcaption b{color:var(--bronze)}
+.x-next .frm{box-shadow:var(--lift-2);}
+.x-next:hover .frm{box-shadow:var(--lift-3)}
+.pj-pre .pj-hero .ph{transform:scale(1.08)}
+.f-pre .pj-frm .ph{transform:scale(1.1)}
+.f-pre .pj-frm{box-shadow:0 1px 1px var(--sh-c)}
+@container (max-width: 600px){
+  /* крупные рисунки проекта на телефоне — во всю ширину, как в v7; тень у края экрана не нужна */
+  .pj-fig.full .pj-frm{margin:0 -22px;border-radius:0;box-shadow:none}
+  .pj-fig.full .pj-frm .ph{margin:0}
+}
+/* ---------- v9: анфилада без сдвигов макета (CLS) ----------
+   Арки раскладываются скриптом: положение — transform, ширина — у абсолютно позиционированного блока,
+   поэтому соседние элементы не меняют точку начала и наведение не даёт layout shift. */
+.c-enf.c-abs{display:block;position:relative}
+.c-abs .c-arch{position:absolute;top:0;left:0;height:100%;width:var(--w,16%);transform:translateX(var(--x,0));transition:transform .75s var(--ease-out),width .75s var(--ease-out)}
+.c-abs .c-name{width:var(--wn,150px)}
+.c-abs.c-now .c-arch{transition:none}
+.c-sh{left:0;right:auto;width:100%;transform:translateX(-12%) scaleX(.9)}
+.c-arch.on .c-sh{transform:translateX(-12%) scaleX(1.04)}
+.c-pre .c-sh{transform:translateX(-12%) scaleX(.6)}
+
+/* производительность: крупные анимируемые фото — на своих слоях; тени не анимируются, только переключаются */
+.w-main .ph.on,.c-arch.on .c-frame .ph,.pj-hero .ph{will-change:transform}
+@container (max-width: 600px){
+  /* телефон: те же состояния, но дешевле — арка двигается целиком, без отдельного приближения фото;
+     деталь в галерее меняется только прозрачностью; фото галереи приближается меньше */
+  .c-arch.on .c-frame .ph,.c-frame .ph{transform:none;transition:none;will-change:auto}
+  .w-th span{transition:opacity .3s,transform .4s var(--ease-out)}
+}
+@container (max-width: 600px){
+  /* телефон: мягкие тени остаются у крупных фото; у часто меняющихся мелких элементов — только контактная линия и рамка выбора */
+  .w-th span,.w-th[aria-pressed="true"] span{box-shadow:0 1px 1px var(--sh-c)}
+  .k-fin .sw{box-shadow:0 1px 1px rgba(58,38,22,.25)}
+  .k-fin button[aria-pressed="true"] .sw{box-shadow:0 0 0 2px var(--stone),0 0 0 3px var(--ink)}
+  .k-dark .k-fin .sw{box-shadow:0 1px 1px rgba(0,0,0,.4)}
+  .k-dark .k-fin button[aria-pressed="true"] .sw{box-shadow:0 0 0 2px var(--walnut-2),0 0 0 3px rgba(255,236,210,.85)}
+  .k-plan button[aria-pressed="true"],.k-dark .k-plan button[aria-pressed="true"]{box-shadow:none}
+  .k-fin button[aria-pressed="true"] .sw{transform:translateY(-6px)}
+}
+/* тень главного фото галереи — на отдельном статичном слое под ним: смена фото не перерисовывает размытие вокруг */
+.w-main,.w-stage:hover .w-main{box-shadow:none}
+.w-stage::before{content:"";position:absolute;left:0;right:0;top:0;height:660px;border-radius:3px;box-shadow:var(--lift-2);pointer-events:none}
+.w-stage:hover::before{box-shadow:var(--lift-3)}
+@container (max-width: 600px){.w-stage::before{height:auto;aspect-ratio:4/4.6}}
+.k-niche .wm{top:6%}
+@container (max-width: 600px){.k-niche .wm{top:7%}}
+/* iOS Safari: анимированное фото получает собственный GPU-слой и может перекрыть соседний кадр-деталь.
+   Явный порядок слоёв: фото — снизу, деталь — сверху и тоже на своём слое. */
+.v-frame,.w-stage{isolation:isolate}
+.v-photo{position:relative;z-index:1}
+.v-inset{z-index:3;will-change:transform}
+.v-cap{position:relative;z-index:3}
+.w-stage::before{z-index:0}
+.w-main{z-index:1}
+.w-detail,.w-dcap{z-index:3}
+.w-detail{will-change:transform}
+.w-fig.wide{position:relative;z-index:1}
+.w-fig.tall{z-index:3}

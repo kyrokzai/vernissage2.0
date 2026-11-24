@@ -1,0 +1,44 @@
+---
+// Фото дизайна v9. В макете фото было фоном элемента; здесь — тот же элемент с настоящим <img> внутри:
+// srcset из src/assets/v9 (WebP разной ширины), ленивая загрузка, alt из подписи макета.
+// skipMedia: ширины экрана, на которых это фото не показывается (первый экран: свой кадр для телефона и компьютера) —
+// браузер там не скачивает его вовсе.
+import type { ImageMetadata } from 'astro';
+import { getImage } from 'astro:assets';
+
+const all = import.meta.glob<{ default: ImageMetadata }>('../../assets/v9/*.webp', { eager: true });
+
+interface Props {
+  name: string;
+  tag?: 'div' | 'span' | 'i';
+  class?: string;
+  alt?: string;
+  sizes?: string;
+  eager?: boolean;
+  skipMedia?: string;
+  [attr: string]: unknown;
+}
+const { name, tag = 'div', class: cls, alt = '', sizes = '100vw', eager = false, skipMedia, ...rest } = Astro.props;
+const mod = all[`../../assets/v9/${name}.webp`];
+if (!mod) throw new Error(`v9: нет изображения ${name}`);
+const src = mod.default;
+const small = /^\d+px$/.test(sizes);
+const base = small ? [120, 240, 360] : [360, 540, 720, 960, 1280, 1600, 1920];
+const widths = base.filter((w) => w < src.width);
+widths.push(src.width);
+const img = await getImage({ src, widths, format: 'webp', quality: 80 });
+const Tag = tag;
+const BLANK = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+---
+<Tag class={cls} data-ph {...rest}>
+  {skipMedia ? (
+    <picture>
+      <source media={skipMedia} srcset={BLANK} />
+      <img src={img.src} srcset={img.srcSet.attribute} sizes={sizes} width={src.width} height={src.height} alt={alt}
+        loading={eager ? 'eager' : 'lazy'} decoding="async" fetchpriority={eager ? 'high' : undefined} />
+    </picture>
+  ) : (
+    <img src={img.src} srcset={img.srcSet.attribute} sizes={sizes} width={src.width} height={src.height} alt={alt}
+      loading={eager ? 'eager' : 'lazy'} decoding="async" fetchpriority={eager ? 'high' : undefined} />
+  )}
+</Tag>

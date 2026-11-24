@@ -1,0 +1,11 @@
+---
+import Ph from './Ph.astro';
+import { CONTACTS, waLink } from '../../data/site';
+import { createLink, CATEGORY_LINKS } from '../../data/create3d';
+const base = import.meta.env.BASE_URL;
+const wa = waLink('Здравствуйте! Хочу рассчитать мебель на заказ.');
+---
+<footer class="x-ftr"><div class="x-in">
+    <div class="x-ftr-top"><span class="v-logo" role="img" aria-label="VERNISSAGE"></span><nav aria-label="Разделы сайта в подвале"><a href={base + '#works'}>Работы</a><a href={base + '#cats'}>Изготовление</a><a href={base + 'create-3d/'}>3D-конструктор</a><a href={base + '#how'}>Как заказать</a><a href={base + '#contact'}>Контакты</a></nav></div>
+    <div class="x-ftr-bot"><span>© VERNISSAGE, 2003–2026. Мебель на заказ, Астана</span><span class="x-soc">{CONTACTS.social.map((x, i) => <>{i > 0 && ', '}<a href={x.href} target="_blank" rel="noopener noreferrer">{x.name}</a></>)}</span><a href={CONTACTS.privacy} target="_blank" rel="noopener noreferrer">Политика конфиденциальности</a><span>Технология FORMIQ</span></div>
+  </div></footer>

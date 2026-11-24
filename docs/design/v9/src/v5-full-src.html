@@ -1,0 +1,758 @@
+<title>VERNISSAGE 2.0 — дизайн сайта</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: полный дизайн VERNISSAGE 2.0 в стиле утверждённого первого экрана v4 (вариант Б) — главная и страница проекта в рамках ПК 1440 и iPhone 390, плюс просмотр «как сайт» по ссылке. Одна светлая тема. */
+:root{
+  color-scheme: light;
+  --ivory:#F6F1E8; --paper:#F2EBE0; --stone:#EDE4D6; --stone-2:#E4D9C9; --ink:#241F1A; --ink-2:#4A4239; --muted:#6F655A;
+  --bronze:#8E6A43; --bronze-text:#7A5634; --bronze-line:#A8885F; --line:#DCD1C1; --line-2:#CFC3B1;
+  --serif:"Cormorant Garamond","Cormorant","Times New Roman",Georgia,serif;
+  --sans:"Manrope","Segoe UI",system-ui,-apple-system,sans-serif;
+  --p-bg:#ECE5DA; --frame:#1F1C19;
+  --real-bg:#E6E3D6; --real-fg:#3E4630; --ill-bg:#F1E3CF; --ill-fg:#6A4B24; --plan-bg:#EFE0CC; --plan-fg:#6A4B24;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--p-bg);color:var(--ink);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--p-bg)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--bronze-text);outline-offset:2px}
+
+/* ---------- презентация ---------- */
+.p-wrap{max-width:1300px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.p-top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(236,229,218,.94);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--line-2)}
+.p-top .p-wrap{display:flex;align-items:center;gap:6px 24px;min-height:54px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+.p-top b{font:500 20px/1 var(--serif);letter-spacing:.14em;margin-right:6px}
+.p-top a{font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;padding-block:16px}
+.p-top a:hover{color:var(--ink)}
+.p-head{padding-block:56px 26px}
+.p-eb{font:600 12px/1.3 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--bronze-text)}
+.p-head h1{font:500 clamp(42px,6.4vw,84px)/1 var(--serif);margin:14px 0 14px;letter-spacing:-.01em}
+.p-head h1 em{color:var(--bronze-text)}
+.p-head p{margin:0;max-width:66ch;font-size:17px;color:var(--ink-2)}
+.p-legend{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:22px;align-items:center;font-size:14px;color:var(--muted)}
+.p-open{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.p-open a{font-size:14px;font-weight:600;text-decoration:none;border:1px solid var(--bronze-line);padding:10px 15px;border-radius:2px;background:var(--ivory)}
+.p-sec{padding-block:44px 64px;border-top:1px solid var(--line-2)}
+.p-sec h2{font:500 clamp(30px,4vw,48px)/1.08 var(--serif);margin:0 0 8px}
+.p-sec h2 em{color:var(--bronze-text)}
+.p-sec>.p-wrap>p{margin:0;max-width:74ch;color:var(--ink-2)}
+.desk{position:relative;overflow:hidden;border-radius:10px;background:var(--frame);box-shadow:0 34px 70px -38px rgba(36,31,26,.55);margin-top:30px}
+.desk>.scr{position:absolute;top:0;left:0;width:1440px;transform-origin:0 0;background:var(--ivory)}
+.chrome{height:40px;background:#2B2824;display:flex;align-items:center;gap:8px;padding:0 16px}
+.chrome i{width:11px;height:11px;border-radius:50%;background:#56514A}
+.chrome span{margin-left:16px;flex:1;max-width:560px;height:24px;border-radius:6px;background:#3A3631;color:#CBC3B7;font:500 12px/24px var(--sans);padding:0 12px}
+.phones{display:flex;gap:28px;margin-top:30px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px}
+.pw{flex:none;width:300px;margin:0;scroll-snap-align:start}
+.pw figcaption{font-size:13px;font-weight:600;color:var(--muted);margin-top:12px}
+.phbox{position:relative}
+.phone{position:absolute;top:0;left:0;width:402px;height:844px;transform-origin:0 0;transform:scale(1);border:6px solid var(--frame);border-radius:54px;background:var(--frame);overflow:hidden;box-shadow:0 34px 70px -40px rgba(36,31,26,.6)}
+.phone .notch{position:absolute;top:10px;left:50%;width:118px;height:32px;margin-left:-59px;border-radius:20px;background:#000;z-index:9}
+.phone .sbar{position:absolute;inset:0 0 auto;height:48px;background:var(--ivory);border-radius:48px 48px 0 0;z-index:8;font:600 15px/48px var(--sans);padding-left:34px}
+.phone>.scr{position:absolute;inset:48px 0 0;border-radius:0 0 48px 48px;overflow-y:auto;overflow-x:hidden;background:var(--ivory);scrollbar-width:none}
+.phone>.scr::-webkit-scrollbar{display:none}
+.phone .home-ind{position:absolute;bottom:7px;left:50%;width:134px;height:5px;margin-left:-67px;border-radius:3px;background:#1d1b18;z-index:9}
+.tag{display:inline-flex;align-items:center;gap:7px;font:700 11px/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;padding:7px 10px;border-radius:999px;white-space:nowrap}
+.tag::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.tag-real{background:var(--real-bg);color:var(--real-fg)}
+.tag-ill{background:var(--ill-bg);color:var(--ill-fg)}
+.tag-plan{background:var(--plan-bg);color:var(--plan-fg)}
+.tbl{overflow-x:auto;margin-top:22px;border:1px solid var(--line-2);background:var(--ivory)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;background:var(--stone)}
+tr:last-child td{border-bottom:0}
+.p-foot{padding-block:32px 56px;font-size:13px;color:var(--muted);border-top:1px solid var(--line-2)}
+/* режим «как сайт» */
+body.solo .p-top,body.solo main,body.solo .p-foot{display:none}
+body.solo{background:var(--ivory)}
+#solo-back{display:none}
+body.solo #solo-back{display:inline-flex;position:fixed;z-index:30;right:max(14px,env(safe-area-inset-right,0px));bottom:calc(96px + env(safe-area-inset-bottom,0px));font:600 13px/1 var(--sans);background:var(--ink);color:var(--ivory);padding:11px 14px;border-radius:999px;text-decoration:none;box-shadow:0 10px 30px -10px rgba(0,0,0,.5)}
+
+__HERO_CSS__
+
+/* ================= РАЗДЕЛЫ САЙТА (.site) ================= */
+.site{container-type:inline-size;position:relative;background:var(--ivory);color:var(--ink);font-feature-settings:"lnum" 1}
+:where(.site) a{text-decoration:none;color:inherit}
+.site p{margin:0}
+.x-in{position:relative;z-index:2;padding-inline:72px}
+.x-sec{position:relative;padding-block:128px}
+.x-eb{font:600 14px/1.5 var(--serif);letter-spacing:.3em;text-transform:uppercase;color:var(--bronze-text)}
+.x-h2{font:500 76px/.98 var(--serif);letter-spacing:-.015em;margin:20px 0 0}
+.x-h2 em{font-style:italic;font-weight:400;color:var(--bronze)}
+.x-lead{font:400 19px/1.6 var(--sans);color:var(--ink-2);max-width:34em}
+.x-link{display:inline-flex;align-items:center;gap:14px;font:500 21px/1 var(--serif);padding-bottom:6px;border-bottom:1px solid var(--bronze-line);transition:gap .35s}
+.x-link:hover{gap:22px}
+.x-link svg{width:34px;height:14px}
+.x-chip{display:inline-flex;align-items:center;gap:7px;font:700 11px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;padding:7px 11px;border-radius:999px;background:var(--real-bg);color:var(--real-fg)}
+.x-chip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.x-chip.ill{background:var(--ill-bg);color:var(--ill-fg)}
+.x-chip.plan{background:var(--plan-bg);color:var(--plan-fg)}
+.x-q{display:inline-block;border:1px dashed var(--bronze-line);color:var(--bronze-text);font:700 12px/1.7 var(--sans);padding:0 8px;border-radius:2px;vertical-align:2px}
+.ph{background-color:var(--stone-2);background-size:cover;background-position:center}
+.x-zoom{overflow:hidden}
+.x-zoom>.ph{width:100%;height:100%;transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.x-zoom:hover>.ph{transform:scale(1.035)}
+.x-fig{font:italic 400 17px/1.35 var(--serif);color:var(--ink-2);margin-top:14px;display:flex;gap:14px;align-items:baseline}
+.x-fig b{font:500 12px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--bronze-text);font-style:normal}
+
+/* ---- 01 · Категории ---- */
+.x-cats-head{display:grid;grid-template-columns:7fr 5fr;gap:40px;align-items:end;margin-bottom:64px}
+.x-index{display:grid;grid-template-columns:5fr 6fr;gap:72px;align-items:start}
+.x-list{margin:0;padding:0;border-top:1px solid var(--line-2)}
+.x-list li{list-style:none;border-bottom:1px solid var(--line-2)}
+.x-list a{display:grid;grid-template-columns:72px 1fr auto;align-items:baseline;padding:20px 4px;font:500 40px/1.05 var(--serif);transition:color .35s,padding .45s cubic-bezier(.2,.7,.2,1)}
+.x-list i{font:italic 400 24px/1 var(--serif);color:var(--bronze)}
+.x-list small{font:500 13px/1 var(--sans);color:var(--muted);letter-spacing:.04em;opacity:0;transform:translateX(-8px);transition:opacity .35s,transform .35s}
+.x-list li.on a{color:var(--bronze-text);padding-left:16px}
+.x-list li.on small{opacity:1;transform:none}
+.x-show{position:sticky;top:40px;margin:0}
+.x-stage{position:relative;height:720px;border-radius:999px 999px 4px 4px / 380px 380px 4px 4px;overflow:hidden;background:var(--stone-2)}
+.x-shot{position:absolute;inset:0;opacity:0;transform:scale(1.04);transition:opacity .7s ease,transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.x-shot.on{opacity:1;transform:none}
+.x-shot.ph{background-size:cover;background-position:center}
+.x-soon{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;background:repeating-linear-gradient(135deg,#ECE3D5 0 14px,#E6DCCC 14px 28px);color:var(--muted);font:italic 400 28px/1.2 var(--serif);padding:40px}
+.x-soon b{font:700 11px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--bronze-text);font-style:normal}
+.x-show figcaption{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-top:18px}
+.x-show figcaption span{font:italic 400 18px/1.3 var(--serif);color:var(--ink-2)}
+.x-cards{display:none}
+
+/* ---- 02 · Наши работы ---- */
+.x-works{background:linear-gradient(var(--ivory),var(--paper))}
+.x-works-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:64px}
+.x-feat{display:grid;grid-template-columns:8fr 4fr;gap:56px;align-items:end}
+.x-feat-img{height:660px;border-radius:3px}
+.x-feat-side{display:grid;gap:22px;padding-bottom:8px}
+.x-feat-side h3{font:500 52px/1 var(--serif);margin:0}
+.x-feat-side h3 em{display:block;font-style:italic;font-weight:400;color:var(--bronze)}
+.x-meta{display:grid;gap:4px;font:500 13px/1.6 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.x-made{margin:0;font:italic 400 21px/1.4 var(--serif);color:var(--ink-2)}
+.x-duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+.x-duo .x-zoom{aspect-ratio:4/5;border-radius:3px}
+.x-biz{display:grid;grid-template-columns:5fr 3fr 4fr;gap:48px;margin-top:120px;align-items:start}
+.x-biz-intro{padding-top:40px}
+.x-biz-intro h3{font:500 44px/1.02 var(--serif);margin:14px 0 18px}
+.x-biz-intro h3 em{font-style:italic;font-weight:400;color:var(--bronze)}
+.x-biz-card .x-zoom{aspect-ratio:4/5;border-radius:999px 999px 3px 3px / 200px 200px 3px 3px}
+.x-biz-card h4{font:500 30px/1.1 var(--serif);margin:20px 0 6px}
+.x-biz-card p{font-size:15px;color:var(--muted)}
+.x-biz-card.low{margin-top:140px}
+.x-biz-card .x-chip{margin-top:14px}
+
+/* ---- 03 · 3D-конструктор ---- */
+.x-3d{background:var(--stone);overflow:hidden}
+.x-3d-grid{display:grid;grid-template-columns:5fr 7fr;gap:72px;align-items:center}
+.x-steps3{margin:40px 0 0;padding:0;counter-reset:s}
+.x-steps3 li{list-style:none;display:grid;grid-template-columns:56px 1fr auto;align-items:baseline;gap:8px;padding:16px 0;border-top:1px solid var(--line-2);font:500 26px/1.2 var(--serif)}
+.x-steps3 li:last-child{border-bottom:1px solid var(--line-2)}
+.x-steps3 i{font:italic 400 22px/1 var(--serif);color:var(--bronze)}
+.x-3d-cta{display:grid;justify-items:start;gap:10px;margin-top:40px}
+.x-3d-cta .v-btn--s{background:var(--ivory)}
+.x-3d-note{font:500 13px/1.5 var(--sans);color:var(--muted)}
+.x-3d-note b{color:var(--bronze-text)}
+.x-dev{position:relative;padding:0 0 64px}
+.x-lap{background:var(--ivory);border-radius:10px;box-shadow:0 50px 90px -50px rgba(36,31,26,.55);overflow:hidden;border:1px solid var(--line-2)}
+.x-lap-top{display:flex;align-items:center;gap:16px;height:58px;padding:0 22px;border-bottom:1px solid var(--line)}
+.x-lap-top .v-logo{width:132px;height:34px}
+.x-lap-top span{font:500 18px/1 var(--serif)}
+.x-lap-top em{margin-left:auto;font:500 13px/1 var(--sans);font-style:normal;color:var(--muted)}
+.x-lap-body{display:grid;grid-template-columns:1fr 230px}
+.x-lap-view{position:relative;aspect-ratio:1200/777;background-size:cover;background-position:center;background-color:#fff}
+.x-lap-view .wm{position:absolute;right:14px;top:14px;font:500 10px/1 var(--sans);letter-spacing:.24em;opacity:.3}
+.x-lap-view .dim{position:absolute;left:14px;bottom:12px;font:500 12px/1 var(--sans);color:var(--muted)}
+.x-lap-panel{padding:20px 18px;display:grid;gap:16px;align-content:start;border-left:1px solid var(--line)}
+.x-lap-panel h5{margin:0;font:500 19px/1 var(--serif)}
+.x-sl{display:grid;gap:7px;font-size:12px;color:var(--muted)}
+.x-sl span{display:flex;justify-content:space-between}
+.x-sl span b{color:var(--ink);font-weight:600}
+.x-sl i{display:block;height:2px;background:var(--line-2);position:relative}
+.x-sl i::before{content:"";position:absolute;inset:0 auto 0 0;width:var(--p);background:var(--ink)}
+.x-sl i::after{content:"";position:absolute;top:-6px;left:var(--p);width:14px;height:14px;border-radius:50%;background:var(--ivory);border:1.5px solid var(--ink);transform:translateX(-50%)}
+.x-sw{display:flex;gap:8px}
+.x-sw i{width:26px;height:26px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.x-sw i.on{outline:1.5px solid var(--ink);outline-offset:2px}
+.x-lap-panel .btn{background:var(--ink);color:var(--ivory);font:600 15px/1 var(--serif);text-align:center;padding:12px;border-radius:2px}
+.x-lap-foot{display:flex;justify-content:space-between;padding:10px 22px;font:500 11px/1 var(--sans);color:var(--muted);border-top:1px solid var(--line)}
+.x-mini{position:absolute;left:-58px;bottom:0;width:190px;border-radius:30px;border:5px solid var(--frame);background:var(--ivory);overflow:hidden;box-shadow:0 40px 70px -30px rgba(36,31,26,.6)}
+.x-mini .t{display:flex;align-items:center;justify-content:space-between;padding:22px 12px 8px}
+.x-mini .t .v-logo{width:86px;height:22px}
+.x-mini .r{aspect-ratio:1/1;background-size:170%;background-position:46% 40%;background-color:#fff}
+.x-mini .p{padding:10px 12px 14px;display:grid;gap:8px}
+.x-mini .p b{font:500 15px/1 var(--serif)}
+.x-mini .btn{background:var(--ink);color:var(--ivory);font:600 12px/1 var(--serif);text-align:center;padding:9px;border-radius:2px}
+.x-dev figcaption{margin:18px 0 0 160px;font:italic 400 16px/1.4 var(--serif);color:var(--ink-2);max-width:40em}
+
+/* ---- 04 · Как заказать ---- */
+.x-how-head{display:grid;grid-template-columns:6fr 6fr;gap:40px;align-items:end;margin-bottom:72px}
+.x-how{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:0;padding:0;position:relative}
+.x-how::before{content:"";position:absolute;left:0;right:0;top:74px;height:1px;background:var(--line-2)}
+.x-how li{list-style:none;padding-right:40px;position:relative}
+.x-how .n{display:block;font:italic 400 112px/1 var(--serif);color:var(--bronze);letter-spacing:-.02em;height:96px}
+.x-how .dot{position:absolute;left:4px;top:69px;width:11px;height:11px;border-radius:50%;background:var(--ivory);border:1.5px solid var(--bronze)}
+.x-how h3{font:500 30px/1.1 var(--serif);margin:30px 0 12px}
+.x-how p{font-size:16px;color:var(--ink-2);line-height:1.6}
+.x-how-img{display:grid;grid-template-columns:3fr 2fr;gap:14px;margin-top:88px}
+.x-how-img .x-zoom{height:300px;border-radius:3px}
+
+/* ---- 05 · Контакты и заявка ---- */
+.x-contact{background:var(--paper);overflow:hidden}
+.x-ct{display:grid;grid-template-columns:6fr 5fr;gap:96px;align-items:start}
+.x-form{margin-top:44px;background:var(--ivory);padding:40px;border-radius:3px;box-shadow:0 40px 80px -60px rgba(36,31,26,.5);display:grid;gap:22px}
+.x-f{display:grid;gap:8px}
+.x-f label{font:600 13px/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.x-f label span{text-transform:none;letter-spacing:0;font-weight:500}
+.x-in-f{display:block;width:100%;height:58px;border:0;border-bottom:1px solid var(--line-2);border-radius:0;background:transparent;font:400 24px/1.2 var(--serif);color:var(--ink);padding:0 2px;outline:0;-webkit-appearance:none;appearance:none;transition:border-color .3s}
+.x-in-f::placeholder{color:#9A8F81}
+.x-in-f:focus{border-bottom-color:var(--bronze)}
+.x-in-f.ta{height:86px;line-height:1.4;padding-top:16px;resize:none}
+.x-chk{display:flex;gap:12px;font-size:14px;line-height:1.5;color:var(--muted);align-items:flex-start}
+.x-chk i{flex:none;width:22px;height:22px;border:1.5px solid var(--line-2);border-radius:2px;margin-top:1px}
+.x-chk u{color:var(--ink);text-decoration-color:var(--bronze-line)}
+.x-form .v-btn{width:100%}
+.x-hint{font-size:14px;color:var(--muted);line-height:1.5}
+.x-info{padding-top:12px;display:grid;gap:40px}
+.x-big{font:500 52px/1 var(--serif);letter-spacing:-.01em}
+.x-info dl{margin:0;display:grid;gap:26px}
+.x-info dt{font:600 14px/1.5 var(--serif);letter-spacing:.28em;text-transform:uppercase;color:var(--bronze-text)}
+.x-info dd{margin:8px 0 0;font:400 25px/1.35 var(--serif);color:var(--ink)}
+.x-info .v-wa{justify-self:start}
+.x-info .v-wa{display:inline-flex}
+.x-contact .v-branch{left:auto;right:-90px;bottom:-40px;transform:scaleX(-1);animation:none;opacity:.45}
+
+/* ---- подвал ---- */
+.x-ftr{background:var(--stone);padding-block:72px 40px}
+.x-ftr-top{display:grid;grid-template-columns:5fr 7fr;gap:40px;align-items:end;padding-bottom:48px;border-bottom:1px solid var(--line-2)}
+.x-ftr .v-logo{width:300px;height:76px}
+.x-ftr nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:14px 40px;font:500 22px/1 var(--serif)}
+.x-ftr-bot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;padding-top:24px;font-size:13px;color:var(--muted)}
+/* ---- нижняя панель CTA и меню (вне .site: у .site container-type, он «ловит» position:fixed) ---- */
+.x-bar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:40;gap:8px;
+  padding:10px max(14px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(14px,env(safe-area-inset-left,0px));
+  background:rgba(246,241,232,.96);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid var(--line-2);
+  transform:translateY(calc(100% + 2px));visibility:hidden;transition:transform .35s cubic-bezier(.2,.7,.2,1),visibility 0s linear .35s;font-feature-settings:"lnum" 1}
+.x-bar.on{transform:none;visibility:visible;transition:transform .35s cubic-bezier(.2,.7,.2,1),visibility 0s}
+.x-bar a{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:50px;border-radius:3px;font:600 18px/1 var(--serif);text-decoration:none;color:var(--ink)}
+.x-bar .p{flex:1;background:#2A2521;color:var(--ivory)}
+.x-bar .s{padding:0 14px;border:1px solid var(--bronze-line);background:var(--ivory)}
+.x-bar .w{width:50px;border:1px solid var(--line-2);background:var(--ivory)}
+.x-bar svg{width:20px;height:20px}
+.x-menu{position:fixed;inset:0;z-index:50;background:var(--ivory);display:flex;flex-direction:column;gap:28px;overflow-y:auto;
+  padding:calc(14px + env(safe-area-inset-top,0px)) max(22px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(22px,env(safe-area-inset-left,0px));font-feature-settings:"lnum" 1}
+.x-menu[hidden]{display:none}
+.x-menu-top{display:flex;align-items:center;justify-content:space-between;height:52px;border-bottom:1px solid var(--line-2)}
+.x-menu-top .v-logo{width:132px;height:36px}
+.x-menu-x{width:44px;height:44px;border-radius:50%;border:1px solid var(--line-2);background:transparent;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink)}
+.x-menu-x svg{width:18px;height:18px}
+.x-menu nav{display:grid}
+.x-menu nav a{font:500 34px/1 var(--serif);padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.x-menu-foot{margin-top:auto;display:grid;gap:10px}
+.x-menu-foot .v-btn{width:100%}
+.x-menu-foot .x-menu-tel{font:500 24px/1 var(--serif);text-align:center;padding:10px;text-decoration:none;color:var(--ink)}
+/* в рамке iPhone: fixed привязан к корпусу телефона (у .phone есть transform) — без sticky внутри масштабированного блока */
+.phone .x-bar{display:flex;z-index:6;padding-bottom:28px}
+.phone .x-menu{z-index:7;padding-top:58px}
+/* настоящая мобильная вёрстка (режим «как сайт» и будущий сайт) */
+@media (max-width:600px){body.solo .x-bar{display:flex}}
+
+/* ---- страница проекта ---- */
+.x-crumbs{font:500 14px/1 var(--sans);color:var(--muted);padding-top:34px}
+.x-crumbs b{color:var(--ink);font-weight:500}
+.x-ph{display:grid;grid-template-columns:7fr 5fr;gap:56px;align-items:end;padding-block:40px 48px}
+.x-ph h1{font:500 116px/.92 var(--serif);letter-spacing:-.02em;margin:22px 0 0}
+.x-ph h1 em{display:block;font-style:italic;font-weight:400;color:var(--bronze)}
+.x-facts{display:grid;grid-template-columns:1fr 1fr;gap:22px 32px;margin:0;padding-bottom:12px}
+.x-facts dt{font:600 13px/1.4 var(--serif);letter-spacing:.26em;text-transform:uppercase;color:var(--bronze-text)}
+.x-facts dd{margin:6px 0 0;font:400 22px/1.3 var(--serif)}
+.x-hero-img{height:720px;border-radius:999px 999px 3px 3px / 360px 360px 3px 3px}
+.x-proj-lead{display:grid;grid-template-columns:4fr 8fr;gap:56px;padding-block:96px 80px}
+.x-proj-lead p:not(.x-eb){font:400 34px/1.35 var(--serif);color:var(--ink)}
+.x-proj-lead p em{color:var(--bronze);font-style:italic}
+.x-gal-1{display:grid;grid-template-columns:7fr 5fr;gap:24px;align-items:end}
+.x-gal-1 .a{height:640px;border-radius:3px}
+.x-gal-1 .b{aspect-ratio:4/5;border-radius:3px}
+.x-made-list{display:grid;grid-template-columns:4fr 8fr;gap:56px;padding-block:112px}
+.x-made-list ol{margin:0;padding:0;columns:2;column-gap:56px}
+.x-made-list li{list-style:none;break-inside:avoid;display:grid;grid-template-columns:56px 1fr;padding:18px 0;border-top:1px solid var(--line-2);font:500 26px/1.2 var(--serif)}
+.x-made-list li i{font:italic 400 20px/1.4 var(--serif);color:var(--bronze)}
+.x-made-list li span{display:block;font:400 14px/1.5 var(--sans);color:var(--muted);grid-column:2;margin-top:4px}
+.x-gal-2{display:grid;grid-template-columns:4fr 4fr 4fr;gap:24px}
+.x-gal-2 .x-zoom{aspect-ratio:4/5;border-radius:3px}
+.x-gal-2 .x-zoom.det{aspect-ratio:1/1;align-self:end}
+.x-gal-wide{height:620px;border-radius:3px;margin-top:24px}
+.x-cta{margin-top:128px;background:var(--stone);border-radius:3px;padding:72px;display:grid;grid-template-columns:7fr 5fr;gap:40px;align-items:center}
+.x-cta h3{font:500 60px/1 var(--serif);margin:0}
+.x-cta h3 em{font-style:italic;font-weight:400;color:var(--bronze)}
+.x-cta .v-acts{margin-top:0;justify-content:end}
+.x-next{display:grid;grid-template-columns:5fr 7fr;gap:56px;align-items:center;padding-block:112px 128px}
+.x-next .x-zoom{height:380px;border-radius:999px 999px 3px 3px / 260px 260px 3px 3px}
+.x-next h3{font:500 64px/1 var(--serif);margin:16px 0 20px}
+
+/* ---------- iPhone: своя композиция ---------- */
+@container (max-width: 600px){
+  .x-in{padding-inline:22px}
+  .x-sec{padding-block:80px}
+  .x-eb{font-size:12px;letter-spacing:.24em}
+  .x-h2{font-size:44px;line-height:1;margin-top:14px}
+  .x-lead{font-size:16px}
+  .x-link{font-size:19px}
+  .x-cats-head,.x-works-head,.x-how-head{display:grid;grid-template-columns:1fr;gap:18px;margin-bottom:36px}
+  .x-index{display:none}
+  .x-cards{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -22px;padding:0 22px 6px;scrollbar-width:none}
+  .x-cards::-webkit-scrollbar{display:none}
+  .x-card{flex:none;width:76%;scroll-snap-align:start}
+  .x-card .x-zoom{aspect-ratio:4/5.2;border-radius:999px 999px 3px 3px / 150px 150px 3px 3px}
+  .x-card .x-soon{aspect-ratio:4/5.2;border-radius:999px 999px 3px 3px / 150px 150px 3px 3px;font-size:22px}
+  .x-card h3{font:500 30px/1 var(--serif);margin:16px 0 4px;display:flex;gap:10px;align-items:baseline}
+  .x-card h3 i{font:italic 400 18px/1 var(--serif);color:var(--bronze)}
+  .x-card p{font:italic 400 15px/1.35 var(--serif);color:var(--muted)}
+  .x-feat{grid-template-columns:1fr;gap:26px}
+  .x-feat-img{height:auto;aspect-ratio:4/4.4;margin:0 -22px;border-radius:0}
+  .x-feat-side h3{font-size:40px}
+  .x-made{font-size:18px}
+  .x-biz{grid-template-columns:1fr 1fr;gap:28px 14px;margin-top:80px}
+  .x-biz-intro{grid-column:1/-1;padding-top:0}
+  .x-biz-intro h3{font-size:34px}
+  .x-biz-card.low{margin-top:56px}
+  .x-biz-card h4{font-size:22px;margin-top:12px}
+  .x-biz-card p{font-size:13px}
+  .x-biz-card .x-zoom{border-radius:999px 999px 3px 3px / 110px 110px 3px 3px}
+  .x-3d-grid{grid-template-columns:1fr;gap:48px}
+  .x-steps3 li{font-size:21px;grid-template-columns:40px 1fr auto}
+  .x-3d-cta .v-btn{width:100%}
+  .x-3d-cta .v-btn,.x-form .v-btn{order:0}
+  .x-dev{padding:0 0 30px;margin-right:0}
+  .x-lap{display:none}
+  .x-mini{position:relative;left:auto;width:250px;margin:0 auto;border-radius:38px;border-width:6px}
+  .x-mini .t .v-logo{width:110px;height:28px}
+  .x-dev figcaption{text-align:center;font-size:14px;margin-left:0}
+  .x-how-head{margin-bottom:28px}
+  .x-how{grid-template-columns:1fr}
+  .x-how::before{left:20px;right:auto;top:40px;bottom:40px;width:1px;height:auto}
+  .x-how li{display:grid;grid-template-columns:76px 1fr;padding:0 0 28px}
+  .x-how .n{font-size:58px;height:auto;grid-row:1/3}
+  .x-how .dot{display:none}
+  .x-how h3{font-size:24px;margin:6px 0 6px}
+  .x-how p{font-size:15px}
+  .x-how-img{grid-template-columns:1fr 1fr;margin-top:40px;gap:10px}
+  .x-how-img .x-zoom{height:180px}
+  .x-ct{grid-template-columns:1fr;gap:56px}
+  .x-form{padding:24px 20px;margin:28px -6px 0}
+  .x-in-f{font-size:21px}
+  .x-big{font-size:38px}
+  .x-info dd{font-size:21px}
+  .x-contact .v-branch{opacity:.25;width:180px;height:280px}
+  .x-ftr{padding-block:48px 40px}
+  .x-ftr-top{grid-template-columns:1fr;gap:28px}
+  .x-ftr .v-logo{width:200px;height:52px}
+  .x-ftr nav{justify-content:flex-start;font-size:19px;gap:12px 24px}
+  /* проект */
+  .x-crumbs{padding-top:20px;font-size:13px}
+  .x-ph{grid-template-columns:1fr;gap:26px;padding-block:22px 28px}
+  .x-ph h1{font-size:58px}
+  .x-facts dd{font-size:19px}
+  .x-hero-img{height:auto;aspect-ratio:4/4.6;border-radius:999px 999px 3px 3px / 190px 190px 3px 3px}
+  .x-proj-lead{grid-template-columns:1fr;gap:16px;padding-block:56px}
+  .x-proj-lead p:not(.x-eb){font-size:25px}
+  .x-gal-1{grid-template-columns:1fr;gap:14px}
+  .x-gal-1 .a{height:auto;aspect-ratio:4/3.3;margin:0 -22px;border-radius:0}
+  .x-gal-1 .b{width:72%;justify-self:end}
+  .x-made-list{grid-template-columns:1fr;gap:22px;padding-block:64px}
+  .x-made-list ol{columns:1}
+  .x-made-list li{font-size:22px;grid-template-columns:44px 1fr}
+  .x-gal-2{grid-template-columns:1fr 1fr;gap:10px}
+  .x-gal-2>:first-child{grid-column:1/-1}
+  .x-gal-wide{height:auto;aspect-ratio:16/10;margin:10px -22px 0;border-radius:0}
+  .x-cta{margin-top:72px;padding:36px 22px;grid-template-columns:1fr;gap:26px}
+  .x-cta h3{font-size:40px}
+  .x-cta .v-acts{justify-content:stretch}
+  .x-next{grid-template-columns:1fr;gap:22px;padding-block:72px 96px}
+  .x-next .x-zoom{height:auto;aspect-ratio:4/3.6;border-radius:999px 999px 3px 3px / 170px 170px 3px 3px}
+  .x-next h3{font-size:42px}
+}
+@media (prefers-reduced-motion:reduce){.site *{transition:none!important}}
+__IMG_CSS__
+.v,.v *,.site,.site *{font-feature-settings:"lnum" 1}
+</style>
+
+<!-- ================= ГЛАВНАЯ ================= -->
+<template id="t-home">
+<div class="site">
+__HERO__
+
+  <!-- 01 · Категории мебели -->
+  <section class="x-sec x-cat" id="x-cats" data-anchor="cats">
+    <div class="x-in">
+      <div class="x-cats-head">
+        <div><p class="x-eb">№ 01 — Что мы делаем</p><h2 class="x-h2">Мебель для каждой <em>комнаты</em></h2></div>
+        <p class="x-lead">Проектируем и изготавливаем по размерам вашего помещения — от кухни до прихожей. Наведите на категорию, чтобы увидеть работу.</p>
+      </div>
+      <div class="x-index">
+        <ol class="x-list">
+          <li class="on" data-i="0"><a href="#"><i>01</i><span>Кухни</span><small>Смотреть →</small></a></li>
+          <li data-i="1"><a href="#"><i>02</i><span>Шкафы и гардеробные</span><small>Смотреть →</small></a></li>
+          <li data-i="2"><a href="#"><i>03</i><span>Гостиные и ТВ-зоны</span><small>Смотреть →</small></a></li>
+          <li data-i="3"><a href="#"><i>04</i><span>Спальни</span><small>Смотреть →</small></a></li>
+          <li data-i="4"><a href="#"><i>05</i><span>Мебель для ванной</span><small>Смотреть →</small></a></li>
+          <li data-i="5"><a href="#"><i>06</i><span>Кабинеты</span><small>Смотреть →</small></a></li>
+          <li data-i="6"><a href="#"><i>07</i><span>Прихожие</span><small>Скоро фото</small></a></li>
+          <li data-i="7"><a href="#"><i>08</i><span>Детские</span><small>Скоро фото</small></a></li>
+        </ol>
+        <figure class="x-show">
+          <div class="x-stage">
+            <div class="x-shot ph on ph-w-kitchen" data-i="0" data-cap="Кухня с подсветкой и пеналами"></div>
+            <div class="x-shot ph ph-w-niche" data-i="1" data-cap="Ниша и стеллаж с подсветкой"></div>
+            <div class="x-shot ph ph-w-living-t" data-i="2" data-cap="Гостиная с ТВ-зоной"></div>
+            <div class="x-shot ph ph-w-bed" data-i="3" data-cap="Спальня со световыми линиями"></div>
+            <div class="x-shot ph ph-w-bath" data-i="4" data-cap="Подвесная тумба и зеркало с подсветкой"></div>
+            <div class="x-shot ph ph-w-study-t" data-i="5" data-cap="Кабинет со встроенным стеллажом"></div>
+            <div class="x-shot x-soon" data-i="6" data-cap="Фото появится после съёмки"><b>Прихожие</b>Фото появится<br>после съёмки</div>
+            <div class="x-shot x-soon" data-i="7" data-cap="Фото появится после съёмки"><b>Детские</b>Фото появится<br>после съёмки</div>
+          </div>
+          <figcaption><span data-cap>Кухня с подсветкой и пеналами</span><em class="x-chip" data-real>Работа VERNISSAGE</em></figcaption>
+        </figure>
+      </div>
+      <div class="x-cards">
+        <a class="x-card" href="#"><div class="x-zoom"><div class="ph ph-w-kitchen"></div></div><h3><i>01</i>Кухни</h3><p>Работа VERNISSAGE</p></a>
+        <a class="x-card" href="#"><div class="x-zoom"><div class="ph ph-w-niche"></div></div><h3><i>02</i>Шкафы и гардеробные</h3><p>Работа VERNISSAGE</p></a>
+        <a class="x-card" href="#"><div class="x-zoom"><div class="ph ph-w-living-t"></div></div><h3><i>03</i>Гостиные</h3><p>Работа VERNISSAGE</p></a>
+        <a class="x-card" href="#"><div class="x-zoom"><div class="ph ph-w-bed"></div></div><h3><i>04</i>Спальни</h3><p>Работа VERNISSAGE</p></a>
+        <a class="x-card" href="#"><div class="x-zoom"><div class="ph ph-w-bath"></div></div><h3><i>05</i>Ванные</h3><p>Работа VERNISSAGE</p></a>
+        <a class="x-card" href="#"><div class="x-zoom"><div class="ph ph-w-study-t"></div></div><h3><i>06</i>Кабинеты</h3><p>Работа VERNISSAGE</p></a>
+        <a class="x-card" href="#"><div class="x-soon"><b>Прихожие</b>Фото после съёмки</div><h3><i>07</i>Прихожие</h3><p>Фото появится после съёмки</p></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 · Наши работы -->
+  <section class="x-sec x-works" data-anchor="works">
+    <div class="x-in">
+      <div class="x-works-head">
+        <div><p class="x-eb">№ 02 — Наши работы</p><h2 class="x-h2">Интерьеры, которые<br><em>уже живут</em> в Астане</h2></div>
+        <div style="display:grid;gap:18px;justify-items:end"><span class="x-chip">Только реальные проекты VERNISSAGE</span><a class="x-link" href="#">Все работы __ARROW__</a></div>
+      </div>
+      <a class="x-feat" href="#">
+        <div class="x-zoom x-feat-img"><div class="ph ph-w-wide" role="img" aria-label="Кухня-гостиная со встроенной мебелью"></div></div>
+        <div class="x-feat-side">
+          <span class="x-chip">Реальный проект</span>
+          <p class="x-meta"><span>Квартира · Астана</span><span>Дизайн · ремонт · мебель</span></p>
+          <h3>Квартира <em>под ключ</em></h3>
+          <p class="x-made">Кухня, гостиная, спальня, кабинет и санузел — мебель для всей квартиры.</p>
+          <div class="x-duo"><div class="x-zoom"><div class="ph ph-w-1684"></div></div><div class="x-zoom"><div class="ph ph-w-1716"></div></div></div>
+          <span class="x-link">Смотреть проект __ARROW__</span>
+        </div>
+      </a>
+      <div class="x-biz">
+        <div class="x-biz-intro">
+          <p class="x-eb">Коммерческие интерьеры</p>
+          <h3>Мебель и отделка<br><em>для бизнеса</em></h3>
+          <p class="x-lead" style="font-size:17px">Залы, витрины и входные группы — по фирменному стилю заказчика.</p>
+        </div>
+        <a class="x-biz-card" href="#"><div class="x-zoom"><div class="ph ph-w-rest" role="img" aria-label="Зал ресторана с мягкими креслами"></div></div><h4>Ресторан</h4><p>Мягкие зоны, перегородки, декор</p><span class="x-chip">Реальный проект</span></a>
+        <a class="x-biz-card low" href="#"><div class="x-zoom"><div class="ph ph-w-jac" role="img" aria-label="Витрина детского бутика Jacadi Paris"></div></div><h4>Jacadi Paris</h4><p>Входная группа и витрины бутика</p><span class="x-chip">Реальный проект</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 · 3D-конструктор -->
+  <section class="x-sec x-3d" data-anchor="3d">
+    <div class="x-in x-3d-grid">
+      <div>
+        <p class="x-eb">№ 03 — 3D-конструктор VERNISSAGE</p>
+        <h2 class="x-h2">Соберите мебель <em>сами</em></h2>
+        <p class="x-lead" style="margin-top:26px">Выберите модель, задайте размеры, материал и цвет — и посмотрите мебель в 3D до заказа.</p>
+        <ol class="x-steps3">
+          <li><i>01</i>Модель</li>
+          <li><i>02</i>Размеры</li>
+          <li><i>03</i>Материал и цвет</li>
+          <li><i>04</i>Проект менеджеру<span class="x-chip plan">Планируется</span></li>
+        </ol>
+        <div class="x-3d-cta">
+          <a class="v-btn v-btn--s" href="#">__CUBE__ Создать самому в 3D</a>
+          <p class="x-3d-note"><b>Демо-версия</b> · без регистрации. Сейчас проект из 3D менеджеру не передаётся — для расчёта оставьте заявку.</p>
+        </div>
+      </div>
+      <figure class="x-dev" style="margin:0">
+        <div class="x-lap">
+          <div class="x-lap-top"><span class="v-logo"></span><span>3D-конструктор</span><em>← На сайт</em></div>
+          <div class="x-lap-body">
+            <div class="x-lap-view ph-r3d-kitchen" role="img" aria-label="3D-модель прямой кухни"><span class="wm">VERNISSAGE × FORMIQ</span><span class="dim">2600 × 2270 × 600 мм</span></div>
+            <div class="x-lap-panel">
+              <h5>Размеры</h5>
+              <div class="x-sl"><span>Ширина <b>2600 мм</b></span><i style="--p:62%"></i></div>
+              <div class="x-sl"><span>Высота <b>2270 мм</b></span><i style="--p:48%"></i></div>
+              <h5>Материал и цвет</h5>
+              <div class="x-sw"><i style="background:#EDE7DC"></i><i class="on" style="background:#DCC29A"></i><i style="background:#9C7651"></i><i style="background:#5D4A3A"></i><i style="background:#2F2B28"></i></div>
+              <span class="btn">Дальше: заявка</span>
+            </div>
+          </div>
+          <div class="x-lap-foot"><span>VERNISSAGE · Астана</span><span>Технология FORMIQ</span></div>
+        </div>
+        <div class="x-mini">
+          <div class="t"><span class="v-logo"></span><span>__WA__</span></div>
+          <div class="r ph-r3d-kitchen"></div>
+          <div class="p"><b>Материал и цвет</b><div class="x-sw"><i style="background:#EDE7DC"></i><i class="on" style="background:#DCC29A"></i><i style="background:#9C7651"></i><i style="background:#2F2B28"></i></div><span class="btn">Дальше</span></div>
+        </div>
+        <figcaption>Концепт фирменного конструктора VERNISSAGE · 3D-изображение — рендер платформы FORMIQ</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 04 · Как заказать -->
+  <section class="x-sec x-howsec" data-anchor="how">
+    <div class="x-in">
+      <div class="x-how-head">
+        <div><p class="x-eb">№ 04 — Как заказать</p><h2 class="x-h2">Четыре шага<br>до <em>вашей мебели</em></h2></div>
+        <p class="x-lead">Стоимость рассчитывает менеджер после бесплатного замера — автоматических цен на сайте нет.</p>
+      </div>
+      <ol class="x-how">
+        <li><span class="n">01</span><span class="dot"></span><h3>Заявка</h3><p>Оставьте телефон или напишите в WhatsApp. Можно приложить идею из 3D-конструктора.</p></li>
+        <li><span class="n">02</span><span class="dot"></span><h3>Бесплатный замер</h3><p>Приезжаем на объект и снимаем точные размеры помещения.</p></li>
+        <li><span class="n">03</span><span class="dot"></span><h3>Проект и договор</h3><p>Согласуем проект, стоимость и сроки — всё фиксируем в договоре.</p></li>
+        <li><span class="n">04</span><span class="dot"></span><h3>Изготовление и установка</h3><p>Изготавливаем мебель по проекту и устанавливаем у вас.</p></li>
+      </ol>
+      <div class="x-how-img">
+        <figure style="margin:0"><div class="x-zoom"><div class="ph ph-w-study"></div></div><p class="x-fig"><b>рис. 01</b>Кабинет · работа VERNISSAGE</p></figure>
+        <figure style="margin:0"><div class="x-zoom"><div class="ph ph-w-facades"></div></div><p class="x-fig"><b>рис. 02</b>Фасады без ручек и световая линия</p></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 · Контакты и заявка -->
+  <section class="x-sec x-contact" data-anchor="contact">
+    __BRANCH__
+    <div class="x-in x-ct">
+      <div>
+        <p class="x-eb">№ 05 — Заявка на расчёт</p>
+        <h2 class="x-h2">Рассчитаем <em>стоимость</em></h2>
+        <div class="x-form">
+          <div class="x-f"><label for="f-name">Имя</label><input class="x-in-f" id="f-name" type="text" autocomplete="name" placeholder="Как к вам обращаться"></div>
+          <div class="x-f"><label for="f-tel">Телефон</label><input class="x-in-f" id="f-tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__"></div>
+          <div class="x-f"><label for="f-msg">Что нужно сделать <span>— необязательно</span></label><textarea class="x-in-f ta" id="f-msg" rows="2" placeholder="Например: кухня у окна, светлые фасады"></textarea></div>
+          <div class="x-chk"><i></i><span>Согласен на обработку персональных данных по <u>политике конфиденциальности</u></span></div>
+          <a class="v-btn v-btn--p" href="#">Отправить через WhatsApp</a>
+          <p class="x-hint">Откроется WhatsApp с готовым сообщением — нажмите «Отправить» в чате. Стоимость рассчитает менеджер после бесплатного замера.</p>
+        </div>
+      </div>
+      <div class="x-info">
+        <a class="x-big" href="#">+7 747 561 3005</a>
+        <a class="v-wa" href="#">__WA__ Написать в WhatsApp</a>
+        <dl>
+          <div><dt>Салон</dt><dd>г. Астана,<br>ул. Альмукана Сембинова, 19/1</dd><dd style="margin-top:10px"><a class="x-link" href="#">Открыть в 2ГИС __ARROW__</a></dd></div>
+          <div><dt>Часы работы</dt><dd>Пн–пт 10:00–19:00<br>Сб 10:00–16:00</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  __FOOTER__
+</div>
+<div class="x-bar" aria-hidden="true"><a class="p" href="#">Рассчитать стоимость</a><a class="s" href="#" aria-label="Создать в 3D, демо-версия">__CUBE__ 3D</a><a class="w" href="#" aria-label="WhatsApp">__WA__</a></div>
+<div class="x-menu" role="dialog" aria-modal="true" aria-label="Меню" hidden>
+  <div class="x-menu-top"><span class="v-logo" role="img" aria-label="VERNISSAGE"></span><button class="x-menu-x" type="button" aria-label="Закрыть меню"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <nav aria-label="Разделы"><a href="#">Работы</a><a href="#">Изготовление</a><a href="#">3D-конструктор</a><a href="#">Как заказать</a><a href="#">Контакты</a></nav>
+  <div class="x-menu-foot"><a class="v-btn v-btn--p" href="#">Рассчитать стоимость</a><a class="v-btn v-btn--s" href="#">__CUBE__ Создать самому в 3D</a><a class="x-menu-tel" href="#">+7 747 561 3005</a></div>
+</div>
+</template>
+
+<!-- ================= СТРАНИЦА ПРОЕКТА ================= -->
+<template id="t-project">
+<div class="site">
+  <div class="x-in">__HEADER__</div>
+  <div class="x-in">
+    <p class="x-crumbs">Работы / <b>Квартира под ключ</b></p>
+    <div class="x-ph">
+      <div><span class="x-chip">Реальный проект VERNISSAGE</span><h1>Квартира <em>под ключ</em></h1></div>
+      <dl class="x-facts">
+        <div><dt>Объект</dt><dd>Квартира</dd></div>
+        <div><dt>Город</dt><dd>Астана</dd></div>
+        <div><dt>Что сделали</dt><dd>Мебель, дизайн, ремонт</dd></div>
+        <div><dt>Площадь · срок</dt><dd><span class="x-q">уточнить</span></dd></div>
+      </dl>
+    </div>
+    <div class="x-zoom x-hero-img"><div class="ph ph-w-wide" role="img" aria-label="Кухня-гостиная со встроенной мебелью"></div></div>
+    <div class="x-proj-lead">
+      <p class="x-eb">О проекте</p>
+      <p>Мебель для всей квартиры — <em>кухня, гостиная, спальня, кабинет и санузел</em> — вместе с дизайн-проектом и ремонтом. Одна команда от замера до установки.</p>
+    </div>
+    <div class="x-gal-1">
+      <figure style="margin:0"><div class="x-zoom a"><div class="ph ph-w-living"></div></div><p class="x-fig"><b>рис. 01</b>Гостиная с ТВ-зоной</p></figure>
+      <figure style="margin:0"><div class="x-zoom b"><div class="ph ph-w-kitchen"></div></div><p class="x-fig"><b>рис. 02</b>Кухня с подсветкой и пеналами</p></figure>
+    </div>
+    <div class="x-made-list">
+      <div><p class="x-eb">Мебель в проекте</p><p class="x-lead" style="margin-top:18px;font-size:17px">Всё изготовлено по размерам этой квартиры.</p></div>
+      <ol>
+        <li><i>01</i><div>Кухня<span>пеналы, подсветка, фасады без ручек</span></div></li>
+        <li><i>02</i><div>Гостиная<span>ТВ-зона и стеновые панели</span></div></li>
+        <li><i>03</i><div>Спальня<span>шкафы и световые линии</span></div></li>
+        <li><i>04</i><div>Кабинет<span>встроенный стеллаж</span></div></li>
+        <li><i>05</i><div>Ниши и стеллажи<span>с подсветкой</span></div></li>
+        <li><i>06</i><div>Санузел<span>подвесная тумба и зеркало</span></div></li>
+      </ol>
+    </div>
+    <div class="x-gal-2">
+      <figure style="margin:0"><div class="x-zoom"><div class="ph ph-w-bed"></div></div><p class="x-fig"><b>рис. 03</b>Спальня</p></figure>
+      <figure style="margin:0"><div class="x-zoom"><div class="ph ph-w-niche"></div></div><p class="x-fig"><b>рис. 04</b>Ниша с подсветкой</p></figure>
+      <figure style="margin:0"><div class="x-zoom det"><div class="ph ph-w-parquet"></div></div><p class="x-fig"><b>рис. 05</b>Деталь: паркет ёлочкой</p></figure>
+    </div>
+    <div class="x-zoom x-gal-wide"><div class="ph ph-w-study"></div></div>
+    <p class="x-fig"><b>рис. 06</b>Кабинет со встроенным стеллажом</p>
+    <div class="x-cta">
+      <h3>Хотите похожую <em>мебель?</em></h3>
+      <div class="v-acts">
+        <a class="v-btn v-btn--p" href="#">Рассчитать стоимость</a>
+        <a class="v-btn v-btn--s" href="#">__CUBE__ Создать самому в 3D</a>
+        <p class="v-note n1">Посчитает менеджер · замер бесплатный</p>
+        <p class="v-note n2"><b>Демо-версия</b> · без регистрации</p>
+      </div>
+    </div>
+    <a class="x-next" href="#">
+      <div class="x-zoom"><div class="ph ph-w-rest-wide"></div></div>
+      <div><p class="x-eb">Следующий проект</p><h3>Ресторан</h3><span class="x-chip">Реальный проект · коммерческий интерьер</span><br><br><span class="x-link">Смотреть __ARROW__</span></div>
+    </a>
+  </div>
+  __FOOTER__
+</div>
+<div class="x-bar" aria-hidden="true"><a class="p" href="#">Рассчитать стоимость</a><a class="s" href="#" aria-label="Создать в 3D, демо-версия">__CUBE__ 3D</a><a class="w" href="#" aria-label="WhatsApp">__WA__</a></div>
+<div class="x-menu" role="dialog" aria-modal="true" aria-label="Меню" hidden>
+  <div class="x-menu-top"><span class="v-logo" role="img" aria-label="VERNISSAGE"></span><button class="x-menu-x" type="button" aria-label="Закрыть меню"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <nav aria-label="Разделы"><a href="#">Работы</a><a href="#">Изготовление</a><a href="#">3D-конструктор</a><a href="#">Как заказать</a><a href="#">Контакты</a></nav>
+  <div class="x-menu-foot"><a class="v-btn v-btn--p" href="#">Рассчитать стоимость</a><a class="v-btn v-btn--s" href="#">__CUBE__ Создать самому в 3D</a><a class="x-menu-tel" href="#">+7 747 561 3005</a></div>
+</div>
+</template>
+
+<a id="solo-back" href="#">← К презентации</a>
+
+<header class="p-top"><div class="p-wrap">
+  <b>VERNISSAGE</b>
+  <a href="#p-home-d">Главная · ПК</a><a href="#p-home-m">Главная · iPhone</a><a href="#p-proj-d">Проект · ПК</a><a href="#p-proj-m">Проект · iPhone</a><a href="#p-real">Реальное и иллюстрации</a>
+</div></header>
+
+<main>
+<section class="p-head"><div class="p-wrap">
+  <div class="p-eb">VERNISSAGE 2.0 · полный дизайн · на утверждение</div>
+  <h1>Warm Editorial <em>Luxury</em></h1>
+  <p>Главная страница целиком и страница отдельного проекта в стиле утверждённого первого экрана (вариант Б). Шесть разделов: категории, наши работы, 3D-конструктор, как заказать, заявка и контакты, страница проекта.</p>
+  <div class="p-legend"><span class="tag tag-real">Реальная работа VERNISSAGE</span><span class="tag tag-ill">Иллюстрация</span><span class="tag tag-plan">Планируется</span></div>
+  <div class="p-open"><a href="#site-home">Открыть главную как сайт</a><a href="#site-project">Открыть страницу проекта как сайт</a></div>
+</div></section>
+
+<section class="p-sec" id="p-home-d"><div class="p-wrap">
+  <h2>Главная — <em>компьютер</em></h2>
+  <p>Наведите курсор на категорию в разделе № 01 — фото справа сменится. Фото, кнопки и ссылки мягко реагируют на наведение.</p>
+  <div class="desk" data-tpl="t-home" data-url="vernissage.kz"></div>
+</div></section>
+
+<section class="p-sec" id="p-home-m"><div class="p-wrap">
+  <h2>Главная — <em>iPhone</em></h2>
+  <p>Отдельная мобильная композиция: категории листаются вбок крупными карточками с аркой, работы — во всю ширину, нижняя панель «Рассчитать стоимость · 3D · WhatsApp» появляется после первого экрана. Каждый телефон прокручивается.</p>
+  <div class="phones">
+    <figure class="pw"><div class="phbox" data-phone="t-home"></div><figcaption>Первый экран</figcaption></figure>
+    <figure class="pw"><div class="phbox" data-phone="t-home" data-scroll="cats"></div><figcaption>№ 01 · Категории</figcaption></figure>
+    <figure class="pw"><div class="phbox" data-phone="t-home" data-scroll="works"></div><figcaption>№ 02 · Наши работы</figcaption></figure>
+    <figure class="pw"><div class="phbox" data-phone="t-home" data-scroll="3d"></div><figcaption>№ 03 · 3D-конструктор</figcaption></figure>
+    <figure class="pw"><div class="phbox" data-phone="t-home" data-scroll="how"></div><figcaption>№ 04 · Как заказать</figcaption></figure>
+    <figure class="pw"><div class="phbox" data-phone="t-home" data-scroll="contact"></div><figcaption>№ 05 · Заявка и контакты</figcaption></figure>
+  </div>
+</div></section>
+
+<section class="p-sec" id="p-proj-d"><div class="p-wrap">
+  <h2>Страница проекта — <em>компьютер</em></h2>
+  <p>Журнальная подача реального проекта: крупный заголовок, факты, фото с аркой, нумерованные иллюстрации «рис. 01…», список мебели, призыв и следующий проект. Адрес — существующий <code>/portfolio/residential/</code>.</p>
+  <div class="desk" data-tpl="t-project" data-url="vernissage.kz/portfolio/residential/"></div>
+</div></section>
+
+<section class="p-sec" id="p-proj-m"><div class="p-wrap">
+  <h2>Страница проекта — <em>iPhone</em></h2>
+  <div class="phones">
+    <figure class="pw"><div class="phbox" data-phone="t-project"></div><figcaption>Начало страницы</figcaption></figure>
+    <figure class="pw"><div class="phbox" data-phone="t-project" data-scrollpx="1500"></div><figcaption>Галерея и мебель в проекте</figcaption></figure>
+  </div>
+</div></section>
+
+<section class="p-sec" id="p-real"><div class="p-wrap">
+  <h2>Реальное и <em>иллюстрации</em></h2>
+  <p>Реальные проекты отделены от концептуальных изображений на каждом экране.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Изображение</th><th>Где</th><th>Статус</th></tr></thead>
+    <tbody>
+      <tr><td>Кухня из ореха и травертина, вставка с фактурой</td><td>Первый экран</td><td><span class="tag tag-ill">Иллюстрация</span> подписано на экране «Иллюстрация — не работа VERNISSAGE»; заменить фото со съёмки</td></tr>
+      <tr><td>Квартира под ключ (кухня, гостиная, спальня, кабинет, ниши, санузел, детали)</td><td>Категории, Наши работы, Как заказать, страница проекта</td><td><span class="tag tag-real">Работа VERNISSAGE</span> мягкая цветокоррекция под палитру</td></tr>
+      <tr><td>Ресторан, Jacadi Paris</td><td>Коммерческие интерьеры, следующий проект</td><td><span class="tag tag-real">Работа VERNISSAGE</span> показ ресторана — согласовать с заказчиком</td></tr>
+      <tr><td>3D-кухня в окне конструктора</td><td>№ 03 · 3D-конструктор</td><td><span class="tag tag-real">Настоящий рендер FORMIQ</span> оформление вокруг — концепт; передача проекта — <span class="tag tag-plan">планируется</span></td></tr>
+      <tr><td>Прихожие, детские</td><td>Категории</td><td>Честная заглушка «Фото появится после съёмки»</td></tr>
+    </tbody>
+  </table></div>
+  <p class="p-note" style="margin-top:16px;font-size:14px;color:var(--muted)">Реальные фото сняты на телефон: для запуска нужна профессиональная съёмка, иначе разрыв с уровнем первого экрана останется заметным. Площадь и срок проекта помечены «уточнить».</p>
+</div></section>
+</main>
+<footer class="p-foot"><div class="p-wrap">VERNISSAGE 2.0 · полный дизайн · макет для согласования, не рабочий сайт · первый экран содержит сгенерированную иллюстрацию</div></footer>
+
+<script>
+(function(){
+  var DW=1440,PW=402,PH=844;
+  function mount(host,id){host.appendChild(document.getElementById(id).content.cloneNode(true));}
+  function build(){
+    document.querySelectorAll('.desk').forEach(function(f){if(f.firstChild)return;
+      var bar=document.createElement('div');bar.className='chrome';bar.innerHTML='<i></i><i></i><i></i><span></span>';bar.querySelector('span').textContent=f.dataset.url||'';
+      var s=document.createElement('div');s.className='scr';s.appendChild(bar);mount(s,f.dataset.tpl);f.appendChild(s);});
+    document.querySelectorAll('[data-phone]').forEach(function(h){if(h.firstChild)return;
+      var p=document.createElement('div');p.className='phone';
+      p.innerHTML='<div class="sbar">9:41</div><div class="notch"></div><div class="scr"></div><div class="home-ind"></div>';
+      var sc=p.querySelector('.scr');mount(sc,h.dataset.phone);h.appendChild(p);setupBar(sc,sc);});
+  }
+  function fit(){
+    document.querySelectorAll('.desk').forEach(function(f){var s=f.querySelector('.scr');if(!s)return;var k=Math.min(1,f.clientWidth/DW);s.style.transform='scale('+k+')';f.style.height=Math.ceil(s.offsetHeight*k)+'px';});
+    document.querySelectorAll('[data-phone]').forEach(function(h){var p=h.querySelector('.phone');if(!p)return;var k=Math.min(1,h.clientWidth/PW);p.style.transform='scale('+k+')';h.style.height=Math.ceil(PH*k)+'px';});
+  }
+  // Нижняя панель: скрыта на первом экране; видна после того, как кнопки первого экрана ушли вверх;
+  // прячется у формы, блока «Хотите похожую мебель?» и подвала, при фокусе в поле (клавиатура) и при открытом меню.
+  function setupBar(scope,scroller){
+    var site=scope.querySelector('.site'),barEl=scope.querySelector('.x-bar'),menu=scope.querySelector('.x-menu');
+    if(!site||!barEl||scope.__bar)return;scope.__bar=true;
+    var start=site.querySelector('.v-acts')||site.querySelector('.x-ph');
+    var stops=[].slice.call(site.querySelectorAll('.x-form,.x-cta,.x-ftr'));
+    var st={passed:false,stops:[],focus:false,menu:false};
+    function upd(){var show=st.passed&&!st.stops.length&&!st.focus&&!st.menu;barEl.classList.toggle('on',show);barEl.setAttribute('aria-hidden',show?'false':'true');barEl.inert=!show;}
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.target===start){var top=e.rootBounds?e.rootBounds.top:0;st.passed=!e.isIntersecting&&e.boundingClientRect.bottom<=top+1;}
+      else{var i=st.stops.indexOf(e.target);if(e.isIntersecting&&i<0)st.stops.push(e.target);if(!e.isIntersecting&&i>=0)st.stops.splice(i,1);}
+    });upd();},{root:scroller||null,threshold:0});
+    if(start)io.observe(start);stops.forEach(function(x){io.observe(x);});
+    site.addEventListener('focusin',function(e){if(e.target.matches('input,textarea,select')){st.focus=true;upd();}});
+    site.addEventListener('focusout',function(e){if(e.target.matches('input,textarea,select')){st.focus=false;upd();}});
+    var lockEl=scroller||document.documentElement;
+    function openMenu(){if(!menu)return;menu.hidden=false;st.menu=true;upd();lockEl.style.overflow='hidden';var x=menu.querySelector('.x-menu-x');if(x)x.focus();}
+    function closeMenu(){if(!menu||menu.hidden)return;menu.hidden=true;st.menu=false;upd();lockEl.style.overflow='';}
+    site.addEventListener('click',function(e){if(e.target.closest('a.v-ic[aria-label="Открыть меню"]')){e.preventDefault();openMenu();}});
+    if(menu){menu.addEventListener('click',function(e){if(e.target.closest('.x-menu-x,a')){e.preventDefault();closeMenu();}});
+      menu.addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu();});}
+    upd();
+  }
+  function place(){document.querySelectorAll('[data-phone]').forEach(function(h){var sc=h.querySelector('.phone>.scr');if(!sc)return;var a=h.dataset.scroll,px=h.dataset.scrollpx;
+    if(a){var el=sc.querySelector('[data-anchor="'+a+'"]');if(el)sc.scrollTop=el.offsetTop;}if(px)sc.scrollTop=+px;});}
+  // категории: наведение/фокус меняет фото
+  function pick(li){var site=li.closest('.site');var i=li.dataset.i;site.querySelectorAll('.x-list li').forEach(function(e){e.classList.toggle('on',e===li);});
+    var cap='',soon=false;site.querySelectorAll('.x-shot').forEach(function(s){var on=s.dataset.i===i;s.classList.toggle('on',on);if(on){cap=s.dataset.cap;soon=s.classList.contains('x-soon');}});
+    var c=site.querySelector('[data-cap]:not(.x-shot)');if(c)c.textContent=cap;var r=site.querySelector('[data-real]');if(r)r.hidden=soon;}
+  document.addEventListener('mouseover',function(e){var li=e.target.closest('.x-list li');if(li)pick(li);});
+  document.addEventListener('focusin',function(e){var li=e.target.closest('.x-list li');if(li)pick(li);});
+  document.addEventListener('click',function(e){if(e.target.closest('.site a, .v a, .x-bar a, .x-menu a'))e.preventDefault();});
+  // режим «как сайт»
+  var solo=null;
+  function route(){
+    var h=location.hash.slice(1);var want=h==='site-home'?'t-home':h==='site-project'?'t-project':null;
+    if(solo){solo.remove();solo=null;}
+    document.body.classList.toggle('solo',!!want);
+    if(want){solo=document.createElement('div');solo.id='solo';mount(solo,want);document.body.insertBefore(solo,document.getElementById('solo-back'));scrollTo(0,0);setupBar(solo,null);}
+    else{build();fit();place();}
+  }
+  document.getElementById('solo-back').addEventListener('click',function(e){e.preventDefault();location.hash='p-home-d';});
+  addEventListener('hashchange',route);
+  addEventListener('resize',fit);
+  route();
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){fit();place();});
+  if('ResizeObserver' in window){var ro=new ResizeObserver(fit);document.querySelectorAll('.desk,[data-phone]').forEach(function(e){ro.observe(e);});}
+})();
+</script>

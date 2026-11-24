@@ -1,0 +1,58 @@
+---
+// Главная и страницы проектов в утверждённом дизайне v9. Свои стили (v9-site.css) и скрипт (scripts/v9/site.ts);
+// нижняя панель и меню телефона — вне .site (у .site container-type, а он ломает position:fixed в iOS).
+// Страница «Создать в 3D» использует свой каркас V9.astro.
+import '../styles/v9-site.css';
+import Bar from '../components/v9/Bar.astro';
+import favicon from '../assets/logo/mark.svg';
+import fCor from '../assets/fonts/cormorant-cyr-500-normal.woff2?url';
+import fCorI from '../assets/fonts/cormorant-cyr-400-italic.woff2?url';
+import fMan from '../assets/fonts/manrope-cyr.woff2?url';
+import { CONTACTS } from '../data/site';
+
+interface Props { title: string; description: string; path: string; noindex?: boolean }
+const { title, description, path, noindex } = Astro.props;
+const canonical = new URL(import.meta.env.BASE_URL + path, Astro.site).href;
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'FurnitureStore',
+  name: 'VERNISSAGE',
+  url: new URL(import.meta.env.BASE_URL, Astro.site).href,
+  telephone: CONTACTS.phoneHref.replace('tel:', ''),
+  address: { '@type': 'PostalAddress', streetAddress: 'улица Альмукана Сембинова, 19/1', addressLocality: 'Астана', addressCountry: 'KZ' },
+  openingHours: ['Mo-Fr 10:00-19:00', 'Sa 10:00-16:00'],
+  sameAs: CONTACTS.social.map((s) => s.href),
+};
+---
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="theme-color" content="#F6F1E8" />
+  <meta name="format-detection" content="telephone=no" />
+  {noindex && <meta name="robots" content="noindex" />}
+  <link rel="canonical" href={canonical} />
+  {[fCor, fCorI, fMan].map((f) => <link rel="preload" href={f} as="font" type="font/woff2" crossorigin />)}
+  <link rel="icon" type="image/svg+xml" href={favicon.src} />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:site_name" content="VERNISSAGE" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+</head>
+<body>
+  <a class="skip" href="#main">Перейти к содержимому</a>
+  <main class="site" id="main" tabindex="-1">
+    <slot />
+  </main>
+  <Bar />
+  <script>
+    import '../scripts/v9/site';
+  </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+---
+import Ph from './Ph.astro';
+import { CONTACTS, waLink } from '../../data/site';
+import { createLink, CATEGORY_LINKS } from '../../data/create3d';
+const base = import.meta.env.BASE_URL;
+const wa = waLink('Здравствуйте! Хочу рассчитать мебель на заказ.');
+---
+<section class="x-sec" id="how" data-anchor="how" aria-labelledby="h-how">
+    <div class="x-in">
+      <div class="x-head">
+        <h2 class="x-h2" id="h-how">Как заказать</h2>
+        <p class="x-lead">Четыре шага от заявки до установки. Стоимость считает менеджер после бесплатного замера — автоматических цен на сайте нет.</p>
+      </div>
+      <ol class="s-stair">
+        <li style="--i:0"><div class="s-step"><span class="s-n" aria-hidden="true">1</span><h3>Заявка</h3><p>Оставьте телефон или напишите в WhatsApp. Можно приложить идею из 3D-конструктора.</p></div></li>
+        <li style="--i:1"><div class="s-step"><span class="s-n" aria-hidden="true">2</span><h3>Бесплатный замер</h3><p>Приезжаем на объект и снимаем точные размеры.</p></div></li>
+        <li style="--i:2"><div class="s-step"><span class="s-n" aria-hidden="true">3</span><h3>Проект и договор</h3><p>Согласуем проект, стоимость и сроки и фиксируем их в договоре.</p></div></li>
+        <li style="--i:3"><div class="s-step"><span class="s-n" aria-hidden="true">4</span><h3>Изготовление и установка</h3><p>Изготавливаем мебель по проекту и устанавливаем у вас.</p></div></li>
+      </ol>
+    </div>
+  </section>

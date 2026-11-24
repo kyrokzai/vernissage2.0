@@ -1,0 +1,276 @@
+<title>VERNISSAGE 2.0 — первый экран</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: презентация первого экрана v4 (Warm Editorial Luxury) — ПК 1440 × 900 и iPhone 390 в рамках; одна разметка, телефон — своя композиция через container queries. Одна светлая тема. */
+:root{
+  color-scheme: light;
+  --ivory:#F6F1E8; --paper:#F2EBE0; --stone:#E4D9C9; --ink:#241F1A; --ink-2:#4A4239; --muted:#6F655A;
+  --bronze:#8E6A43; --bronze-text:#7A5634; --bronze-line:#A8885F; --line:#DCD1C1;
+  --serif:"Cormorant Garamond","Cormorant","Times New Roman",Georgia,serif;
+  --sans:"Manrope","Segoe UI",system-ui,-apple-system,sans-serif;
+  --p-bg:#ECE5DA; --frame:#1F1C19;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--p-bg);color:var(--ink);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--p-bg)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--bronze-text);outline-offset:2px}
+
+/* ---------- презентация ---------- */
+.p-wrap{max-width:1280px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.p-head{padding-block:56px 28px}
+.p-eb{font:600 12px/1.3 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--bronze-text)}
+.p-head h1{font:500 clamp(40px,6vw,76px)/1 var(--serif);margin:14px 0 14px;letter-spacing:-.01em}
+.p-head h1 em{color:var(--bronze-text)}
+.p-head p{margin:0;max-width:64ch;font-size:17px;color:var(--ink-2)}
+.p-tabs{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.p-tabs a{font-size:14px;font-weight:600;text-decoration:none;border:1px solid var(--bronze-line);padding:9px 14px;border-radius:2px;background:var(--ivory)}
+.p-sec{padding-block:44px 64px;border-top:1px solid var(--line)}
+.p-sec h2{font:500 clamp(28px,3.6vw,44px)/1.1 var(--serif);margin:0 0 8px}
+.p-sec h2 em{color:var(--bronze-text)}
+.p-sec>.p-wrap>p{margin:0;max-width:72ch;color:var(--ink-2)}
+.p-note{margin-top:10px!important;font-size:14px;color:var(--muted)!important}
+.p-stage{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:32px;align-items:start;margin-top:32px}
+@media (max-width:980px){.p-stage{grid-template-columns:1fr}.p-stage .pw{justify-self:center}}
+.p-stage figcaption{font-size:13px;font-weight:600;color:var(--muted);margin-top:12px}
+.desk{position:relative;overflow:hidden;border-radius:10px;background:var(--frame);box-shadow:0 34px 70px -38px rgba(36,31,26,.55)}
+.desk>.scr{position:absolute;top:0;left:0;width:1440px;transform-origin:0 0;background:var(--ivory)}
+.chrome{height:40px;background:#2B2824;display:flex;align-items:center;gap:8px;padding:0 16px}
+.chrome i{width:11px;height:11px;border-radius:50%;background:#56514A}
+.chrome span{margin-left:16px;flex:1;max-width:560px;height:24px;border-radius:6px;background:#3A3631;color:#CBC3B7;font:500 12px/24px var(--sans);padding:0 12px}
+.pw{width:min(100%,300px);margin:0}
+.phbox{position:relative}
+.phone{position:absolute;top:0;left:0;width:402px;height:844px;transform-origin:0 0;border:6px solid var(--frame);border-radius:54px;background:var(--frame);overflow:hidden;box-shadow:0 34px 70px -40px rgba(36,31,26,.6)}
+.phone .notch{position:absolute;top:10px;left:50%;width:118px;height:32px;margin-left:-59px;border-radius:20px;background:#000;z-index:9}
+.phone .sbar{position:absolute;inset:0 0 auto;height:48px;background:var(--ivory);border-radius:48px 48px 0 0;z-index:8;font:600 15px/48px var(--sans);padding-left:34px}
+.phone>.scr{position:absolute;inset:48px 0 0;border-radius:0 0 48px 48px;overflow-y:auto;overflow-x:hidden;background:var(--ivory);scrollbar-width:none}
+.phone>.scr::-webkit-scrollbar{display:none}
+.phone .home-ind{position:absolute;bottom:7px;left:50%;width:134px;height:5px;margin-left:-67px;border-radius:3px;background:#1d1b18;z-index:9}
+.p-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 40px;margin:24px 0 0;padding:0}
+.p-list li{list-style:none;padding:10px 0 10px 28px;border-bottom:1px solid var(--line);position:relative;font-size:15px}
+.p-list li::before{content:"";position:absolute;left:2px;top:17px;width:12px;height:7px;border-left:1.5px solid var(--bronze-text);border-bottom:1.5px solid var(--bronze-text);transform:rotate(-45deg)}
+@media (max-width:760px){.p-list{grid-template-columns:1fr}}
+.p-honest{margin-top:26px;padding:4px 0 4px 16px;border-left:2px solid var(--bronze);font-size:15px;max-width:78ch}
+.p-foot{padding-block:32px 56px;font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
+
+/* ================= ПЕРВЫЙ ЭКРАН (.v) ================= */
+.v{container-type:inline-size;position:relative;background:
+  radial-gradient(120% 90% at 78% 30%,#FAF6EF 0%,rgba(250,246,239,0) 60%),var(--ivory);
+  color:var(--ink);overflow:hidden;min-height:900px;font-feature-settings:"lnum" 1}
+:where(.v) a{text-decoration:none;color:inherit}
+.v p{margin:0}
+.v-in{position:relative;z-index:2;padding-inline:72px}
+/* шапка */
+.v-hdr{display:flex;align-items:center;height:96px;border-bottom:1px solid #CFC3B1;gap:0}
+.v-logo{display:block;width:214px;height:54px;flex:none;background:var(--ink);-webkit-mask:var(--logo) no-repeat left center/contain;mask:var(--logo) no-repeat left center/contain}
+.v-div{width:1px;height:34px;background:#CFC3B1;margin:0 44px 0 40px}
+.v-nav{display:flex;gap:40px;font:500 20px/1 var(--serif);color:var(--ink)}
+.v-nav a{padding-block:8px;border-bottom:1px solid transparent;transition:border-color .3s}
+.v-nav a:hover{border-color:var(--bronze-line)}
+.v-hr{margin-left:auto;display:flex;align-items:center;gap:40px}
+.v-phone{font:500 20px/1 var(--serif);font-variant-numeric:lining-nums;white-space:nowrap}
+.v-wa{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 20px;border:1px solid var(--ink);border-radius:4px;font:500 20px/1 var(--serif)}
+.v-wa svg{width:20px;height:20px}
+.v-ic{display:none;width:44px;height:44px;border-radius:50%;border:1px solid #CFC3B1;align-items:center;justify-content:center;background:rgba(246,241,232,.8)}
+.v-ic svg{width:20px;height:20px}
+/* герой */
+.v-hero{display:grid;grid-template-columns:624px minmax(0,1fr);gap:40px;align-items:center;padding-top:28px}
+.v-eb{font:600 15px/1.65 var(--serif);letter-spacing:.3em;text-transform:uppercase;color:var(--bronze-text)}
+.v-h1{font:500 84px/.97 var(--serif);letter-spacing:-.012em;margin:28px 0 26px;color:var(--ink)}
+.v-h1 em{display:block;font-style:italic;font-weight:400;color:var(--bronze);letter-spacing:-.01em;margin-top:6px}
+.v-sub{font:400 20px/1.55 var(--sans);color:var(--ink-2);max-width:31em}
+.v-acts{display:grid;grid-template-columns:auto auto;justify-content:start;gap:12px 22px;margin-top:38px}
+.v-btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;height:62px;padding:0 42px;border-radius:3px;font:600 21px/1 var(--serif);letter-spacing:.005em;white-space:nowrap;transition:transform .35s ease,box-shadow .35s ease,background .35s}
+.v-btn--p{background:#2A2521;color:#F6F1E8;box-shadow:0 16px 30px -22px rgba(36,31,26,.8)}
+.v-btn--s{background:var(--ivory);color:var(--ink);border:1px solid var(--bronze-line)}
+.v-btn--s svg{width:24px;height:24px;color:var(--bronze)}
+.v-btn:hover{transform:translateY(-2px)}
+.v-note{font:500 13px/1.4 var(--sans);color:var(--muted);padding-left:2px}
+.v-note b{color:var(--bronze-text);font-weight:700}
+/* фото с аркой */
+.v-media{position:relative;margin-right:-8px}
+.v-frame{position:relative}
+.v-photo{height:590px;border-radius:300px 3px 3px 3px / 300px 3px 3px 3px;background-size:cover;background-position:center;overflow:hidden;box-shadow:0 40px 80px -60px rgba(36,31,26,.6)}
+.v-photo .k{width:100%;height:100%;background-size:cover;background-position:center;transform:scale(1.04);animation:vZoom 2.4s cubic-bezier(.2,.7,.2,1) .2s forwards}
+.v-photo.m{display:none}
+.v-inset{position:absolute;left:-40px;bottom:-34px;width:220px;height:220px;border:6px solid var(--ivory);border-radius:2px;background-size:cover;background-position:center;box-shadow:0 26px 50px -24px rgba(36,31,26,.55);animation:vRise 1.1s cubic-bezier(.2,.7,.2,1) .9s both}
+.v .v-cap{display:flex;align-items:center;gap:22px;margin:22px 0 0 214px;font:400 18px/1.3 var(--serif);color:var(--ink-2)}
+.v-cap::before{content:"";width:52px;height:1px;background:var(--ink-2);flex:none}
+/* категории */
+.v-cats{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:34px;padding:26px 6px 0 44px;border-top:1px solid #CFC3B1}
+.v-cats a{display:inline-flex;align-items:baseline;gap:12px;font:500 22px/1 var(--serif);white-space:nowrap;transition:color .3s}
+.v-cats a:hover{color:var(--bronze-text)}
+.v-cats i{font-style:italic;font-weight:400;color:var(--bronze);font-size:30px;letter-spacing:.01em}
+.v-cats i small{font-size:18px;font-style:normal;margin-right:4px}
+.v-cats .dot{color:var(--bronze);font-size:14px}
+.v-cats .arr{width:44px;height:20px;color:var(--ink)}
+/* ветки на переднем плане */
+.v-branch{position:absolute;z-index:1;left:-84px;bottom:-36px;width:320px;height:500px;color:#5A4630;opacity:.7;filter:blur(5px);pointer-events:none;transform-origin:0% 100%;animation:vSway 11s ease-in-out infinite alternate;
+  -webkit-mask-image:linear-gradient(58deg,#000 52%,transparent 88%);mask-image:linear-gradient(58deg,#000 52%,transparent 88%)}
+/* анимации появления */
+.v-hdr,.v-eb,.v-h1,.v-sub,.v-acts,.v-cats{animation:vRise 1s cubic-bezier(.2,.7,.2,1) both}
+.v-eb{animation-delay:.15s}.v-h1{animation-delay:.25s}.v-sub{animation-delay:.4s}.v-acts{animation-delay:.55s}.v-cats{animation-delay:.8s}
+@keyframes vRise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes vZoom{to{transform:scale(1)}}
+@keyframes vSway{from{transform:rotate(-1.2deg)}to{transform:rotate(1.4deg) translateX(4px)}}
+@media (prefers-reduced-motion:reduce){.v *,.v{animation:none!important;transition:none!important}.v-photo .k{transform:none}}
+/* варианты фото */
+.v[data-v="a"] .vb,.v[data-v="b"] .va{display:none}
+
+/* ---------- iPhone: своя композиция ---------- */
+@container (max-width: 600px){
+  .v{min-height:0;background:var(--ivory)}
+  .v-in{padding-inline:22px}
+  .v-hdr{height:66px;border-bottom-color:#D8CCBA}
+  .v-logo{width:132px;height:36px}
+  .v-div,.v-nav,.v-phone,.v-wa{display:none}
+  .v-hr{gap:8px}
+  .v-ic{display:inline-flex}
+  .v-hero{grid-template-columns:1fr;gap:0;padding-top:22px}
+  .v-eb{font-size:12px;letter-spacing:.24em;line-height:1.6}
+  .v-h1{font-size:46px;line-height:.98;margin:14px 0 14px}
+  .v-h1 em{margin-top:4px}
+  .v-sub{font-size:16px;line-height:1.5}
+  .v-acts{grid-template-columns:1fr;gap:8px;margin-top:24px}
+  .v-btn{height:56px;padding:0 20px;font-size:20px;width:100%}
+  .v-note{text-align:center;margin-bottom:8px}
+  .v-btn--p{order:1}.v-note.n1{order:2}.v-btn--s{order:3}.v-note.n2{order:4}
+  .v-media{margin:28px 0 0}
+  .v-photo.d{display:none}
+  .v-photo.m{display:block;height:auto;aspect-ratio:4/4.3;border-radius:180px 3px 3px 3px / 180px 3px 3px 3px}
+  .v-inset{width:116px;height:116px;left:-6px;bottom:-22px;border-width:4px}
+  .v .v-cap{margin:30px 0 0 124px;font-size:15px;gap:12px}
+  .v-cap::before{width:24px}
+  .v-cats{justify-content:flex-start;gap:26px;overflow-x:auto;margin:26px -22px 0;padding:20px 22px 30px;scrollbar-width:none}
+  .v-cats::-webkit-scrollbar{display:none}
+  .v-cats a{font-size:19px}
+  .v-cats i{font-size:24px}
+  .v-cats .arr{display:none}
+  .v-branch{width:200px;height:310px;left:-74px;bottom:-24px;opacity:.34;filter:blur(4px)}
+}
+/* обычные (не «старого стиля») цифры в Cormorant: «2003», «3D», «+7 747…» — после всех правил со свойством font */
+.v,.v *{font-feature-settings:"lnum" 1}
+__IMG_CSS__
+</style>
+
+<template id="t-v">
+<div class="v">
+  __BRANCH__
+  <div class="v-in">
+    <header class="v-hdr">
+      <a class="v-logo" href="#" aria-label="VERNISSAGE — на главную"></a>
+      <span class="v-div" aria-hidden="true"></span>
+      <nav class="v-nav" aria-label="Разделы"><a href="#">Работы</a><a href="#">Изготовление</a><a href="#">3D-конструктор</a><a href="#">Как заказать</a><a href="#">Контакты</a></nav>
+      <div class="v-hr">
+        <a class="v-phone" href="#">+7 747 561 3005</a>
+        <a class="v-wa" href="#">__ICON_WA__ WhatsApp</a>
+        <a class="v-ic" href="#" aria-label="Написать в WhatsApp">__ICON_WA__</a>
+        <a class="v-ic" href="#" aria-label="Открыть меню">__ICON_MENU__</a>
+      </div>
+    </header>
+    <section class="v-hero">
+      <div class="v-text">
+        <p class="v-eb">Мебельная компания · Астана<br>с 2003 года</p>
+        <h1 class="v-h1">Мебель по вашим размерам. <em>Создайте её сами.</em></h1>
+        <p class="v-sub">Выберите материалы, размеры и цвет. Посмотрите свою мебель в 3D или отправьте заявку на расчёт.</p>
+        <div class="v-acts">
+          <a class="v-btn v-btn--p" href="#">Рассчитать стоимость</a>
+          <a class="v-btn v-btn--s" href="#">__ICON_CUBE__ Создать самому в 3D</a>
+          <p class="v-note n1">Посчитает менеджер · замер бесплатный</p>
+          <p class="v-note n2"><b>Демо-версия</b> · без регистрации</p>
+        </div>
+      </div>
+      <div class="v-media">
+        <div class="v-frame">
+        <div class="v-photo d"><div class="k va ph-v4a-hero" role="img" aria-label="Кухня-гостиная со встроенной мебелью — работа VERNISSAGE"></div><div class="k vb ph-v4b-hero" role="img" aria-label="Иллюстрация: кухня из ореха с островом из травертина — сгенерированное изображение"></div></div>
+        <div class="v-photo m"><div class="k va ph-v4a-hero-m" role="img" aria-label="Кухня-гостиная со встроенной мебелью — работа VERNISSAGE"></div><div class="k vb ph-v4b-hero-m" role="img" aria-label="Иллюстрация: кухня из ореха — сгенерированное изображение"></div></div>
+        <div class="v-inset va ph-v4a-inset" role="img" aria-label="Фактура дерева крупным планом — работа VERNISSAGE"></div>
+        <div class="v-inset vb ph-v4b-inset" role="img" aria-label="Иллюстрация: фасад из ореха с бронзовой ручкой"></div>
+        </div>
+        <p class="v-cap va">Кухня-гостиная · квартира под ключ, Астана</p>
+        <p class="v-cap vb">Иллюстрация — не работа VERNISSAGE</p>
+      </div>
+    </section>
+    <nav class="v-cats" aria-label="Категории мебели">
+      <a href="#"><i><small>№</small>01</i><span class="dot">·</span>Кухни</a>
+      <a href="#"><i><small>№</small>02</i><span class="dot">·</span>Шкафы и гардеробные</a>
+      <a href="#"><i><small>№</small>03</i><span class="dot">·</span>Гостиные</a>
+      <a href="#"><i><small>№</small>04</i><span class="dot">·</span>Спальни</a>
+      <a href="#"><i><small>№</small>05</i><span class="dot">·</span>Ванные</a>
+      __ICON_ARROW__
+    </nav>
+  </div>
+</div>
+</template>
+
+<main>
+<section class="p-head"><div class="p-wrap">
+  <div class="p-eb">VERNISSAGE 2.0 · первый экран · версия 4 · на согласование</div>
+  <h1>Warm Editorial <em>Luxury</em></h1>
+  <p>Первый экран по утверждённому референсу: заголовок с засечками и бронзовым курсивом, фото с аркой, вставка-фактура, категории внизу, размытые ветки на переднем плане. Обе кнопки видны сразу — на компьютере и iPhone.</p>
+  <div class="p-tabs"><a href="#va">А — с фото VERNISSAGE</a><a href="#vb">Б — с иллюстрацией уровня съёмки</a><a href="#ref">Что взято из референса</a></div>
+</div></section>
+
+<section class="p-sec" id="va"><div class="p-wrap">
+  <h2>Вариант А — <em>с фото VERNISSAGE</em></h2>
+  <p>Реальная работа салона: квартира под ключ. Сделана только мягкая цветокоррекция — убран зеленоватый оттенок подсветки. Так первый экран выглядит с фотографиями, которые есть сейчас.</p>
+  <div class="p-stage">
+    <figure style="margin:0"><div class="desk" data-v="a" data-url="vernissage.kz"></div><figcaption>Компьютер, 1440 × 900</figcaption></figure>
+    <figure class="pw"><div class="phbox" data-phone data-v="a"></div><figcaption>iPhone, 390 — обе кнопки видны сразу</figcaption></figure>
+  </div>
+</div></section>
+
+<section class="p-sec" id="vb"><div class="p-wrap">
+  <h2>Вариант Б — <em>с иллюстрацией уровня съёмки</em></h2>
+  <p>Тот же экран с интерьером из утверждённого референса — чтобы увидеть, как сайт будет выглядеть после профессиональной съёмки. Изображение сгенерировано и подписано «Иллюстрация — не работа VERNISSAGE». На опубликованном сайте его не будет.</p>
+  <div class="p-stage">
+    <figure style="margin:0"><div class="desk" data-v="b" data-url="vernissage.kz"></div><figcaption>Компьютер, 1440 × 900</figcaption></figure>
+    <figure class="pw"><div class="phbox" data-phone data-v="b"></div><figcaption>iPhone, 390</figcaption></figure>
+  </div>
+</div></section>
+
+<section class="p-sec" id="ref"><div class="p-wrap">
+  <h2>Что взято из референса</h2>
+  <ul class="p-list">
+    <li>Крупный заголовок с засечками, вторая фраза — бронзовым курсивом</li>
+    <li>Большое фото справа с выразительной аркой</li>
+    <li>Вставка-фактура, перекрывающая угол основного фото</li>
+    <li>Тёплый молочный фон, бронзовые акценты</li>
+    <li>Минималистичная шапка с логотипом VERNISSAGE и WhatsApp</li>
+    <li>Категории строкой внизу: «№ 01 · Кухни» … со стрелкой</li>
+    <li>Размытые ветки слева внизу — за текстом, не перекрывают кнопки; на телефоне слабее</li>
+    <li>Мягкие анимации: появление текста, медленное «приближение» фото, лёгкое покачивание веток</li>
+    <li>«Рассчитать стоимость» — тёмная, «Создать самому в 3D» — светлая с бронзовой рамкой</li>
+    <li>Под 3D-кнопкой честно: «Демо-версия · без регистрации»</li>
+  </ul>
+  <p class="p-honest">Логотип — существующий логотип VERNISSAGE, показан в тёплом тёмном цвете под палитру. Если нужно, вернём фирменный синий. На iPhone — своя композиция: заголовок и обе кнопки сверху, фото с аркой ниже, категории листаются вбок.</p>
+</div></section>
+</main>
+<footer class="p-foot"><div class="p-wrap">VERNISSAGE 2.0 · первый экран v4 · макет для согласования, не рабочий сайт · вариант Б содержит сгенерированную иллюстрацию из референса</div></footer>
+
+<script>
+(function(){
+  var DW=1440,DH=900,PW=402,PH=844,T=document.getElementById('t-v');
+  function mount(host,v){var n=T.content.cloneNode(true);n.querySelector('.v').dataset.v=v;host.appendChild(n);}
+  document.querySelectorAll('.desk').forEach(function(f){
+    var bar=document.createElement('div');bar.className='chrome';bar.innerHTML='<i></i><i></i><i></i><span></span>';bar.querySelector('span').textContent=f.dataset.url||'';
+    var s=document.createElement('div');s.className='scr';s.appendChild(bar);mount(s,f.dataset.v);f.appendChild(s);
+  });
+  document.querySelectorAll('[data-phone]').forEach(function(h){
+    var p=document.createElement('div');p.className='phone';
+    p.innerHTML='<div class="sbar">9:41</div><div class="notch"></div><div class="scr"></div><div class="home-ind"></div>';
+    mount(p.querySelector('.scr'),h.dataset.v);h.appendChild(p);
+  });
+  function fit(){
+    document.querySelectorAll('.desk').forEach(function(f){var s=f.querySelector('.scr');var k=Math.min(1,f.clientWidth/DW);s.style.transform='scale('+k+')';f.style.height=Math.ceil((40+DH)*k)+'px';});
+    document.querySelectorAll('[data-phone]').forEach(function(h){var p=h.querySelector('.phone');var k=Math.min(1,h.clientWidth/PW);p.style.transform='scale('+k+')';h.style.height=Math.ceil(PH*k)+'px';});
+  }
+  fit();addEventListener('resize',fit);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
+  if('ResizeObserver' in window){var ro=new ResizeObserver(fit);document.querySelectorAll('.desk,[data-phone]').forEach(function(e){ro.observe(e);});}
+  document.addEventListener('click',function(e){if(e.target.closest('.v a'))e.preventDefault();});
+})();
+</script>

@@ -1,0 +1,62 @@
+---
+import Ph from './Ph.astro';
+import { CONTACTS, waLink } from '../../data/site';
+import { createLink, CATEGORY_LINKS } from '../../data/create3d';
+const base = import.meta.env.BASE_URL;
+const wa = waLink('Здравствуйте! Хочу рассчитать мебель на заказ.');
+---
+<section class="x-sec w-sec" id="works" data-anchor="works" aria-labelledby="h-works">
+    <div class="x-in">
+      <div class="x-head">
+        <h2 class="x-h2" id="h-works">Интерьеры, которые уже живут в Астане</h2>
+        <div><p class="x-lead">Одна квартира целиком — от кухни до санузла — и два коммерческих интерьера.</p><p class="x-note">Все фотографии — реальные работы VERNISSAGE.</p></div>
+      </div>
+      <div class="w-spread" data-gallery>
+        <div>
+          <div class="w-stage">
+          <div class="w-main">
+            <Ph name="w8-wide" class="ph on" alt="Кухня-гостиная со встроенной мебелью" sizes="(max-width: 600px) 100vw, 62vw" data-k="0" />
+            <Ph name="w8-kitchen" class="ph" alt="Кухня с подсветкой и пеналами" sizes="(max-width: 600px) 100vw, 62vw" data-k="1" />
+            <Ph name="w8-living" class="ph" alt="Гостиная с ТВ-зоной" sizes="(max-width: 600px) 100vw, 62vw" data-k="2" />
+            <Ph name="w8-bed" class="ph" alt="Спальня со световыми линиями" sizes="(max-width: 600px) 100vw, 62vw" data-k="3" />
+            <Ph name="w8-study" class="ph" alt="Кабинет со встроенным стеллажом" sizes="(max-width: 600px) 100vw, 62vw" data-k="4" />
+            <Ph name="w8-bath" class="ph" alt="Подвесная тумба и зеркало в санузле" sizes="(max-width: 600px) 100vw, 62vw" data-k="5" />
+          </div>
+            <div class="w-detail" role="img" aria-label="Деталь крупным планом">
+              <Ph name="w8d-wide" class="ph on" alt="" sizes="(max-width: 600px) 130px, 240px" data-k="0" data-dcap="Скруглённый шкаф и световая линия" />
+              <Ph name="w8d-kitchen" class="ph" alt="" sizes="(max-width: 600px) 130px, 240px" data-k="1" data-dcap="Фасады без ручек и подсветка" />
+              <Ph name="w8d-living" class="ph" alt="" sizes="(max-width: 600px) 130px, 240px" data-k="2" data-dcap="Парящая тумба под ТВ-зоной" />
+              <Ph name="w8d-bed" class="ph" alt="" sizes="(max-width: 600px) 130px, 240px" data-k="3" data-dcap="Стеновые панели и световая линия" />
+              <Ph name="w8d-study" class="ph" alt="" sizes="(max-width: 600px) 130px, 240px" data-k="4" data-dcap="Стеллаж с подсветкой" />
+              <Ph name="w8d-bath" class="ph" alt="" sizes="(max-width: 600px) 130px, 240px" data-k="5" data-dcap="Подвесная тумба без ручек" />
+            </div>
+            <p class="w-dcap" data-wdcap>Скруглённый шкаф и световая линия</p>
+          </div>
+          <div class="w-strip" role="group" aria-label="Комнаты квартиры">
+            <button class="w-th" type="button" aria-pressed="true" data-k="0" data-cap="Кухня-гостиная"><Ph name="w8-wide" tag="span" class="" alt="" sizes="110px" />Кухня-гостиная</button>
+            <button class="w-th" type="button" aria-pressed="false" data-k="1" data-cap="Кухня с подсветкой и пеналами"><Ph name="w8-kitchen" tag="span" class="" alt="" sizes="110px" />Кухня</button>
+            <button class="w-th" type="button" aria-pressed="false" data-k="2" data-cap="Гостиная с ТВ-зоной"><Ph name="w8-living-t" tag="span" class="" alt="" sizes="110px" />Гостиная</button>
+            <button class="w-th" type="button" aria-pressed="false" data-k="3" data-cap="Спальня со световыми линиями"><Ph name="w8-bed" tag="span" class="" alt="" sizes="110px" />Спальня</button>
+            <button class="w-th" type="button" aria-pressed="false" data-k="4" data-cap="Кабинет со встроенным стеллажом"><Ph name="w8-study-t" tag="span" class="" alt="" sizes="110px" />Кабинет</button>
+            <button class="w-th" type="button" aria-pressed="false" data-k="5" data-cap="Тумба и зеркало с подсветкой"><Ph name="w8-bath" tag="span" class="" alt="" sizes="110px" />Санузел</button>
+          </div>
+          <p class="w-cap"><span data-wcap aria-live="polite">Кухня-гостиная</span><span>Квартира под ключ, Астана</span></p>
+        </div>
+        <div class="w-side">
+          <h3>Квартира под ключ</h3>
+          <p class="std">Мебель для каждой комнаты — вместе с дизайн-проектом и ремонтом. Одна команда от замера до установки.</p>
+          <dl class="w-dl">
+            <div><dt>Объект</dt><dd>Квартира, Астана</dd></div>
+            <div><dt>Мебель</dt><dd>Кухня, гостиная, спальня, кабинет, санузел</dd></div>
+            <div><dt>Работы</dt><dd>Мебель, дизайн-проект, ремонт</dd></div>
+          </dl>
+          <p><a class="x-ulink" href={base + 'portfolio/residential/'}>Открыть проект</a></p>
+        </div>
+      </div>
+      <div class="w-biz">
+        <div class="w-biz-intro"><h3>Для бизнеса</h3><p class="x-lead">Мебель и отделка по фирменному стилю заказчика: зал ресторана и детский бутик.</p></div>
+        <figure class="w-fig wide"><div class="w-fig-in"><div class="frm"><Ph name="w8-rest-wide" class="ph" alt="Зал ресторана с мягкими креслами и перегородками" sizes="(max-width: 600px) 100vw, 55vw" /></div><figcaption><b>Ресторан</b><span>Мягкие зоны, перегородки, декор</span></figcaption></div></figure>
+        <figure class="w-fig tall"><div class="w-fig-in"><div class="frm"><Ph name="w8-jac" class="ph" alt="Витрина детского бутика Jacadi Paris" sizes="(max-width: 600px) 100vw, 55vw" /></div><figcaption><b>Jacadi Paris</b><span>Входная группа и витрины бутика</span></figcaption></div></figure>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,18 @@
+<p>Chromium и WebKit (движок Safari) через Playwright. Настоящий iPhone не использовался: касания и клавиатура эмулированы.</p>
+<div class="tbl"><table>
+<thead><tr><th>Проверка</th><th>Chromium</th><th>WebKit</th></tr></thead>
+<tbody>
+<tr><td>Переполнение: главная и проект, 320 / 375 / 390 / 430 / 768 / 1024 / 1440</td><td class="ok">нет на всех 14</td><td class="ok">нет на всех 14</td></tr>
+<tr><td>320×568: обе кнопки первого экрана на экране (низ 381 и 471 px)</td><td class="ok">да</td><td class="ok">да</td></tr>
+<tr><td>3D, светлый вариант: 12 сочетаний</td><td class="ok">12 / 12</td><td class="ok">12 / 12</td></tr>
+<tr><td>3D, ореховый вариант: 12 сочетаний</td><td class="ok">12 / 12</td><td class="ok">12 / 12</td></tr>
+<tr><td>3D на iPhone: сцена и переключатели на одном экране</td><td class="ok">да</td><td class="ok">да</td></tr>
+<tr><td>Арки: наведение и фокус; на телефоне 3 свайпа → арка 2, 3, 4</td><td class="ok">да</td><td class="ok">да</td></tr>
+<tr><td>Галерея: миниатюра → фото, деталь, подпись</td><td class="ok">да</td><td class="ok">да</td></tr>
+<tr><td>Проект: «Рис. N» прокручивает к рисунку и выделяет его</td><td class="ok">да</td><td class="ok">да</td></tr>
+<tr><td>Нижняя панель iPhone: поведение прежнее</td><td class="ok">да</td><td class="ok">да</td></tr>
+<tr><td>Клавиатура: элементы с видимым фокусом</td><td class="ok">59 / 59</td><td class="ok">59 / 59</td></tr>
+<tr><td>Уменьшение движения: все переходы 0 с, появления не запускаются</td><td class="ok">да</td><td class="ok">да</td></tr>
+<tr><td>Ошибки JavaScript</td><td class="ok">0</td><td class="ok">0</td></tr>
+<tr><td>axe-core, WCAG 2.2 AA: главная (оба варианта 3D) и проект, 390 и 1440</td><td class="ok">0 нарушений</td><td class="ok">0 нарушений</td></tr>
+</tbody></table></div>

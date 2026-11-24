@@ -1,0 +1,27 @@
+---
+import Ph from './Ph.astro';
+import { CONTACTS, waLink } from '../../data/site';
+import { createLink, CATEGORY_LINKS } from '../../data/create3d';
+const base = import.meta.env.BASE_URL;
+const wa = waLink('Здравствуйте! Хочу рассчитать мебель на заказ.');
+---
+<section class="x-sec c-sec" id="cats" data-anchor="cats" aria-labelledby="h-cats">
+    <div class="x-in">
+      <div class="x-head">
+        <h2 class="x-h2" id="h-cats">Мебель для каждой комнаты</h2>
+        <div><p class="x-lead">Проектируем по размерам вашего помещения и делаем на заказ. <span class="t-d">Наведите на арку — откроется комната.</span><span class="t-m">Листайте арки вбок — в каждой своя комната.</span></p><p class="x-note">Фотографии в разделе — реальные работы VERNISSAGE.</p></div>
+      </div>
+      <div class="c-stage">
+      <div class="c-enf">
+        <a class="c-arch on" href={createLink(base, CATEGORY_LINKS['Кухни'])} style="--i:0"><i class="c-sh" aria-hidden="true"></i><span class="c-frame"><Ph name="w8-kitchen" tag="span" class="ph" alt="" sizes="(max-width: 600px) 72vw, 40vw" /></span><span class="c-name">Кухни</span><span class="c-cap">С подсветкой и пеналами</span></a>
+        <a class="c-arch" href={createLink(base, CATEGORY_LINKS['Шкафы и гардеробные'])} style="--i:1"><i class="c-sh" aria-hidden="true"></i><span class="c-frame"><Ph name="w8-niche" tag="span" class="ph" alt="" sizes="(max-width: 600px) 72vw, 40vw" /></span><span class="c-name">Шкафы и гардеробные</span><span class="c-cap">Ниша и стеллаж с подсветкой</span></a>
+        <a class="c-arch" href={createLink(base, CATEGORY_LINKS['Гостиные'])} style="--i:2"><i class="c-sh" aria-hidden="true"></i><span class="c-frame"><Ph name="w8-living-t" tag="span" class="ph" alt="" sizes="(max-width: 600px) 72vw, 40vw" /></span><span class="c-name">Гостиные</span><span class="c-cap">ТВ-зона и стеновые панели</span></a>
+        <a class="c-arch" href={createLink(base, CATEGORY_LINKS['Спальни'])} style="--i:3"><i class="c-sh" aria-hidden="true"></i><span class="c-frame"><Ph name="w8-bed" tag="span" class="ph" alt="" sizes="(max-width: 600px) 72vw, 40vw" /></span><span class="c-name">Спальни</span><span class="c-cap">Шкафы и световые линии</span></a>
+        <a class="c-arch" href={createLink(base, CATEGORY_LINKS['Ванные'])} style="--i:4"><i class="c-sh" aria-hidden="true"></i><span class="c-frame"><Ph name="w8-bath" tag="span" class="ph" alt="" sizes="(max-width: 600px) 72vw, 40vw" /></span><span class="c-name">Ванные</span><span class="c-cap">Подвесная тумба и зеркало</span></a>
+        <a class="c-arch" href={createLink(base, CATEGORY_LINKS['Кабинеты'])} style="--i:5"><i class="c-sh" aria-hidden="true"></i><span class="c-frame"><Ph name="w8-study-t" tag="span" class="ph" alt="" sizes="(max-width: 600px) 72vw, 40vw" /></span><span class="c-name">Кабинеты</span><span class="c-cap">Встроенный стеллаж</span></a>
+      </div>
+      </div>
+      <div class="c-rail" aria-hidden="true"><span class="c-bar"><i></i></span><span class="c-num"><b>1</b>&thinsp;/&thinsp;6</span></div>
+      <p class="c-more">Прихожие, детские и прачечные тоже делаем на заказ — их фотографии появятся после съёмки.</p>
+    </div>
+  </section>

@@ -1,0 +1,10 @@
+const pw=require('playwright');const eng=process.env.ENGINE||'webkit';const FN=process.env.FILE||'vernissage-2.0-v9-standalone.html';
+(async()=>{const b=await pw[eng].launch();const ctx=await b.newContext({viewport:{width:390,height:844},deviceScaleFactor:3,hasTouch:true});const p=await ctx.newPage();
+await p.goto('file://'+__dirname+'/'+FN+'#site-home');await p.waitForTimeout(1500);if(process.env.CSS)await p.addStyleTag({content:process.env.CSS});
+const r=await p.evaluate(async(SET)=>{process={env:{SETTLE:SET}};const ts=[];let run=true;(function loop(t){ts.push(t);if(run)requestAnimationFrame(loop)})(performance.now());const marks={};const w=ms=>new Promise(r=>setTimeout(r,ms));
+ const arches=[...document.querySelectorAll('#solo .c-arch')];arches[0].scrollIntoView({block:'center'});await w(+(process.env.SETTLE||400));marks.a0=performance.now();for(const a of arches){a.dispatchEvent(new MouseEvent('mouseover',{bubbles:true}));await w(250);}marks.a1=performance.now();
+ const th=[...document.querySelectorAll('#solo .w-th')];th[0].scrollIntoView({block:'center'});await w(+(process.env.SETTLE||400));marks.g0=performance.now();for(const t of th){t.click();await w(250);}marks.g1=performance.now();
+ const k=document.querySelector('#solo [data-k3]');k.querySelector('[data-lay]').scrollIntoView({block:'center'});await w(400);marks.k0=performance.now();for(const l of ['corner','island','straight']){k.querySelector(`[data-lay="${l}"]`).click();await w(300);for(const f of ['oak','graphite']){k.querySelector(`[data-fin="${f}"]`).click();await w(300);}}marks.k1=performance.now();
+ run=false;const st=(a,b)=>{const x=[];for(let i=1;i<ts.length;i++)if(ts[i]>a&&ts[i]<=b)x.push(ts[i]-ts[i-1]);return Math.round(1000/(x.reduce((m,n)=>m+n,0)/x.length))};
+ return {arches:st(marks.a0,marks.a1),gallery:st(marks.g0,marks.g1),k3:st(marks.k0,marks.k1)}},process.env.SETTLE||'400');
+console.log(FN,JSON.stringify(r));await b.close()})();
