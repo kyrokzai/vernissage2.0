@@ -124,6 +124,26 @@ async function run(engine) {
     await ctx.close();
   }
 
+  // 5б. «Создать в 3D»: навигация на разделы новой главной, возврат на главную, полноэкранный режим,
+  //     конструктор во фрейме (компьютер и телефон), на телефоне нет нижней панели сайта
+  for (const w of [1440, 390]) {
+    const { p, ctx } = await open(browser, 'create-3d/?start=kitchen&layout=island&finish=oak', w);
+    const nav = await p.$$eval('.v-nav a, .x-menu nav a', (a) => [...new Set(a.map((x) => new URL(x.href).pathname + new URL(x.href).hash))]);
+    const want = ['#works', '#cats', 'create-3d/', '#how', '#contact'];
+    ok(want.every((h) => nav.some((x) => x.endsWith(h))), E(`/create-3d/ ${w}px: меню ведёт на разделы новой главной`), nav.join(' '));
+    const home = await p.$eval('.v-logo', (a) => new URL(a.href).pathname);
+    ok(home === new URL(BASE).pathname, E(`/create-3d/ ${w}px: логотип возвращает на главную`), home);
+    const full = await p.$$eval('[data-full]', (a) => a.map((x) => x.getAttribute('href')));
+    ok(full.length && full.every((h) => !/embed=1/.test(h) && /start=kitchen/.test(h) && /layout=island/.test(h) && /finish=oak/.test(h)), E(`/create-3d/ ${w}px: «на весь экран» — тот же выбор без встраивания`), (full[0] || '').slice(-70));
+    const fr = await (await p.waitForSelector('#c3-frame')).contentFrame();
+    let inside = '';
+    try { await fr.waitForFunction(() => /Модель/.test(document.body.innerText) && /Размеры/.test(document.body.innerText), null, { timeout: 45000 }); inside = await fr.evaluate(() => document.body.innerText); } catch { /* фрейм не загрузился */ }
+    ok(/Модель/.test(inside) && /Размеры/.test(inside) && !/Professional|PRO-режим/.test(inside), E(`/create-3d/ ${w}px: конструктор загружен во фрейме, режим Easy`), inside ? 'шаги Easy на месте' : 'нет содержимого фрейма');
+    const box = await p.$eval('#c3-frame', (f) => { const q = f.getBoundingClientRect(); return { h: Math.round(q.height), vh: innerHeight, bar: !!document.querySelector('.x-bar') }; });
+    ok(box.h > box.vh * 0.55 && !box.bar, E(`/create-3d/ ${w}px: конструктор занимает экран, нижней панели сайта нет`), JSON.stringify(box));
+    await ctx.close();
+  }
+
   // 6. клавиатура: у каждого элемента в фокусе видна рамка
   {
     const { p, ctx } = await open(browser, '', 1440);
