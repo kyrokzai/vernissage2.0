@@ -7,9 +7,9 @@ import '../../styles/create3d.css';
 import { CONTACTS, waLink } from '../../data/site';
 import { STARTS, frameSrc, createLink } from '../../data/create3d';
 const base = import.meta.env.BASE_URL;
-// Разделы главной. Пока главная не перенесена на v9 — якоря текущей опубликованной главной.
+// Разделы главной v9 (якоря главной в ветке feature/v9-home, согласовано 24.11.2026).
 const NAV: [string, string][] = [
-  ['Работы', base + '#portfolio'], ['Изготовление', base + '#mebel'], ['3D-конструктор', base + 'create-3d/'], ['Как заказать', base + '#etapy'], ['Контакты', base + '#contact'],
+  ['Работы', base + '#works'], ['Изготовление', base + '#cats'], ['3D-конструктор', base + 'create-3d/'], ['Как заказать', base + '#how'], ['Контакты', base + '#contact'],
 ];
 const wa = waLink('Здравствуйте! Вопрос по 3D-конструктору на сайте.');
 const phoneText = CONTACTS.phone.replace(/[()]/g, '');
