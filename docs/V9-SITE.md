@@ -57,7 +57,7 @@ src/assets/fonts/               + Cormorant Garamond 600 (кнопки, надз
 ## Vercel Preview
 
 - Тестовый проект Vercel `vernissage-preview` подключён к репозиторию владельцем 25.11.2026: каждая отправка в `feature/v9-home` собирается в окружении Preview. Production, `main` и vernissage.kz не затрагиваются.
-- Адрес ветки: https://vernissage-preview-git-feature-v9-home-kyrokzai.vercel.app/ · адрес проекта: https://vernissage-preview.vercel.app/. Vercel Authentication выключена.
+- Постоянный адрес для проверки: https://vernissage-preview.vercel.app/ — Production тестового проекта следует за веткой `feature/v9-home` (решение владельца 25.11.2026). Адрес ветки: https://vernissage-preview-git-feature-v9-home-kyrokzai.vercel.app/. Vercel Authentication выключена, все страницы — noindex.
 - `astro.config.mjs`: на Vercel (`VERCEL=1`) сайт собирается в корне домена (`base: '/'`). Для GitHub Pages остаётся `/vernissage2.0/`.
 - Адрес конструктора — `PUBLIC_VN_CONFIGURATOR_URL`. По умолчанию это Preview ветки `feature/vernissage-embed`.
 - Тестовый проект `vernissage-preview` (https://vernissage-preview.vercel.app/) закрыт от поиска: `<meta name="robots" content="noindex">`, пока у проекта нет своего домена. Признак — `import.meta.env.PUBLIC_VN_NOINDEX === '1'` (задаётся в `astro.config.mjs`, переменная проекта `PUBLIC_VN_NOINDEX` его переопределяет).
