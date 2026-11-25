@@ -19,7 +19,7 @@ function setupBar() {
   if (!site || !bar) return;
   // лаборатория: кнопки мобильного первого экрана концепции, если она видима; иначе — v9
   const lab = $('[data-hero-acts]', site);
-  const start = (lab && lab.offsetParent ? lab : null) || $('.v-acts', site) || $('.x-ph', site);
+  const start = $('[data-bar-start]', site) || (lab && lab.offsetParent ? lab : null) || $('.v-acts', site) || $('.x-ph', site);
   const stops = $$('.x-form,.x-cta,.x-ftr', site);
   const st = { passed: false, stops: [] as Element[], focus: false, menu: false };
   const upd = () => {

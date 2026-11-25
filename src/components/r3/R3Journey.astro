@@ -15,6 +15,7 @@ interface Props { n: number; w: number; h: number }
 const { n, w, h } = Astro.props;
 ---
 <section class="jr" data-jr data-r2 data-dir={`${F}f/`} data-n={n} data-fw={w} data-fh={h} aria-labelledby="jr-h">
+  <span class="jr-sent" data-bar-start aria-hidden="true"></span>
   <div class="jr-stick">
     <div class="jr-stage" data-jr-stage>
       <img class="jr-poster" src={`${F}poster.webp`} width={w} height={h} alt="" aria-hidden="true" fetchpriority="high" decoding="async" />

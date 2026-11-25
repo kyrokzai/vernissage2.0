@@ -77,7 +77,7 @@ async function init() {
   });
 
   // появление фотографий из маски, один раз
-  const rv = Array.from(document.querySelectorAll<HTMLElement>('.rm2-th, .mt2-grid figure, .pj2-pair figure, .bz2-f, .r2-tail .k-stage'));
+  const rv = Array.from(document.querySelectorAll<HTMLElement>('.rm2-th, .cr2-th, .wk2-g figure, .mt2-grid figure, .pj2-pair figure, .bz2-f, .r2-tail .k-stage'));
   rv.forEach((el) => el.setAttribute('data-r2-rv', ''));
   ST.batch(rv, { start: 'top 88%', once: true, onEnter: (els: Element[]) => els.forEach((el, i) => setTimeout(() => el.classList.add('in'), i * 110)) });
   document.fonts?.ready.then(() => ST.refresh());

@@ -1,20 +1,18 @@
 ---
 // ЭКСПЕРИМЕНТ experiment/cinematic — VERNISSAGE Cinematic Experience 3.0 (главная): первый экран — сцена «Войти в дом» (r3),
-// остальные разделы — Redesign 2.0 (1a0637c) без изменений.
+// v3 (сжатая): пять разделов — сцена, «Что мы создаём», «Реализованные проекты», 3D-конструктор, «Как заказать» с заявкой.
 // Направление — Taste Skill (вид: услуга; только реальные фото; моменты word-highlight и pinned-chapters),
 // анимации — GSAP ScrollTrigger (r2.ts), микровзаимодействия — по Emil Kowalski. 3D-раздел, заявка и подвал — рабочие компоненты v9.
 // Прежние эксперименты: /lab/scroll/ (видео по прокрутке), /lab/ (концепции первого экрана), /lab/arch/.
 import '../styles/r2.css';
 import '../styles/r3.css';
 import '../styles/r2v2.css';
+import '../styles/r2v3.css';
 import V9Site from '../layouts/V9Site.astro';
 import R3Journey from '../components/r3/R3Journey.astro';
-import R2Statement from '../components/r2/R2Statement.astro';
-import R2Rooms from '../components/r2/R2Rooms.astro';
-import R2Project from '../components/r2/R2Project.astro';
-import R2Materials from '../components/r2/R2Materials.astro';
-import R2Business from '../components/r2/R2Business.astro';
-import R2Process from '../components/r2/R2Process.astro';
+import R2Create from '../components/r2/R2Create.astro';
+import R2Works from '../components/r2/R2Works.astro';
+import R2Steps from '../components/r2/R2Steps.astro';
 import Kit3D from '../components/v9/Kit3D.astro';
 import Lead from '../components/v9/Lead.astro';
 import Footer from '../components/v9/Footer.astro';
@@ -26,15 +24,12 @@ import Footer from '../components/v9/Footer.astro';
 >
   <div class="r2">
     <R3Journey n={121} w={1080} h={1912} />
-    <R2Statement />
-    <R2Rooms />
-    <R2Materials />
-    <R2Project />
-    <R2Business />
-    <R2Process />
+    <R2Create />
+    <R2Works />
   </div>
   <div class="r2-tail">
     <Kit3D />
+    <R2Steps />
     <Lead />
     <Footer />
   </div>

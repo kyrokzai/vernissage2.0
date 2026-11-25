@@ -1,0 +1,67 @@
+/* v3 — сжатая главная: пять разделов, короче сцена, без закреплённых шагов и пустых экранов. Эстетика v2 без изменений. */
+html.cs-on .jr{height:260vh;height:260svh}
+.jr-sent{position:absolute;top:0;left:0;width:1px;height:45svh;pointer-events:none}
+
+/* что мы создаём */
+.cr2{padding-block:76px 64px}
+.cr2-head{margin-bottom:30px}
+.cr2-list{list-style:none;margin:0;display:grid;grid-auto-flow:column;grid-auto-columns:44vw;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--r2-g);padding-bottom:6px;scrollbar-width:none;overscroll-behavior-x:contain}
+.cr2-list::-webkit-scrollbar{display:none}
+.cr2-list li{scroll-snap-align:start}
+.cr2-it{display:block;text-decoration:none;color:var(--r2-ink)}
+.cr2-th{display:block;aspect-ratio:3/4;overflow:hidden;border-radius:999px 999px 4px 4px/42% 42% 4px 4px;background:var(--r2-stone)}
+.biz .cr2-th{border-radius:4px}
+.cr2-th img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s var(--r2-ease)}
+.cr2-n{display:block;margin-top:12px;font:400 22px/1.1 var(--serif)}
+.cr2-note{display:block;margin-top:4px;font:400 13px/1.4 var(--sans);color:var(--r2-muted)}
+@media (hover:hover){.cr2-it:hover .cr2-th img{transform:scale(1.05)}}
+
+/* реализованные проекты: одна галерея на тёмной полосе */
+.wk2{padding-block:84px 88px}
+.wk2-head{margin-bottom:32px}
+.wk2-side .r2-link{color:#F3ECE1;margin-top:6px}
+.wk2-g{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.wk2-g figure{margin:0;overflow:hidden;border-radius:4px;aspect-ratio:3/4;position:relative;background:#241d17}
+.wk2-g img{width:100%;height:112%;margin-top:-6%;object-fit:cover;display:block;will-change:transform}
+.wk2-g .wk2-big{grid-column:1/-1;aspect-ratio:4/3}
+.wk2-big .pj2-tag{z-index:3}
+
+/* 3D: наезжает на галерею, как следующий занавес */
+.r2-tail>.k-sec:first-child{position:relative;z-index:3;border-radius:28px 28px 0 0;margin-top:-28px}
+.r2-tail .x-sec{padding-block:80px}
+
+/* как заказать: три шага, сразу за ними заявка */
+.sp2{padding-block:80px 8px}
+.sp2-head{margin-bottom:30px}
+.sp2-list{list-style:none;margin:0;padding:0;display:grid;gap:18px}
+.sp2-list li{display:grid;grid-template-columns:50px 1fr;column-gap:12px;padding-top:18px;border-top:1px solid var(--r2-line)}
+.sp2-n{grid-row:1/3;font:300 50px/.9 var(--serif);color:var(--r2-bronze)}
+.sp2-t{margin:0;font:400 24px/1.15 var(--serif);color:var(--r2-ink)}
+.sp2-d{margin:6px 0 0;font:400 15px/1.5 var(--sans);color:var(--r2-muted)}
+.r2-tail .sp2+.f-sec{padding-top:48px}
+
+@media (min-width:761px){
+  .cr2{padding-block:120px 112px}
+  .cr2-head,.wk2-head,.sp2-head{display:grid;grid-template-columns:1fr 1fr;align-items:end;gap:6vw;margin-bottom:56px}
+  .cr2-head .r2-eb,.wk2-head .r2-eb,.sp2-head .r2-eb{grid-column:1/-1;margin-bottom:-8px}
+  .cr2-head .r2-lead,.sp2-head .r2-lead,.wk2-side .r2-lead{margin:0 0 10px}
+  .cr2-list{grid-auto-flow:row;grid-auto-columns:auto;grid-template-columns:repeat(4,1fr);gap:44px 2.4vw;overflow:visible;padding-bottom:40px}
+  .cr2-list li:nth-child(even){transform:translateY(40px)}
+  .cr2-th{aspect-ratio:5/6}
+  .cr2-n{font-size:clamp(24px,2vw,32px)}
+  .wk2{padding-block:140px 150px}
+  .wk2-g{grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,15vw);gap:14px}
+  .wk2-g figure{aspect-ratio:auto}
+  .wk2-g .wk2-big{grid-column:1/3;grid-row:1/3;aspect-ratio:auto}
+  .wk2-g figure:nth-child(6),.wk2-g figure:nth-child(7){grid-column:span 2}
+  .wk2-big .pj2-tag{left:28px;bottom:28px}
+  .r2-tail>.k-sec:first-child{border-radius:40px 40px 0 0;margin-top:-40px}
+  .r2-tail .x-sec{padding-block:120px}
+  .sp2{padding-block:130px 0}
+  .sp2-list{grid-template-columns:repeat(3,1fr);gap:3vw}
+  .sp2-list li{grid-template-columns:1fr;padding-top:28px}
+  .sp2-n{grid-row:auto;font-size:84px;margin-bottom:18px}
+  .sp2-t{font-size:30px}
+  .r2-tail .sp2+.f-sec{padding-top:72px}
+}
+@media (prefers-reduced-motion: reduce){.cr2-list li:nth-child(even){transform:none}}
