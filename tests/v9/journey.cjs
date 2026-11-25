@@ -83,10 +83,20 @@ async function run(engine, w, h) {
     ok(/Приём заявок ещё не подключён/.test(sent) && posts.length === nPosts, E('заявка: честное сообщение «Приём заявок ещё не подключён», данные никуда не уходят'), posts.slice(nPosts).join(' ') || 'запросов нет');
     await shot('6-request');
 
-    // 6. возврат на главную: «На сайт салона» во фрейме и логотип страницы
-    const back = await fl.getByRole('link', { name: 'На сайт салона' }).first();
-    const backHref = (await back.count()) ? await back.getAttribute('href') : '';
-    ok(!!backHref && same(backHref, BASE), E('конструктор: «На сайт салона» ведёт на этот сайт'), backHref || 'ссылки нет');
+    // 6. возврат на главную. Во фрейме возврат — логотип сайта (конструктор прячет свою ссылку, когда встроен);
+    //    в режиме «на весь экран» — ссылка конструктора «На сайт салона», она должна вести на этот сайт.
+    const fullHref = await p.$eval('[data-full]', (a) => a.href);
+    const fp = await ctx.newPage();
+    await fp.goto(fullHref, { waitUntil: 'load' });
+    const back = fp.locator('a:visible', { hasText: 'На сайт салона' }).first();
+    let backHref = '';
+    try { await back.waitFor({ timeout: 45000 }); backHref = await back.getAttribute('href'); } catch { /* ссылки нет */ }
+    ok(!!backHref && same(backHref, BASE), E('конструктор на весь экран: «На сайт салона» ведёт на этот сайт'), backHref || 'ссылки нет');
+    if (backHref && same(backHref, BASE)) {
+      await Promise.all([fp.waitForURL((u) => same(u.href, BASE), { timeout: 20000 }), back.click()]);
+      ok(same(fp.url(), BASE), E('«На сайт салона» открывает главную'), fp.url());
+    }
+    await fp.close();
     const wa = await p.$eval('.v-wa, .v-ic[href*="wa.me"]', (a) => a.href);
     ok(/^https:\/\/wa\.me\/77475613005/.test(wa), E('страница конструктора: WhatsApp салона для заявки'), wa.slice(0, 40));
     await Promise.all([p.waitForURL((u) => same(u.href, BASE), { timeout: 20000 }), p.click('.v-head .v-logo, header .v-logo')]);
@@ -96,7 +106,7 @@ async function run(engine, w, h) {
     await sleep(800);
     await p.evaluate(() => { window.__open = []; window.open = (u) => { window.__open.push(u); return {}; }; });
     await p.$eval('#contact', (e) => e.scrollIntoView()); await sleep(900);
-    await p.fill('#f-tel', '+7 701 000 00 00'); await p.check('#f-ok', { force: true });
+    await p.fill('#f-tel', '+7 701 000 00 00'); await p.locator('#f-ok').check();
     await p.click('#lead-form button[type=submit]'); await sleep(400);
     const opened = await p.evaluate(() => window.__open[0] || '');
     ok(/^https:\/\/wa\.me\/77475613005\?text=/.test(opened), E('заявка с главной открывает WhatsApp салона'), decodeURIComponent(opened.split('text=')[1] || '').slice(0, 50));
