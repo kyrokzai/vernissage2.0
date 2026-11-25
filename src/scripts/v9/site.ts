@@ -16,7 +16,9 @@ const $$ = <T extends Element = HTMLElement>(s: string, r: ParentNode = document
 function setupBar() {
   const site = $('.site'), bar = $('.x-bar'), menu = $<HTMLElement>('.x-menu');
   if (!site || !bar) return;
-  const start = $('.v-acts', site) || $('.x-ph', site);
+  // лаборатория: кнопки мобильного первого экрана концепции, если она видима; иначе — v9
+  const lab = $('[data-hero-acts]', site);
+  const start = (lab && lab.offsetParent ? lab : null) || $('.v-acts', site) || $('.x-ph', site);
   const stops = $$('.x-form,.x-cta,.x-ftr', site);
   const st = { passed: false, stops: [] as Element[], focus: false, menu: false };
   const upd = () => {

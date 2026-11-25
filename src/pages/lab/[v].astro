@@ -1,0 +1,36 @@
+---
+// Лаборатория: главная с одной из трёх концепций мобильного первого экрана. На компьютере — первый экран v9.
+import '../../styles/lab.css';
+import V9Site from '../../layouts/V9Site.astro';
+import Hero from '../../components/v9/Hero.astro';
+import HeroA from '../../components/lab/HeroA.astro';
+import HeroB from '../../components/lab/HeroB.astro';
+import HeroC from '../../components/lab/HeroC.astro';
+import Categories from '../../components/v9/Categories.astro';
+import Works from '../../components/v9/Works.astro';
+import Kit3D from '../../components/v9/Kit3D.astro';
+import Steps from '../../components/v9/Steps.astro';
+import Lead from '../../components/v9/Lead.astro';
+import Footer from '../../components/v9/Footer.astro';
+
+export function getStaticPaths() {
+  return [{ params: { v: 'a' } }, { params: { v: 'b' } }, { params: { v: 'c' } }];
+}
+const { v } = Astro.params;
+const names: Record<string, string> = { a: 'A · Арка-окно', b: 'B · Лента комнат', c: 'C · Вечерняя сцена' };
+---
+<V9Site title={`Лаборатория первого экрана — ${names[v!]}`} description="Экспериментальная концепция мобильного первого экрана VERNISSAGE." path={`lab/${v}/`} noindex>
+  {v === 'a' && <HeroA />}
+  {v === 'b' && <HeroB />}
+  {v === 'c' && <HeroC />}
+  <div class="lab-d"><Hero /></div>
+  <Categories />
+  <Works />
+  <Kit3D />
+  <Steps />
+  <Lead />
+  <Footer />
+</V9Site>
+<script>
+  import '../../scripts/lab';
+</script>

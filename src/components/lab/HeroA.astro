@@ -1,0 +1,26 @@
+---
+// Концепция A «Арка-окно»: светлая, ДНК v9. Интерьер в арке на 58 % экрана — его видно сразу;
+// текст сжат до двух строк заголовка и одной строки условий; кнопки — тонкие «пилюли».
+import LabHead from './LabHead.astro';
+const base = import.meta.env.BASE_URL;
+const v = `${base}lab/hero-a`;
+---
+<section class="la lab-m" data-lab="a" aria-labelledby="la-h">
+  <LabHead />
+  <div class="la-arch" data-lab-frame>
+    <video class="lab-vid" muted playsinline loop preload="metadata" poster={`${v}.webp`} aria-hidden="true" data-lab-video>
+      <source src={`${v}.mp4`} type="video/mp4" />
+      <source src={`${v}.webm`} type="video/webm" />
+    </video>
+    <span class="la-cur" aria-hidden="true"></span>
+    <span class="la-tag">Реальный проект · Астана</span>
+  </div>
+  <div class="la-txt" data-lab-text>
+    <h1 class="la-h" id="la-h"><span class="lw"><span>Мебель по&nbsp;вашим размерам.</span></span> <span class="lw"><em>Создайте её сами.</em></span></h1>
+    <div class="lab-acts" data-hero-acts>
+      <a class="lb lb--p" href={base + '#contact'}>Рассчитать стоимость<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+      <a class="lb lb--g" href={base + 'create-3d/'}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/></svg>3D</a>
+    </div>
+    <p class="lab-note">Замер бесплатный · <b>демо 3D</b> без регистрации</p>
+  </div>
+</section>
