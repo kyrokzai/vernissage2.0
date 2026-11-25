@@ -76,3 +76,24 @@ html.cs-on .cs+.x-sec{position:relative;z-index:2;margin-top:-28px;border-radius
 }
 
 @media (prefers-reduced-motion: reduce){.cs-cue i::after{animation:none}}
+
+/* ---------- лаборатория качества: переключатель ---------- */
+.cs-ui{display:none}
+html.cs-on .cs-ui{display:block;position:absolute;z-index:6;left:12px;top:66px;max-width:calc(100% - 24px)}
+.cs-ui-t{height:30px;min-width:44px;padding:0 10px;border-radius:999px;border:1px solid rgba(36,31,26,.25);background:rgba(246,241,232,.88);font:700 12px/1 var(--sans);letter-spacing:.08em;color:var(--ink)}
+.cs-ui-b{display:none;flex-wrap:wrap;gap:6px;margin-top:8px;padding:10px;border-radius:14px;background:rgba(246,241,232,.94);box-shadow:0 12px 30px -12px rgba(0,0,0,.45)}
+.cs-ui.open .cs-ui-b{display:flex}
+.cs-ui-b button{height:34px;padding:0 12px;border-radius:999px;border:1px solid var(--line-2);background:#fff;font:600 13px/1 var(--sans);color:var(--ink)}
+.cs-ui-b button[aria-pressed="true"]{background:#2A2521;border-color:#2A2521;color:#F6F1E8}
+.cs-ui-sep{flex-basis:100%;height:0}
+.cs-ui-s{flex-basis:100%;margin:4px 2px 0;font:500 11px/1.4 var(--sans);color:var(--ink-2)}
+/* формат «Арка» на телефоне: кадр без кадрирования по бокам, меньше увеличение */
+@media (max-width:760px){
+  .cs.fit-arch .cs-frame{left:12px;right:12px;top:64px;bottom:auto;height:calc((100vw - 24px) * 1112 / 834);max-height:calc(100svh - 230px);border-radius:999px 999px 6px 6px/calc((100vw - 24px) / 2) calc((100vw - 24px) / 2) 6px 6px}
+  .cs.fit-arch .cs-shade{background:linear-gradient(180deg,rgba(20,14,9,0) 60%,rgba(20,14,9,.35))}
+  .cs.fit-arch .cs-top{background:transparent}
+  .cs.fit-arch .cs-top .lh-logo{background:#F6F1E8}
+  .cs.fit-arch .cs-top .lh-ic{color:#F6F1E8;border-color:rgba(246,241,232,.35);background:rgba(20,14,9,.2)}
+  .cs.fit-arch .cs-cap{color:rgba(246,241,232,.6);top:auto;bottom:8px}
+}
+@media (min-width:761px){html.cs-on .cs-ui{left:6vw;top:104px}}
