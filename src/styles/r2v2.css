@@ -79,4 +79,7 @@ html.r2-on [data-r2-rv].in img{transform:scale(1);transition:transform 1.8s var(
   .pc2-n{font-size:84px}
   .pc2-s{padding-left:110px}
   .r2-tail .x-sec{padding-block:160px}
+  .rm2-th{display:block}
+  .rm2-head .r2-eb,.pj2-head .r2-eb,.mt2-head .r2-eb,.bz2-head .r2-eb{grid-column:1/-1;margin-bottom:-8px}
+  .rm2-head .r2-h2,.pj2-head .r2-h2,.mt2-head .r2-h2,.bz2-head .r2-h2{grid-column:1}
 }
