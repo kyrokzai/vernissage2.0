@@ -6,7 +6,9 @@
  * только разрешённые параметры выбора — что создать, планировку и отделку. Адрес сборки задаётся при сборке сайта
  * (PUBLIC_VN_CONFIGURATOR_URL); по умолчанию — тестовый Preview ветки интеграции.
  */
-const PREVIEW = 'https://formiq-configurator-git-feature-vernissage-embed-kyrokzai.vercel.app/';
+// experiment/cinematic: сборка конструктора feature/vernissage-cinematic — «На сайт салона» возвращает на сайт, открывший
+// конструктор (параметр home, разрешённые адреса проверяет конструктор), с проектом и выбранным языком.
+const PREVIEW = 'https://formiq-configurator-git-feature-vernissage-cinematic-kyrokzai.vercel.app/';
 const fromEnv = import.meta.env.PUBLIC_VN_CONFIGURATOR_URL as string | undefined;
 /** https:// — опубликованная сборка; http://127.0.0.1 — только локальные проверки. */
 const valid = (u: string | undefined) => !!u && /^(https:\/\/[\w.-]+|http:\/\/127\.0\.0\.1:\d{2,5})\/([\w./-]*)$/.test(u);
@@ -45,6 +47,7 @@ export function frameSrc(search: string, embed = true): string {
   if (embed) out.set('embed', '1');
   out.set('theme', 'light');
   out.set('lang', typeof document !== 'undefined' && document.documentElement.lang === 'kk' ? 'kk' : 'ru');
+  if (typeof location !== 'undefined') out.set('home', location.origin + import.meta.env.BASE_URL);
   const start = q.get('start'), layout = q.get('layout'), finish = q.get('finish');
   if (has(STARTS.map((s) => s[0]), start)) {
     out.set('start', start);

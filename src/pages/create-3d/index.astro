@@ -75,8 +75,26 @@ const full = frameSrc('', false);
     const wait = document.querySelector<HTMLElement>('[data-wait]')!, fallback = document.querySelector<HTMLElement>('[data-fallback]')!;
     let loaded = false;
     frame.addEventListener('load', () => { loaded = true; wait.hidden = true; fallback.hidden = true; });
-    frame.src = frameSrc(location.search);
-    for (const a of document.querySelectorAll<HTMLAnchorElement>('[data-full]')) a.href = frameSrc(location.search, false);
+    // проект, с которым посетитель вернулся из полноэкранного конструктора (?vnp= на сайте), открывается во фрейме один раз
+    let carried: string | null = null;
+    try { carried = localStorage.getItem('vn-scene'); localStorage.removeItem('vn-scene'); } catch {}
+    frame.src = frameSrc(location.search) + (carried && /^[zj][\w-]+$/.test(carried) ? '#scene=' + carried : '');
+    for (const a of document.querySelectorAll<HTMLAnchorElement>('[data-full]')) {
+      a.href = frameSrc(location.search, false);
+      a.removeAttribute('target');
+      // «На весь экран»: тот же проект — фрейм отдаёт его по запросу (браузер хранит проект фрейма отдельно от полного экрана)
+      a.addEventListener('click', (e) => {
+        if (!loaded || !frame.contentWindow) return;
+        e.preventDefault();
+        const origin = new URL(frame.src).origin;
+        let done = false;
+        const go = (code: string | null) => { if (done) return; done = true; removeEventListener('message', on); location.href = a.href + (code ? '#scene=' + code : ''); };
+        const on = (m: MessageEvent) => { if (m.origin === origin && m.data && m.data.type === 'vn-scene') go(typeof m.data.code === 'string' && /^[zj][\w-]+$/.test(m.data.code) ? m.data.code : null); };
+        addEventListener('message', on);
+        frame.contentWindow.postMessage({ type: 'vn-scene?' }, origin);
+        setTimeout(() => go(null), 1500);
+      });
+    }
     setTimeout(() => { if (!loaded) { wait.hidden = true; fallback.hidden = false; } }, 20000);
     const start = new URLSearchParams(location.search).get('start');
     for (const a of document.querySelectorAll<HTMLAnchorElement>('[data-start]')) if (a.dataset.start === start) a.setAttribute('aria-current', 'true');
