@@ -69,7 +69,7 @@ npm ci && npm run build && npm run preview            # http://127.0.0.1:4321/ve
 node tests/v9/qa.cjs                                  # Chromium + WebKit (глобальный Playwright)
 AXE=/путь/axe.min.js node tests/v9/qa.cjs             # + axe-core (WCAG 2.2 AA)
 node tests/v9/qa.cjs https://<preview>.vercel.app/    # то же на Vercel Preview
-node tests/v9/journey.cjs https://<preview>.vercel.app/  # сквозной путь: главная → каталог → 3D → настройка → заявка → главная
+node tests/v9/journey.cjs https://<preview>.vercel.app/  # сквозной путь: главная → каталог → 3D → настройка (посудомойка, интерьер) → заявка → «на весь экран» → главная → панель → проект сохранён
 ```
 
 Проверки:
