@@ -17,7 +17,7 @@
 
 - Светлый 3D-раздел.
 - Водяной знак — «VERNISSAGE».
-- «Технология FORMIQ» — в 3D-разделе и в подвале.
+- «Технология FORMIQ» — в 3D-разделе и в подвале; внутри конструктора только «Все права защищены © FORMIQ». Окончательные правила — `docs/INTEGRATION-CONTRACT.md`, §2.
 - Заявки из конструктора не подключены. Заявка с сайта открывает WhatsApp салона с готовым сообщением, сайт сам ничего не отправляет.
 
 ## Источник дизайна
@@ -66,6 +66,7 @@ npm ci && npm run build && npm run preview            # http://127.0.0.1:4321/ve
 node tests/v9/qa.cjs                                  # Chromium + WebKit (глобальный Playwright)
 AXE=/путь/axe.min.js node tests/v9/qa.cjs             # + axe-core (WCAG 2.2 AA)
 node tests/v9/qa.cjs https://<preview>.vercel.app/    # то же на Vercel Preview
+node tests/v9/journey.cjs https://<preview>.vercel.app/  # сквозной путь: главная → каталог → 3D → настройка → заявка → главная
 ```
 
 Проверки:
