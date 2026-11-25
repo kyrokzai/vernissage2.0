@@ -1,8 +1,10 @@
 ---
-// Главная VERNISSAGE 2.0 в утверждённом дизайне v9 (24.11.2026). Прежняя главная — /legacy/ (noindex).
+// ЭКСПЕРИМЕНТ experiment/cinematic: главная с VERNISSAGE CINEMATIC SCROLL вместо первого экрана v9.
+// Прежние эксперименты: /lab/ (три концепции первого экрана), /lab/arch/ (сцена «Через арку»).
+import '../styles/lab.css';
+import '../styles/cinescroll.css';
 import V9Site from '../layouts/V9Site.astro';
-import Hero from '../components/v9/Hero.astro';
-import Cine from '../components/v9/Cine.astro';
+import CineScroll from '../components/cs/CineScroll.astro';
 import Categories from '../components/v9/Categories.astro';
 import Works from '../components/v9/Works.astro';
 import Kit3D from '../components/v9/Kit3D.astro';
@@ -15,8 +17,7 @@ import Footer from '../components/v9/Footer.astro';
   description="Кухни, шкафы, гостиные, спальни и ванные по вашим размерам. Соберите мебель в 3D-конструкторе или отправьте заявку на расчёт — стоимость посчитает менеджер после бесплатного замера."
   path=""
 >
-  <Hero />
-  <Cine />
+  <CineScroll />
   <Categories />
   <Works />
   <Kit3D />
@@ -24,3 +25,6 @@ import Footer from '../components/v9/Footer.astro';
   <Lead />
   <Footer />
 </V9Site>
+<script>
+  import '../scripts/cinescroll';
+</script>

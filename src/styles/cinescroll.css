@@ -1,0 +1,78 @@
+/* VERNISSAGE CINEMATIC SCROLL. Сцена «прилипает» (sticky), кадр видео рисуется на canvas по прогрессу прокрутки.
+   Анимируются только transform/opacity; значения ставит cinescroll.ts через CSS-переменные одного кадра. */
+.cs{position:relative;background:#1A140F;color:#F6F1E8;--p:0}
+.cs-stick{position:relative;height:100vh;height:100svh;min-height:540px;overflow:hidden}
+html.cs-on .cs{height:420vh}
+html.cs-on .cs-stick{position:sticky;top:0;height:100vh;height:100lvh}
+.cs-stage{position:absolute;inset:0}
+.cs-frame{position:absolute;inset:0;overflow:hidden;background:#2b2118}
+.cs-poster,.cs-poster img,.cs-cv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.cs-cv{opacity:0}
+html.cs-on .cs-cv.ready{opacity:1}
+html.cs-on .cs-poster.hide{visibility:hidden}
+/* глубина и свет: затемнение снизу под текст, мягкий тёплый свет сверху справа */
+.cs-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(246,241,232,.55) 0,rgba(246,241,232,0) 120px,rgba(20,14,9,0) 42%,rgba(20,14,9,.5) 72%,rgba(20,14,9,.82) 100%)}
+.cs-light{position:absolute;right:-30%;top:-20%;width:90%;height:70%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,226,180,.35),rgba(255,226,180,0));mix-blend-mode:soft-light;pointer-events:none;
+  transform:translate3d(calc(var(--p) * -18%),calc(var(--p) * 10%),0)}
+
+.cs-top{position:absolute;left:0;right:0;top:0;z-index:5}
+.cs-hd{display:none}
+.cs-y{display:none}
+.cs-t.cs-t--big{font-size:42px}
+.cs-copy{position:absolute;z-index:4;left:20px;right:20px;bottom:calc(36px + (100lvh - 100svh))}
+.cs-beat{position:absolute;left:0;right:0;bottom:0}
+.cs-eb{margin:0 0 12px;font:600 10.5px/1.5 var(--serif);letter-spacing:.28em;text-transform:uppercase;color:rgba(246,241,232,.78)}
+.cs-h{margin:0;font:500 44px/.98 var(--serif);letter-spacing:-.015em;color:#F6F1E8;text-shadow:0 2px 30px rgba(20,14,9,.35)}
+.cs-t{margin:0;font:500 34px/1.05 var(--serif);letter-spacing:-.01em;color:#F6F1E8;text-shadow:0 2px 30px rgba(20,14,9,.35)}
+.cs-t em{font-style:italic;font-weight:400;color:#E6CDA7}
+.cs-acts{display:flex;gap:8px;margin-top:18px}
+.cs-acts .lb--i{flex:1}
+.cs-note{margin:10px 0 0;font:500 12px/1.4 var(--sans);color:rgba(246,241,232,.7)}
+.cs-cap{position:absolute;z-index:4;right:16px;top:72px;margin:0;font:500 10.5px/1.3 var(--sans);color:rgba(36,31,26,.62)}
+.cs-cue{position:absolute;z-index:4;right:20px;bottom:calc(40px + (100lvh - 100svh));display:none;flex-direction:column;align-items:center;gap:8px;font:500 10px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:rgba(246,241,232,.7);writing-mode:vertical-rl}
+.cs-cue i{width:1px;height:34px;background:rgba(246,241,232,.35);position:relative;overflow:hidden}
+.cs-cue i::after{content:"";position:absolute;left:0;top:-34px;width:1px;height:34px;background:#F6F1E8;animation:csCue 2.2s ease-in-out infinite}
+@keyframes csCue{to{transform:translateY(68px)}}
+.cs-bar{position:absolute;z-index:4;left:0;right:0;top:0;height:2px;display:none}
+.cs-bar i{display:block;height:100%;background:#B08A5C;transform-origin:0 0;transform:scaleX(var(--p))}
+
+/* статичная версия (нет JS / уменьшение движения): один кадр, текст — все три фразы стопкой */
+.cs-beat{position:relative}
+.cs-beat+.cs-beat{margin-top:14px}
+html.cs-on .cs-beat{position:absolute;margin:0;opacity:0;will-change:transform,opacity}
+html.cs-on .cs-beat[data-beat="0"]{opacity:1}
+html.cs-on .cs-cue,html.cs-on .cs-bar{display:flex}
+html.cs-on .cs-bar{display:block}
+
+/* следующий раздел наезжает на сцену светлым слоем */
+html.cs-on .cs+.x-sec{position:relative;z-index:2;margin-top:-28px;border-radius:28px 28px 0 0;box-shadow:0 -30px 50px -24px rgba(0,0,0,.45)}
+
+/* ---------- компьютер: видео в большой арке справа, текст слева на светлом ---------- */
+@media (min-width:761px){
+  .cs{background:var(--ivory);color:var(--ink)}
+  .cs-frame{left:auto;right:6vw;top:13vh;bottom:6vh;width:min(46vw,calc(81vh * .75));border-radius:999px 999px 6px 6px/min(23vw,30vh) min(23vw,30vh) 6px 6px;box-shadow:0 50px 90px -50px rgba(36,31,26,.65),0 2px 6px rgba(36,31,26,.1)}
+  .cs-shade{background:linear-gradient(180deg,rgba(20,14,9,0) 60%,rgba(20,14,9,.25))}
+  .cs-hm{display:none}
+  .cs-hd{display:block;padding-inline:6vw}
+  .cs-hd .v-hdr{border-bottom-color:transparent}
+  .cs-y{display:inline}
+  .cs-t.cs-t--big{font-size:clamp(56px,5.4vw,80px)}
+  .cs-copy{left:6vw;right:auto;width:min(40vw,560px);bottom:auto;top:30vh;height:46vh}
+  .cs-beat{bottom:auto;top:0}
+  .cs-eb{font-size:13px;color:var(--bronze-text)}
+  .cs-h{font-size:clamp(54px,5.6vw,84px);color:var(--ink);text-shadow:none}
+  .cs-t{font-size:clamp(40px,4vw,60px);color:var(--ink);text-shadow:none}
+  .cs-t em{color:var(--bronze)}
+  .cs-note{color:var(--muted)}
+  .cs-acts .lb--i{flex:none;background:#2A2521;color:#F6F1E8}
+  .cs-acts .lb--gi{color:var(--ink);border-color:var(--bronze-line);background:transparent}
+  .cs-cap{top:auto;bottom:2vh;right:6vw;color:var(--muted)}
+  .cs-cue{left:6vw;right:auto;bottom:6vh;writing-mode:horizontal-tb;flex-direction:row;color:var(--muted)}
+  .cs-cue i{width:44px;height:1px;background:var(--line-2)}
+  .cs-cue i::after{top:0;left:-44px;width:44px;height:1px;background:var(--ink);animation-name:csCueX}
+  @keyframes csCueX{to{transform:translateX(88px)}}
+  .cs-light{display:none}
+  html.cs-on .cs-beat{position:absolute}
+}
+
+@media (prefers-reduced-motion: reduce){.cs-cue i::after{animation:none}}

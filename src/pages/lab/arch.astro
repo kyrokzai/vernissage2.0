@@ -1,0 +1,26 @@
+---
+// Главная VERNISSAGE 2.0 в утверждённом дизайне v9 (24.11.2026). Прежняя главная — /legacy/ (noindex).
+import V9Site from '../../layouts/V9Site.astro';
+import Hero from '../../components/v9/Hero.astro';
+import Cine from '../../components/v9/Cine.astro';
+import Categories from '../../components/v9/Categories.astro';
+import Works from '../../components/v9/Works.astro';
+import Kit3D from '../../components/v9/Kit3D.astro';
+import Steps from '../../components/v9/Steps.astro';
+import Lead from '../../components/v9/Lead.astro';
+import Footer from '../../components/v9/Footer.astro';
+---
+<V9Site
+  title="VERNISSAGE — мебель на заказ в Астане по вашим размерам"
+  description="Кухни, шкафы, гостиные, спальни и ванные по вашим размерам. Соберите мебель в 3D-конструкторе или отправьте заявку на расчёт — стоимость посчитает менеджер после бесплатного замера."
+  path="lab/arch/" noindex
+>
+  <Hero />
+  <Cine />
+  <Categories />
+  <Works />
+  <Kit3D />
+  <Steps />
+  <Lead />
+  <Footer />
+</V9Site>

@@ -1,0 +1,46 @@
+---
+// VERNISSAGE CINEMATIC SCROLL (эксперимент). Видео из Higgsfield (предоставлено владельцем), 97 кадров,
+// управляется прокруткой: кадр = прогресс прохождения секции. Сцена «прилипает» через CSS sticky — прокрутка родная.
+// Без JS, при «уменьшить движение» или экономии трафика — неподвижный кадр и весь текст сразу.
+import LabHead from '../lab/LabHead.astro';
+import Header from '../v9/Header.astro';
+const base = import.meta.env.BASE_URL;
+const P = `${base}cs/`;
+---
+<section class="cs" id="cinematic" data-cs data-m={`${P}m/`} data-d={`${P}d/`} data-n="97" aria-labelledby="cs-h">
+  <div class="cs-stick">
+    <div class="cs-stage">
+      <div class="cs-frame">
+        <picture class="cs-poster">
+          <source media="(max-width: 760px)" srcset={`${P}m/001.webp`} type="image/webp" />
+          <source srcset={`${P}poster.webp`} type="image/webp" />
+          <img src={`${P}poster.jpg`} alt="Кухня из ореха с островом из травертина в лучах солнца — иллюстрация" fetchpriority="high" decoding="async" />
+        </picture>
+        <canvas class="cs-cv" aria-hidden="true"></canvas>
+        <span class="cs-shade" aria-hidden="true"></span>
+        <span class="cs-light" aria-hidden="true"></span>
+      </div>
+    </div>
+    <div class="cs-top"><div class="cs-hm"><LabHead /></div><div class="cs-hd v-in"><Header /></div></div>
+    <div class="cs-copy">
+      <div class="cs-beat" data-beat="0">
+        <p class="cs-eb">Мебельная компания · Астана<span class="cs-y"> · с 2003 года</span></p>
+        <h1 class="cs-h" id="cs-h">Мебель по&nbsp;вашим размерам.</h1>
+      </div>
+      <div class="cs-beat" data-beat="1">
+        <p class="cs-t">Дерево, камень и&nbsp;свет —<br /><em>в пропорциях вашего дома.</em></p>
+      </div>
+      <div class="cs-beat" data-beat="2">
+        <p class="cs-t cs-t--big"><em>Создайте её сами.</em></p>
+        <div class="cs-acts" data-hero-acts>
+          <a class="lb lb--i" href={base + '#contact'}>Рассчитать стоимость</a>
+          <a class="lb lb--gi" href={base + 'create-3d/'}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/></svg>Создать в 3D</a>
+        </div>
+        <p class="cs-note">Замер бесплатный · демо 3D без регистрации</p>
+      </div>
+    </div>
+    <p class="cs-cap">Иллюстрация — не работа VERNISSAGE</p>
+    <div class="cs-cue" aria-hidden="true"><span>Листайте</span><i></i></div>
+    <div class="cs-bar" aria-hidden="true"><i></i></div>
+  </div>
+</section>
