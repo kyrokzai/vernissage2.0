@@ -1,0 +1,67 @@
+---
+// Диагностика для проверки на реальном устройстве: какая сборка пришла и что поддерживает браузер.
+// Без общих стилей и скриптов сайта — страница должна открыться даже там, где не работает основная вёрстка.
+const build = import.meta.env.PUBLIC_VN_BUILD;
+const built = import.meta.env.PUBLIC_VN_BUILD_TIME;
+const base = import.meta.env.BASE_URL;
+---
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Диагностика сборки</title>
+  <style>
+    body{margin:0;padding:20px;font:16px/1.45 -apple-system,system-ui,sans-serif;background:#F6F1E8;color:#241F1A}
+    h1{font-size:22px;margin:0 0 4px}
+    p{margin:0 0 14px;color:#5b5249}
+    table{border-collapse:collapse;width:100%;font-size:14px;background:#fff}
+    td{border:1px solid #d8cdbd;padding:7px 8px;vertical-align:top;word-break:break-word}
+    td:first-child{width:42%;color:#5b5249}
+    .ok{color:#2c6b2f;font-weight:600}.bad{color:#9B2F1E;font-weight:600}
+    a{color:#241F1A}
+  </style>
+</head>
+<body data-build={build} data-base={base}>
+  <h1>Сборка {build}</h1>
+  <p>Собрана {built}. Сделайте снимок этой страницы целиком и пришлите его.</p>
+  <table id="t">
+    <tr><td>Сборка на сервере</td><td>{build} · {built}</td></tr>
+  </table>
+  <p style="margin-top:16px"><a href={base}>Открыть главную</a> · <a href={base + '?nocache=' + build}>Главная без кэша</a></p>
+  <script is:inline>
+    (async () => {
+      const t = document.getElementById('t');
+      const row = (k, v, good) => { const tr = t.insertRow(); tr.insertCell().textContent = k; const c = tr.insertCell(); c.textContent = v; if (good !== undefined) c.className = good ? 'ok' : 'bad'; };
+      const ua = navigator.userAgent;
+      const ios = (ua.match(/OS (\d+)_(\d+)/) || [])[0];
+      row('Адрес страницы', location.href);
+      row('Браузер', ua);
+      row('iOS', ios ? ios.replace('OS ', '').replace('_', '.') : 'не iOS');
+      row('Экран (CSS px) × плотность', innerWidth + ' × ' + innerHeight + ' · ×' + devicePixelRatio);
+      const cq = CSS.supports('container-type: inline-size');
+      row('Контейнерные запросы (нужны для вёрстки телефона)', cq ? 'есть' : 'НЕТ — телефонная вёрстка не включится', cq);
+      row('Тёмная тема устройства', matchMedia('(prefers-color-scheme: dark)').matches ? 'да' : 'нет');
+      row('Уменьшение движения', matchMedia('(prefers-reduced-motion: reduce)').matches ? 'включено' : 'выключено');
+      let sw = 'не поддерживается';
+      if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) { const r = await navigator.serviceWorker.getRegistrations(); sw = r.length ? r.length + ': ' + r.map((x) => x.scope).join(', ') : 'нет'; }
+      row('Service Worker на этом адресе', sw, sw === 'нет' || sw === 'не поддерживается');
+      // что отдаёт сервер для главной прямо сейчас (в обход кэша браузера)
+      try {
+        const res = await fetch(document.body.dataset.base + '?diag=' + Date.now(), { cache: 'no-store' });
+        const html = await res.text();
+        const b = (html.match(/name="vn-build" content="([^"]+)"/) || [])[1] || 'нет метки';
+        const title = (html.match(/<title>([^<]*)/) || [])[1] || '';
+        row('Главная с сервера сейчас', b + ' · ' + title, b === document.body.dataset.build);
+      } catch (e) { row('Главная с сервера сейчас', 'ошибка: ' + e.message, false); }
+      // шрифт сайта
+      try {
+        const f = new FontFace('VNTest', 'url(data:font/woff2;base64,)');
+        row('Веб-шрифты', 'FontFace API: ' + (typeof f.load === 'function' ? 'есть' : 'нет'));
+      } catch { row('Веб-шрифты', 'FontFace API недоступен (режим блокировки?)', false); }
+      row('Время на устройстве', new Date().toString());
+    })();
+  </script>
+</body>
+</html>

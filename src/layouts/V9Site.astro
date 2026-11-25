@@ -36,6 +36,7 @@ const ld = {
   <meta name="description" content={description} />
   <meta name="theme-color" content="#F6F1E8" />
   <meta name="format-detection" content="telephone=no" />
+  <meta name="vn-build" content={import.meta.env.PUBLIC_VN_BUILD} />
   {(noindex || import.meta.env.PUBLIC_VN_NOINDEX === '1') && <meta name="robots" content="noindex" />}
   <link rel="canonical" href={canonical} />
   {[fCor, fCorI, fMan].map((f) => <link rel="preload" href={f} as="font" type="font/woff2" crossorigin />)}
