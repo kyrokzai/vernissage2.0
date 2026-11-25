@@ -58,6 +58,7 @@ src/assets/fonts/               + Cormorant Garamond 600 (кнопки, надз
 
 - `astro.config.mjs`: на Vercel (`VERCEL=1`) сайт собирается в корне домена (`base: '/'`). Для GitHub Pages остаётся `/vernissage2.0/`.
 - Адрес конструктора — `PUBLIC_VN_CONFIGURATOR_URL`. По умолчанию это Preview ветки `feature/vernissage-embed`.
+- Тестовый проект `vernissage-preview` (https://vernissage-preview.vercel.app/) закрыт от поиска: `<meta name="robots" content="noindex">`, пока у проекта нет своего домена. Признак — `import.meta.env.PUBLIC_VN_NOINDEX === '1'` (задаётся в `astro.config.mjs`, переменная проекта `PUBLIC_VN_NOINDEX` его переопределяет).
 
 ## Проверка
 
