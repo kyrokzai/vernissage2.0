@@ -1,0 +1,18 @@
+---
+// Материалы и детали: асимметричная галерея реальных фактур с умеренным параллаксом (data-r2-depth, r2.ts).
+import Pic from './Pic.astro';
+---
+<section class="mt2" aria-labelledby="mt2-h">
+  <div class="r2-wrap">
+    <div class="mt2-head">
+      <h2 class="r2-h2" id="mt2-h">Материалы и&nbsp;детали</h2>
+      <p class="r2-lead">Фасады без ручек, световые линии, натуральный шпон и&nbsp;мягкая обивка. Всё, что вы трогаете каждый день.</p>
+    </div>
+    <div class="mt2-grid">
+      <figure class="mt2-a" data-r2-depth="-6"><Pic src="mat-facades" alt="Светлые фасады без ручек со световой линией" sizes="(max-width: 760px) 92vw, 46vw" /></figure>
+      <figure class="mt2-b" data-r2-depth="7"><Pic src="mat-parquet" alt="Паркет ёлочкой из светлого дуба" sizes="(max-width: 760px) 44vw, 24vw" /></figure>
+      <figure class="mt2-c" data-r2-depth="5"><Pic src="mat-upholstery-white" alt="Кресло в белой обивке букле" sizes="(max-width: 760px) 44vw, 24vw" /></figure>
+      <figure class="mt2-d" data-r2-depth="-5"><Pic src="mat-carved-screens" alt="Резные перегородки с подсветкой" sizes="(max-width: 760px) 92vw, 46vw" /></figure>
+    </div>
+  </div>
+</section>
