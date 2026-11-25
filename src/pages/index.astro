@@ -6,6 +6,7 @@
 // Прежние эксперименты: /lab/scroll/ (видео по прокрутке), /lab/ (концепции первого экрана), /lab/arch/.
 import '../styles/r2.css';
 import '../styles/r3.css';
+import '../styles/r2v2.css';
 import V9Site from '../layouts/V9Site.astro';
 import R3Journey from '../components/r3/R3Journey.astro';
 import R2Statement from '../components/r2/R2Statement.astro';
@@ -32,9 +33,11 @@ import Footer from '../components/v9/Footer.astro';
     <R2Business />
     <R2Process />
   </div>
-  <Kit3D />
-  <Lead />
-  <Footer />
+  <div class="r2-tail">
+    <Kit3D />
+    <Lead />
+    <Footer />
+  </div>
 </V9Site>
 <script>
   import '../scripts/r2';

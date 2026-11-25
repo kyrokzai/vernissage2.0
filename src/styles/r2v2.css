@@ -1,0 +1,82 @@
+/* v2 — подача в духе Studio Chenille: архитектурная типографика, метки разделов, тёмные полосы-«занавесы»,
+   крупные фотографии в асимметричной сетке, появление фото из маски. Только визуальный слой; разметка и функции те же. */
+.r2-eb{margin:0 0 18px;font:500 11.5px/1 var(--sans);letter-spacing:.28em;text-transform:uppercase;color:var(--r2-bronze)}
+.r2-h2{font-size:clamp(46px,12.4vw,132px);line-height:.92;letter-spacing:-.03em}
+.r2-dark{background:var(--r2-walnut);color:#EFE7DB;position:relative;z-index:2;border-radius:28px 28px 0 0;margin-top:-28px}
+.r2-dark .r2-h2{color:#F3ECE1}.r2-dark .r2-lead{color:rgba(239,231,219,.66)}.r2-dark .r2-eb{color:#C8A57A}
+.r2-dark+section{position:relative;z-index:3;border-radius:28px 28px 0 0;margin-top:-28px}
+
+/* философия: тёмная сцена, текст по центру, крупно */
+.st2.r2-dark{padding-block:120px 140px;text-align:center}
+.st2.r2-dark .r2-eb{margin-bottom:28px}
+.st2.r2-dark .st2-t{margin-inline:auto;max-width:18ch;color:#F3ECE1;font-size:clamp(34px,9vw,92px);line-height:1.04}
+html.r2-on .st2.r2-dark .st2-t .w{color:rgba(243,236,225,.36)}
+html.r2-on .st2.r2-dark .st2-t .w.lit{color:#F3ECE1}
+html.r2-on .st2.r2-dark .st2-t .w.a.lit{color:#D8B98E}
+.st2.r2-dark .st2-t .a{color:#D8B98E}
+
+/* коллекции: вместо списка — галерея арок с названием под фото, асимметрично */
+.rm2{padding-block:96px 110px}
+.rm2-head{margin-bottom:40px}
+.rm2-list{display:grid;grid-template-columns:1fr 1fr;gap:28px 12px;border-top:0}
+.rm2-list li:first-child{grid-column:1/3}
+.rm2-list li:nth-child(odd):not(:first-child){margin-top:48px}
+.rm2-row{display:flex;flex-direction:column;align-items:flex-start;gap:0;padding:0;border:0}
+.rm2-th{order:-1;width:100%;height:auto;aspect-ratio:3/4.2;border-radius:999px 999px 4px 4px/46% 46% 4px 4px}
+.rm2-list li:first-child .rm2-th{aspect-ratio:4/4.4;border-radius:4px}
+.rm2-th img{transform:scale(1.02);transition:transform 1.2s var(--r2-ease)}
+.rm2-n{margin-top:14px;font-size:clamp(24px,6.4vw,40px)}
+.rm2-note{margin-top:4px;font-size:13.5px}
+.rm2-ar,.rm2-peek{display:none!important}
+@media (hover:hover){.rm2-row:hover .rm2-th img{transform:scale(1.07)}.rm2-row:hover .rm2-n{transform:none}}
+
+.mt2{padding-block:96px 110px}
+
+/* проект: метка на кадре, кадр выше */
+.pj2{padding-block:96px 110px}
+.pj2-frame{position:relative;aspect-ratio:3/4}
+.pj2-tag{position:absolute;z-index:2;left:16px;bottom:16px;font:500 11.5px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:#F6F1E8;background:rgba(20,15,11,.35);padding:9px 12px;border-radius:999px}
+
+/* бизнес: крупно, со сдвигом */
+.bz2.r2-dark{padding-block:120px 140px}
+.bz2-t{font-size:30px}
+.bz2-row{gap:56px}
+
+/* процесс: крупные номера шагов */
+.pc2-n{font-size:56px;top:14px;left:-2px;opacity:.9}
+.pc2-s{padding-left:64px}
+
+/* 3D, заявка, подвал (v9) — в общий ритм */
+.r2-tail .x-h2{font-size:clamp(42px,11vw,112px);line-height:.94;letter-spacing:-.028em}
+.r2-tail .x-sec{padding-block:110px}
+
+/* появление фотографий: из маски снизу, фото «оседает» (r2.ts) */
+html.r2-on [data-r2-rv]{clip-path:inset(100% 0 0 0)}
+html.r2-on [data-r2-rv].in{clip-path:inset(0 0 0 0);transition:clip-path 1.25s var(--r2-ease)}
+html.r2-on [data-r2-rv] img{transform:scale(1.18)}
+html.r2-on [data-r2-rv].in img{transform:scale(1);transition:transform 1.8s var(--r2-ease)}
+@media (prefers-reduced-motion: reduce){html [data-r2-rv]{clip-path:none!important}html [data-r2-rv] img{transform:none!important}}
+
+@media (min-width:761px){
+  .r2-dark,.r2-dark+section,.jr+.st2{border-radius:40px 40px 0 0;margin-top:-40px}
+  .st2.r2-dark{padding-block:200px 220px}
+  .rm2{padding-block:150px 160px}
+  .rm2-grid{display:block}
+  .rm2-head{display:grid;grid-template-columns:1fr 1fr;align-items:end;gap:6vw;margin-bottom:72px}
+  .rm2-head .r2-lead{margin:0 0 10px}
+  .rm2-list{grid-template-columns:repeat(3,1fr);gap:72px 3vw}
+  .rm2-list li:first-child{grid-column:1/3;grid-row:1/3}
+  .rm2-list li:first-child .rm2-row{height:100%}
+  .rm2-list li:first-child .rm2-th{aspect-ratio:auto;flex:1;min-height:70vh}
+  .rm2-list li:nth-child(odd):not(:first-child){margin-top:0}
+  .rm2-list li:nth-child(4),.rm2-list li:nth-child(6){margin-top:12vh}
+  .rm2-n{font-size:clamp(30px,2.6vw,44px)}
+  .pj2{padding-block:150px 160px}
+  .pj2-frame{aspect-ratio:21/10}
+  .pj2-tag{left:32px;bottom:32px}
+  .bz2-row{grid-template-columns:7fr 5fr;align-items:start;gap:5vw}
+  .bz2-item:nth-child(2){margin-top:22vh}
+  .pc2-n{font-size:84px}
+  .pc2-s{padding-left:110px}
+  .r2-tail .x-sec{padding-block:160px}
+}

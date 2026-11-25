@@ -6,8 +6,9 @@ const accent = new Set(['точно', 'на', 'своё', 'место.']);
 const words = text.split(' ');
 const acc = (i: number) => i >= words.length - 4 && accent.has(words[i]);
 ---
-<section class="st2" aria-label="О подходе VERNISSAGE">
+<section class="st2 r2-dark" aria-label="О подходе VERNISSAGE">
   <div class="r2-wrap">
+    <p class="r2-eb">Философия</p>
     <p class="st2-t" data-r2-words>{words.map((w, i) => <><span class:list={['w', { a: acc(i) }]}>{w}</span>{' '}</>)}</p>
   </div>
 </section>

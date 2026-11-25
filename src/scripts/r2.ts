@@ -76,6 +76,10 @@ async function init() {
     if (img) g.fromTo(img, { yPercent: -d }, { yPercent: d, ease: 'none', scrollTrigger: { trigger: f, start: 'top bottom', end: 'bottom top', scrub: true } });
   });
 
+  // появление фотографий из маски, один раз
+  const rv = Array.from(document.querySelectorAll<HTMLElement>('.rm2-th, .mt2-grid figure, .pj2-pair figure, .bz2-f, .r2-tail .k-stage'));
+  rv.forEach((el) => el.setAttribute('data-r2-rv', ''));
+  ST.batch(rv, { start: 'top 88%', once: true, onEnter: (els: Element[]) => els.forEach((el, i) => setTimeout(() => el.classList.add('in'), i * 110)) });
   document.fonts?.ready.then(() => ST.refresh());
   addEventListener('load', () => ST.refresh(), { once: true });
   w.__r2 = true;
