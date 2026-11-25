@@ -171,6 +171,7 @@ function kit(g: G) {
 
 async function init() {
   if (!html.classList.contains('cine')) return;
+  if (document.querySelector('[data-r2]')) return; // Redesign 2.0 ведёт своё движение (r2.ts)
   if (document.readyState !== 'complete') await new Promise((r) => addEventListener('load', r, { once: true }));
   await new Promise((r) => ('requestIdleCallback' in window ? (window as G).requestIdleCallback(r, { timeout: 1200 }) : setTimeout(r, 200)));
   try {

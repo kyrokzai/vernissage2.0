@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/tools/restore-taste-skill.sh\"",
+            "timeout": 120
+          }
+        ]
+      }
+    ]
+  }
+}

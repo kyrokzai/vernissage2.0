@@ -1,14 +1,17 @@
 ---
-// ЭКСПЕРИМЕНТ experiment/cinematic: главная с VERNISSAGE CINEMATIC SCROLL вместо первого экрана v9.
-// Прежние эксперименты: /lab/ (три концепции первого экрана), /lab/arch/ (сцена «Через арку»).
-import '../styles/lab.css';
-import '../styles/cinescroll.css';
+// ЭКСПЕРИМЕНТ experiment/cinematic — VERNISSAGE Cinematic Redesign 2.0 (главная).
+// Направление — Taste Skill (вид: услуга; только реальные фото; моменты word-highlight и pinned-chapters),
+// анимации — GSAP ScrollTrigger (r2.ts), микровзаимодействия — по Emil Kowalski. 3D-раздел, заявка и подвал — рабочие компоненты v9.
+// Прежние эксперименты: /lab/scroll/ (видео по прокрутке), /lab/ (концепции первого экрана), /lab/arch/.
+import '../styles/r2.css';
 import V9Site from '../layouts/V9Site.astro';
-import CineScroll from '../components/cs/CineScroll.astro';
-import Categories from '../components/v9/Categories.astro';
-import Works from '../components/v9/Works.astro';
+import R2Hero from '../components/r2/R2Hero.astro';
+import R2Statement from '../components/r2/R2Statement.astro';
+import R2Rooms from '../components/r2/R2Rooms.astro';
+import R2Project from '../components/r2/R2Project.astro';
+import R2Business from '../components/r2/R2Business.astro';
+import R2Process from '../components/r2/R2Process.astro';
 import Kit3D from '../components/v9/Kit3D.astro';
-import Steps from '../components/v9/Steps.astro';
 import Lead from '../components/v9/Lead.astro';
 import Footer from '../components/v9/Footer.astro';
 ---
@@ -17,14 +20,18 @@ import Footer from '../components/v9/Footer.astro';
   description="Кухни, шкафы, гостиные, спальни и ванные по вашим размерам. Соберите мебель в 3D-конструкторе или отправьте заявку на расчёт — стоимость посчитает менеджер после бесплатного замера."
   path=""
 >
-  <CineScroll />
-  <Categories />
-  <Works />
+  <div class="r2">
+    <R2Hero />
+    <R2Statement />
+    <R2Rooms />
+    <R2Project />
+    <R2Business />
+    <R2Process />
+  </div>
   <Kit3D />
-  <Steps />
   <Lead />
   <Footer />
 </V9Site>
 <script>
-  import '../scripts/cinescroll';
+  import '../scripts/r2';
 </script>

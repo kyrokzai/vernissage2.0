@@ -1,0 +1,26 @@
+---
+// Проект «Квартира под ключ»: большой кадр раскрывается из рамки на всю ширину по мере прокрутки, затем пара кадров с разной глубиной.
+import Pic from './Pic.astro';
+const base = import.meta.env.BASE_URL;
+---
+<section class="pj2" id="works" aria-labelledby="pj2-h">
+  <div class="r2-wrap pj2-head">
+    <h2 class="r2-h2" id="pj2-h">Квартира под ключ</h2>
+    <p class="r2-lead">Мебель для каждой комнаты вместе с&nbsp;дизайн-проектом и&nbsp;ремонтом. Одна команда от замера до установки.</p>
+  </div>
+  <div class="pj2-stage" data-r2-reveal>
+    <div class="pj2-frame"><Pic class="pj2-img" src="res-wide" alt="Кухня-гостиная со встроенными шкафами, световыми линиями и обеденной зоной" sizes="100vw" /></div>
+  </div>
+  <div class="r2-wrap pj2-pair">
+    <figure class="pj2-a" data-r2-depth="-5"><Pic src="res-1684" alt="Угловая кухня со светлыми фасадами и подсветкой" sizes="(max-width: 760px) 90vw, 44vw" /></figure>
+    <div class="pj2-txt">
+      <dl class="pj2-dl">
+        <div><dt>Объект</dt><dd>Квартира, Астана</dd></div>
+        <div><dt>Мебель</dt><dd>Кухня, гостиная, спальня, кабинет, санузел</dd></div>
+        <div><dt>Работы</dt><dd>Мебель, дизайн-проект, ремонт</dd></div>
+      </dl>
+      <a class="r2-link" href={base + 'portfolio/residential/'}>Открыть проект<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <figure class="pj2-b" data-r2-depth="7"><Pic src="mat-niche-light" alt="Ниша со стеллажом и подсветкой в спальне" sizes="(max-width: 760px) 70vw, 28vw" /></figure>
+  </div>
+</section>

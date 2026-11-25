@@ -1,0 +1,22 @@
+---
+// Тёмная полоса: коммерческие интерьеры. Два вертикальных кадра, у каждого заголовок над фото (не подпись под ним).
+import Pic from './Pic.astro';
+---
+<section class="bz2" aria-labelledby="bz2-h">
+  <div class="r2-wrap">
+    <div class="bz2-head">
+      <h2 class="r2-h2" id="bz2-h">Для бизнеса</h2>
+      <p class="r2-lead">Мебель и&nbsp;отделка по фирменному стилю заказчика.</p>
+    </div>
+    <div class="bz2-row">
+      <article class="bz2-item">
+        <h3 class="bz2-t">Зал ресторана <span>мягкие зоны, перегородки, декор</span></h3>
+        <div class="bz2-f" data-r2-depth="-6"><Pic src="rest-dark" alt="Зал ресторана с мягкими зонами, арками и подвесным светом" sizes="(max-width: 760px) 92vw, 44vw" /></div>
+      </article>
+      <article class="bz2-item">
+        <h3 class="bz2-t">Jacadi Paris <span>входная группа и витрины бутика</span></h3>
+        <div class="bz2-f" data-r2-depth="6"><Pic src="jac-2975" alt="Витрина детского бутика Jacadi Paris с подиумом" sizes="(max-width: 760px) 92vw, 44vw" /></div>
+      </article>
+    </div>
+  </div>
+</section>

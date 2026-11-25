@@ -1,0 +1,15 @@
+---
+// Фото в высоком качестве: WebP q88, ширины до исходной (без апскейла сервером), srcset под плотность экрана.
+import { getImage } from 'astro:assets';
+interface Props { src: string; alt: string; sizes: string; class?: string; eager?: boolean; q?: number; style?: string }
+const { src, alt, sizes, class: cls, eager, q = 88, style } = Astro.props;
+const all = import.meta.glob<{ default: ImageMetadata }>(['../../assets/vn/*.webp', '../../assets/v9/*.webp']);
+const key = Object.keys(all).find((k) => k.endsWith('/' + src + '.webp'));
+if (!key) throw new Error('Pic: нет файла ' + src);
+const meta = (await all[key]()).default;
+const ws = [480, 720, 960, 1280, 1600, 2000].filter((w) => w < meta.width);
+ws.push(meta.width);
+const img = await getImage({ src: meta, widths: ws, format: 'webp', quality: q });
+---
+<img class={cls} style={style} src={img.src} srcset={img.srcSet.attribute} sizes={sizes} alt={alt} width={meta.width} height={meta.height}
+  loading={eager ? 'eager' : 'lazy'} decoding="async" fetchpriority={eager ? 'high' : undefined} />

@@ -1,0 +1,38 @@
+---
+// Первый экран: фото реального интерьера на весь экран (телефон — вертикальный кадр кухни, компьютер — кухня-столовая).
+// Заголовок и кнопки внизу на мягком затемнении. Вход — один раз при загрузке (CSS), при прокрутке фото уходит медленнее страницы.
+import { getImage } from 'astro:assets';
+import { waLink } from '../../data/site';
+import m from '../../assets/vn/res-niche.webp';
+import d from '../../assets/vn/res-wide.webp';
+const base = import.meta.env.BASE_URL;
+const wa = waLink('Здравствуйте! Хочу рассчитать мебель на заказ.');
+const im = await getImage({ src: m, widths: [480, 720, m.width], format: 'webp', quality: 90 });
+const id = await getImage({ src: d, widths: [960, 1280, 1600, d.width], format: 'webp', quality: 90 });
+---
+<section class="h2o" data-r2 aria-labelledby="h2o-h">
+  <div class="h2o-media" data-r2-hero>
+    <picture>
+      <source media="(min-width: 761px)" srcset={id.srcSet.attribute} sizes="100vw" />
+      <img src={im.src} srcset={im.srcSet.attribute} sizes="100vw" width={m.width} height={m.height} alt="Скруглённый шкаф со стеллажом и подсветкой — квартира в Астане, работа VERNISSAGE" fetchpriority="high" decoding="async" />
+    </picture>
+  </div>
+  <header class="h2o-top">
+    <a class="h2o-logo" href={base} aria-label="VERNISSAGE — на главную"></a>
+    <nav class="h2o-nav" aria-label="Разделы">
+      <a href="#cats">Мебель</a><a href="#works">Работы</a><a href="#how">Как заказать</a><a href={base + 'create-3d/'}>3D-конструктор</a><a href="#contact">Контакты</a>
+    </nav>
+    <div class="h2o-ic">
+      <a class="r2-ic" href={wa} target="_blank" rel="noopener noreferrer" aria-label="Написать в WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.6 19.4l1.1-3.4a8 8 0 1 1 3 2.8z"/><path d="M9.3 8.6c.2 2.6 3.4 5.8 6 6l1.1-1.4-1.9-1-1 .8a5 5 0 0 1-2.5-2.5l.8-1-1-1.9z"/></svg></a>
+      <button class="r2-ic" type="button" data-menu-open aria-controls="x-menu" aria-expanded="false" aria-label="Открыть меню"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M5 9h14M5 15h9"/></svg></button>
+    </div>
+  </header>
+  <div class="h2o-copy r2-wrap">
+    <h1 class="h2o-h" id="h2o-h"><span class="r2-l"><span>Мебель на&nbsp;заказ</span></span> <span class="r2-l"><span>по&nbsp;вашим размерам</span></span></h1>
+    <p class="h2o-fact">Астана, с&nbsp;2003 года. Замер бесплатный.</p>
+    <div class="h2o-acts" data-hero-acts>
+      <a class="r2-btn r2-btn--light" href="#contact">Рассчитать стоимость</a>
+      <a class="r2-btn r2-btn--glass" href={base + 'create-3d/'}>Собрать в&nbsp;3D</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,32 @@
+---
+// Момент pinned-chapters: шаги заказа открываются по одному, кадр рядом (на телефоне — над ними) сменяется мягким наплывом.
+// Закрепление — CSS sticky (родная прокрутка); активный шаг выбирает IntersectionObserver. Без JS — все шаги и все кадры видны.
+import Pic from './Pic.astro';
+const steps: [string, string, string, string][] = [
+  ['Заявка', 'Оставьте телефон или напишите в WhatsApp. Можно приложить идею из 3D-конструктора.', 'res-1680', 'Гостиная с ТВ-зоной и стеновыми панелями'],
+  ['Бесплатный замер', 'Приезжаем на объект и снимаем точные размеры.', 'mat-facades', 'Светлые фасады без ручек со световой линией'],
+  ['Проект и договор', 'Согласуем проект, стоимость и сроки и фиксируем их в договоре.', 'res-kitchen', 'Кухня со светлыми фасадами'],
+  ['Изготовление и установка', 'Изготавливаем мебель по проекту и устанавливаем у вас.', 'res-niche', 'Ниша со стеллажом и зеркалом'],
+];
+---
+<section class="pc2" id="how" aria-labelledby="pc2-h">
+  <div class="r2-wrap pc2-grid">
+    <div class="pc2-head">
+      <h2 class="r2-h2" id="pc2-h">Как заказать</h2>
+      <p class="r2-lead">Стоимость считает менеджер после бесплатного замера. Автоматических цен на&nbsp;сайте нет.</p>
+    </div>
+    <div class="pc2-frame" aria-hidden="true">
+      {steps.map(([, , ph], i) => <div class:list={['pc2-ph', { on: i === 0 }]} data-i={i}><Pic src={ph} alt="" sizes="(max-width: 760px) 92vw, 44vw" /></div>)}
+    </div>
+    <ol class="pc2-steps">
+      {steps.map(([t, d, , alt], i) => (
+        <li class:list={['pc2-s', { on: i === 0 }]} data-i={i}>
+          <span class="pc2-n">{i + 1}</span>
+          <h3 class="pc2-t">{t}</h3>
+          <p class="pc2-d">{d}</p>
+          <span class="pc2-alt">{alt}</span>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

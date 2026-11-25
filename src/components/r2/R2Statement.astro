@@ -1,0 +1,13 @@
+---
+// Момент word-highlight: одно заявление на экран. Слова стоят в половину чернил и проявляются, пересекая середину экрана;
+// при прокрутке назад гаснут. При «уменьшить движение» — весь текст в полную силу.
+const text = 'Каждый проект начинается с замера. Потом мы рисуем, согласуем и делаем мебель, которая встаёт точно на своё место.';
+const accent = new Set(['точно', 'на', 'своё', 'место.']);
+const words = text.split(' ');
+const acc = (i: number) => i >= words.length - 4 && accent.has(words[i]);
+---
+<section class="st2" aria-label="О подходе VERNISSAGE">
+  <div class="r2-wrap">
+    <p class="st2-t" data-r2-words>{words.map((w, i) => <><span class:list={['w', { a: acc(i) }]}>{w}</span>{' '}</>)}</p>
+  </div>
+</section>
