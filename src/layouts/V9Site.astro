@@ -3,6 +3,7 @@
 // нижняя панель и меню телефона — вне .site (у .site container-type, а он ломает position:fixed в iOS).
 // Страница «Создать в 3D» использует свой каркас V9.astro.
 import '../styles/v9-site.css';
+import '../styles/v9-cine.css'; // эксперимент Cinematic
 import Bar from '../components/v9/Bar.astro';
 import favicon from '../assets/logo/mark.svg';
 import fCor from '../assets/fonts/cormorant-cyr-500-normal.woff2?url';
@@ -28,6 +29,8 @@ const ld = {
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
+  <script is:inline>if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&!(navigator.connection&&navigator.connection.saveData))document.documentElement.classList.add('cine')</script>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>{title}</title>
   <meta name="description" content={description} />
@@ -53,6 +56,7 @@ const ld = {
   <Bar />
   <script>
     import '../scripts/v9/site';
+    import '../scripts/v9/cine';
   </script>
 </body>
 </html>

@@ -207,6 +207,7 @@ function reveal() {
     requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove('pj-pre')));
   });
   $$('.c-enf,.w-spread,.pj-fig.full').forEach((el) => {
+    if (document.documentElement.classList.contains('cine') && !el.classList.contains('pj-fig')) return; // эксперимент: появление ведёт cine.ts
     if (el.getBoundingClientRect().top < innerHeight * 0.9) return;
     const pre = el.classList.contains('c-enf') ? 'c-pre' : el.classList.contains('w-spread') ? 'w-pre' : 'f-pre';
     const inn = pre === 'c-pre' ? 'c-in' : 'w-in';

@@ -41,7 +41,7 @@ const full = frameSrc('', false);
       </div>
       <nav class="c3-pick" aria-label="Что создать"><span>Что создать:</span>{STARTS.map(([start, label]) => <a href={createLink(base, start)} data-start={start}>{label}</a>)}</nav>
     </div>
-    <main class="c3-stage">
+    <main class="c3-stage" style="view-transition-name:k3">
       <h1 class="sr">Создайте мебель в 3D</h1>
       <iframe class="c3-frame" id="c3-frame" title="3D-конструктор VERNISSAGE" allow="fullscreen; clipboard-write" referrerpolicy="strict-origin-when-cross-origin" data-src={frameSrc('')}></iframe>
       <div class="c3-wait" data-wait><p>Загружаем 3D-конструктор…</p></div>

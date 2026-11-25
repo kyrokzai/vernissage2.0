@@ -1,0 +1,50 @@
+---
+// ЭКСПЕРИМЕНТ «Cinematic Experience» (ветка experiment/cinematic, не для стабильной сборки).
+// Сцена «Через арку»: камера проходит сквозь арочный проём в интерьер. Фон — покадровая последовательность
+// на <canvas>, кадр выбирается положением прокрутки; поверх — арка-проём, ветка переднего плана и три строки текста.
+// Прокрутка остаётся родной: сцена «прилипает» через CSS position:sticky, перехвата прокрутки нет.
+// Без JavaScript, при «уменьшить движение» или экономии трафика — неподвижный кадр и весь текст сразу.
+const base = import.meta.env.BASE_URL;
+const D = `${base}cine/d/`, M = `${base}cine/m/`;
+---
+<section class="cn" id="cine" aria-labelledby="cn-h" data-cine data-d={D} data-dn="72" data-m={M} data-mn="48">
+  <div class="cn-stick">
+    <picture class="cn-poster">
+      <source media="(max-width: 700px)" srcset={`${M}024.webp`} />
+      <img src={`${D}036.webp`} alt="Кухня-гостиная со встроенной мебелью — реальный проект VERNISSAGE" decoding="async" loading="lazy" />
+    </picture>
+    <canvas class="cn-cv" aria-hidden="true"></canvas>
+    <div class="cn-scrim" aria-hidden="true"></div>
+    <svg class="cn-portal cn-portal--d" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="cn-wall" x1="1" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#F3ECE1" /><stop offset=".55" stop-color="#E9DFD0" /><stop offset="1" stop-color="#D9CBB6" />
+        </linearGradient>
+        <linearGradient id="cn-rev" x1="1" y1="0" x2="0" y2="0">
+          <stop offset="0" stop-color="#B9A68B" stop-opacity=".9" /><stop offset="1" stop-color="#B9A68B" stop-opacity="0" />
+        </linearGradient>
+      </defs>
+      <!-- стена с арочным проёмом: прямоугольник минус арка (evenodd) -->
+      <path fill="url(#cn-wall)" fill-rule="evenodd" d="M-400,-400H2000V1300H-400Z M520,900V430A280,280 0 0 1 1080,430V900Z" />
+      <!-- откос проёма: свет сверху справа, тень на левом откосе -->
+      <path fill="url(#cn-rev)" d="M520,900V430A280,280 0 0 1 560,290L560,900Z" opacity=".55" />
+    </svg>
+    <svg class="cn-portal cn-portal--m" viewBox="0 0 400 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="cn-wall-m" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3ECE1" /><stop offset=".55" stop-color="#E9DFD0" /><stop offset="1" stop-color="#D9CBB6" /></linearGradient>
+        <linearGradient id="cn-rev-m" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#B9A68B" stop-opacity=".9" /><stop offset="1" stop-color="#B9A68B" stop-opacity="0" /></linearGradient>
+      </defs>
+      <path fill="url(#cn-wall-m)" fill-rule="evenodd" d="M-400,-400H800V1300H-400Z M80,900V470A120,120 0 0 1 320,470V900Z" />
+      <path fill="url(#cn-rev-m)" d="M80,900V470A120,120 0 0 1 100,404L100,900Z" opacity=".55" />
+    </svg>
+    <img class="cn-fg" src={`${base}cine/branch-fg.webp`} alt="" aria-hidden="true" decoding="async" loading="lazy" />
+    <div class="cn-lines">
+      <h2 class="cn-h" id="cn-h">Как рождается мебель VERNISSAGE</h2>
+      <p class="cn-l" data-l="1">Каждый проект начинается с&nbsp;замера.</p>
+      <p class="cn-l" data-l="2">Материал, цвет и&nbsp;свет вы&nbsp;выбираете сами.</p>
+      <p class="cn-l" data-l="3">Остальное мы делаем на&nbsp;заказ — по&nbsp;вашим размерам.</p>
+    </div>
+    <p class="cn-cap">Кадр реального проекта VERNISSAGE · в прототипе вместо видео — движение камеры по фотографии</p>
+    <div class="cn-veil" aria-hidden="true"></div>
+  </div>
+</section>
