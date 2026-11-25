@@ -1,0 +1,20 @@
+---
+// Переключатель ҚАЗ / РУС. Казахская страница — та же страница, переведённая при сборке (src/i18n). Выбор сохраняется
+// (localStorage vn-lang); место на странице переносится на другой язык. Отметку текущего языка в /kk/ ставит сборка.
+const base = import.meta.env.BASE_URL;
+const path = Astro.url.pathname.replace(/\/index\.html$/, '/').slice(base.length).replace(/^kk\//, '');
+interface Props { tone?: 'light' | 'dark' }
+const { tone = 'dark' } = Astro.props;
+---
+<div class:list={['lsw', `lsw--${tone}`]} role="group" aria-label="Язык сайта">
+  <a href={base + 'kk/' + path} hreflang="kk" lang="kk" aria-label="Қазақша" data-lang="kk">ҚАЗ</a><a href={base + path} hreflang="ru" lang="ru" aria-label="Русский" aria-current="true" data-lang="ru">РУС</a>
+</div>
+<script>
+  document.addEventListener('click', (e) => {
+    const a = (e.target as Element).closest<HTMLAnchorElement>('.lsw a[data-lang]');
+    if (!a) return;
+    try { localStorage.setItem('vn-lang', a.dataset.lang!); sessionStorage.setItem('vn-lang-y', String(scrollY)); } catch {}
+    e.preventDefault();
+    location.href = a.href + location.search + location.hash;
+  });
+</script>

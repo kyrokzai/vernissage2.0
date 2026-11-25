@@ -5,6 +5,8 @@
 import '../styles/v9-site.css';
 import '../styles/v9-cine.css'; // эксперимент Cinematic
 import Bar from '../components/v9/Bar.astro';
+import '../styles/i18n.css';
+import { PAGES } from '../i18n/pages.mjs';
 import favicon from '../assets/logo/mark.svg';
 import fCor from '../assets/fonts/cormorant-cyr-500-normal.woff2?url';
 import fCorI from '../assets/fonts/cormorant-cyr-400-italic.woff2?url';
@@ -47,6 +49,8 @@ const ld = {
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
+  {PAGES.includes(path) && [['ru', ''], ['kk', 'kk/'], ['x-default', '']].map(([l, p]) => <link rel="alternate" hreflang={l} href={new URL(import.meta.env.BASE_URL + p + path, Astro.site).href} />)}
+  <script is:inline>(function(){try{var d=document.documentElement;if(localStorage.getItem('vn-lang')==='kk'&&d.lang==='ru'){var l=document.querySelector('link[hreflang=kk]');if(l){location.replace(new URL(l.href).pathname+location.search+location.hash);return}}var y=sessionStorage.getItem('vn-lang-y');if(y!==null){sessionStorage.removeItem('vn-lang-y');history.scrollRestoration='manual';addEventListener('load',function(){scrollTo(0,+y)})}}catch(e){}})()</script>
   <script type="application/ld+json" set:html={JSON.stringify(ld)} />
 </head>
 <body>

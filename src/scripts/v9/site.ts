@@ -4,6 +4,7 @@
  */
 import { createLink } from '../../data/create3d';
 import { waLink } from '../../data/site';
+import { tr, langBase } from '../../i18n/rt';
 
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const base = import.meta.env.BASE_URL;
@@ -194,9 +195,9 @@ function setupKit3D() {
     const lay = $<HTMLElement>('[data-lay][aria-pressed="true"]', box)!.dataset.lay as Layout;
     const fin = $<HTMLElement>('[data-fin][aria-pressed="true"]', box)!.dataset.fin as Finish;
     $$('[data-kview] .r', box).forEach((r) => r.classList.toggle('on', r.dataset.r === `${lay}-${fin}`));
-    $('[data-kstate]', box)!.textContent = `${LAY[lay]}, ${FIN[fin]}`;
+    $('[data-kstate]', box)!.textContent = `${tr(LAY[lay])}, ${tr(FIN[fin])}`;
     const cta = $<HTMLAnchorElement>('[data-k3-cta]', box);
-    if (cta) cta.href = createLink(base, 'kitchen', lay, fin);
+    if (cta) cta.href = createLink(langBase, 'kitchen', lay, fin);
   });
 }
 
@@ -253,11 +254,11 @@ function setupLead() {
     e.preventDefault();
     err.hidden = true;
     const digits = tel.value.replace(/\D/g, '');
-    if (digits.length < 10) return fail('Укажите телефон: на него менеджер перезвонит или напишет.', tel);
-    if (!ok.checked) return fail('Отметьте согласие на обработку персональных данных.', ok);
+    if (digits.length < 10) return fail(tr('Укажите телефон: на него менеджер перезвонит или напишет.'), tel);
+    if (!ok.checked) return fail(tr('Отметьте согласие на обработку персональных данных.'), ok);
     const name = ($<HTMLInputElement>('#f-name', form)!.value || '').trim();
     const msg = ($<HTMLTextAreaElement>('#f-msg', form)!.value || '').trim();
-    const text = ['Здравствуйте! Заявка на расчёт мебели с сайта VERNISSAGE.', name && `Имя: ${name}`, `Телефон: ${tel.value.trim()}`, msg && `Что нужно: ${msg}`]
+    const text = [tr('Здравствуйте! Заявка на расчёт мебели с сайта VERNISSAGE.'), name && `${tr('Имя')}: ${name}`, `${tr('Телефон')}: ${tel.value.trim()}`, msg && `${tr('Что нужно')}: ${msg}`]
       .filter(Boolean).join('\n');
     const url = waLink(text);
     const w = window.open(url, '_blank', 'noopener');

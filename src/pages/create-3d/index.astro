@@ -3,6 +3,7 @@
 // (src/data/create3d.ts); страница даёт шапку и меню сайта, передаёт выбор (что создать, планировка, отделка) и предлагает
 // открыть конструктор на весь экран, если фрейм не загрузился. Цен на странице нет; заявку отправляет сам конструктор.
 import V9 from '../../layouts/V9.astro';
+import LangSwitch from '../../components/LangSwitch.astro';
 import '../../styles/create3d.css';
 import { CONTACTS, waLink } from '../../data/site';
 import { STARTS, frameSrc, createLink } from '../../data/create3d';
@@ -28,6 +29,7 @@ const full = frameSrc('', false);
       <span class="v-div" aria-hidden="true"></span>
       <nav class="v-nav" aria-label="Разделы">{NAV.map(([label, href]) => <a href={href} aria-current={label === '3D-конструктор' ? 'page' : undefined}>{label}</a>)}</nav>
       <div class="v-hr">
+        <LangSwitch />
         <a class="v-phone" href={CONTACTS.phoneHref}>{phoneText}</a>
         <a class="v-wa" href={wa} target="_blank" rel="noopener noreferrer"><Fragment set:html={svg(ico.wa)} />WhatsApp</a>
         <a class="v-ic" href={wa} target="_blank" rel="noopener noreferrer" aria-label="Написать в WhatsApp"><Fragment set:html={svg(ico.wa)} /></a>

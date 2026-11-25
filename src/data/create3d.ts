@@ -44,7 +44,7 @@ export function frameSrc(search: string, embed = true): string {
   const out = new URLSearchParams();
   if (embed) out.set('embed', '1');
   out.set('theme', 'light');
-  out.set('lang', 'ru');
+  out.set('lang', typeof document !== 'undefined' && document.documentElement.lang === 'kk' ? 'kk' : 'ru');
   const start = q.get('start'), layout = q.get('layout'), finish = q.get('finish');
   if (has(STARTS.map((s) => s[0]), start)) {
     out.set('start', start);

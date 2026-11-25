@@ -5,6 +5,7 @@
 // Закрепление — CSS sticky, прокрутка родная. «Уменьшить движение» / Save-Data / без JS — реальная фотография и весь текст.
 import { getImage } from 'astro:assets';
 import { waLink } from '../../data/site';
+import LangSwitch from '../LangSwitch.astro';
 import realM from '../../assets/vn/res-wide.webp';
 const base = import.meta.env.BASE_URL;
 const wa = waLink('Здравствуйте! Хочу рассчитать мебель на заказ.');
@@ -30,6 +31,7 @@ const { n, w, h } = Astro.props;
         <a href="#cats">Мебель</a><a href="#works">Работы</a><a href="#how">Как заказать</a><a href={base + 'create-3d/'}>3D-конструктор</a><a href="#contact">Контакты</a>
       </nav>
       <div class="h2o-ic">
+        <LangSwitch tone="light" />
         <a class="r2-ic" href={wa} target="_blank" rel="noopener noreferrer" aria-label="Написать в WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.6 19.4l1.1-3.4a8 8 0 1 1 3 2.8z"/><path d="M9.3 8.6c.2 2.6 3.4 5.8 6 6l1.1-1.4-1.9-1-1 .8a5 5 0 0 1-2.5-2.5l.8-1-1-1.9z"/></svg></a>
         <button class="r2-ic" type="button" data-menu-open aria-controls="x-menu" aria-expanded="false" aria-label="Открыть меню"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M5 9h14M5 15h9"/></svg></button>
       </div>

@@ -1,0 +1,26 @@
+/* Казахский язык: буквы Ә Ғ Қ Ң Ө Ұ Ү І Һ. Cormorant — свой набор cyrillic-ext (грузится, только если буквы есть на странице).
+   В Manrope казахских букв нет (Ә Ғ Қ Ң Ұ), поэтому кириллица казахской версии набрана Onest — близкий геометрический гротеск;
+   латиница и цифры остаются в Manrope. Шрифты — SIL OFL (Fontsource). */
+@font-face{font-family:'VN Cormorant';font-style:normal;font-weight:400;font-display:swap;src:url(../assets/fonts/cormorant-cyrext-400-normal.woff2) format('woff2');unicode-range:U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}
+@font-face{font-family:'VN Cormorant';font-style:normal;font-weight:500;font-display:swap;src:url(../assets/fonts/cormorant-cyrext-500-normal.woff2) format('woff2');unicode-range:U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}
+@font-face{font-family:'VN Cormorant';font-style:normal;font-weight:600;font-display:swap;src:url(../assets/fonts/cormorant-cyrext-600-normal.woff2) format('woff2');unicode-range:U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}
+@font-face{font-family:'VN Cormorant';font-style:italic;font-weight:400;font-display:swap;src:url(../assets/fonts/cormorant-cyrext-400-italic.woff2) format('woff2');unicode-range:U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}
+@font-face{font-family:'VN Onest';font-style:normal;font-weight:100 900;font-display:swap;src:url(../assets/fonts/onest-cyr.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'VN Onest';font-style:normal;font-weight:100 900;font-display:swap;src:url(../assets/fonts/onest-cyrext.woff2) format('woff2');unicode-range:U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}
+html[lang=kk]{--sans:'VN Onest','VN Manrope','Manrope','Segoe UI',system-ui,-apple-system,sans-serif}
+/* казахские слова длиннее: крупные заголовки чуть меньше и переносятся по слогам, а не вылезают за край */
+html[lang=kk] .r2-h2{font-size:clamp(40px,10.6vw,118px)}
+@media (max-width:760px){html[lang=kk] .h2o-h{font-size:clamp(36px,10vw,120px)}}
+html[lang=kk] :is(h1,h2,h3,.r2-h2,.x-h2){overflow-wrap:break-word;hyphens:auto}
+
+/* переключатель ҚАЗ / РУС */
+.lsw{display:inline-flex;align-items:center;gap:2px;padding:3px;border-radius:999px;font:600 11.5px/1 var(--sans);letter-spacing:.08em;flex:none}
+.lsw a{display:inline-grid;place-items:center;min-width:40px;height:30px;padding:0 9px;border-radius:999px;text-decoration:none;color:inherit;opacity:.62;transition:opacity .2s,background-color .25s,color .25s}
+.lsw a:hover{opacity:1}
+.lsw a[aria-current="true"]{opacity:1}
+.lsw a:focus-visible{outline:2px solid currentColor;outline-offset:2px}
+.lsw--dark{color:var(--ink,#241F1A);box-shadow:inset 0 0 0 1px rgba(36,31,26,.16)}
+.lsw--dark a[aria-current="true"]{background:var(--ink,#241F1A);color:#F6F1E8}
+.lsw--light{color:#F6F1E8;background:rgba(20,15,11,.22);box-shadow:inset 0 0 0 1px rgba(246,241,232,.28);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.lsw--light a[aria-current="true"]{background:#F6F1E8;color:#241F1A}
+@media (max-width:420px){.lsw a{min-width:36px;padding:0 7px}}
