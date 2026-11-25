@@ -49,7 +49,7 @@ html.cine .cn-light{display:block;position:absolute;z-index:0;top:-18vh;right:-1
 html.cine .x-sec>.x-in{position:relative;z-index:1}
 
 /* ---------- переход к конструктору (View Transitions между страницами) ---------- */
-@view-transition{navigation:auto}
+/* межстраничный переход отключён для демо: в Chromium давал ошибку «Transition was aborted» */
 ::view-transition-group(k3){animation-duration:.62s;animation-timing-function:cubic-bezier(.2,.7,.2,1)}
 ::view-transition-old(root),::view-transition-new(root){animation-duration:.36s}
 @media (prefers-reduced-motion: reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
