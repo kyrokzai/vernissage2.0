@@ -15,5 +15,5 @@ export default defineConfig({
   trailingSlash: 'ignore',
   build: { inlineStylesheets: 'never', assets: '_assets' },
   devToolbar: { enabled: false },
-  vite: { build: { assetsInlineLimit: 0 }, define: { 'import.meta.env.PUBLIC_VN_NOINDEX': JSON.stringify(noindex) } },
+  vite: { build: { assetsInlineLimit: 0 }, define: { 'import.meta.env.PUBLIC_VN_NOINDEX': JSON.stringify(noindex), 'import.meta.env.PUBLIC_VN_BUILD': JSON.stringify((process.env.VERCEL_GIT_COMMIT_SHA || 'local').slice(0, 7)) } },
 });
