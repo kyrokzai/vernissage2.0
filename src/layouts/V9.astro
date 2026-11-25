@@ -18,7 +18,8 @@ const canonical = new URL(import.meta.env.BASE_URL + path, Astro.site).href;
   <meta name="description" content={description} />
   <meta name="theme-color" content="#F6F1E8" />
   <meta name="format-detection" content="telephone=no" />
-  {noindex && <meta name="robots" content="noindex" />}
+  {/* тестовые адреса на Vercel (*.vercel.app) не индексируются: PUBLIC_VN_NOINDEX задаёт astro.config.mjs; доступ по ссылке свободный */}
+  {(noindex || import.meta.env.PUBLIC_VN_NOINDEX === '1') && <meta name="robots" content="noindex" />}
   <link rel="canonical" href={canonical} />
   {[fCorCyr, fManCyr].map((f) => <link rel="preload" href={f} as="font" type="font/woff2" crossorigin />)}
   <link rel="icon" type="image/svg+xml" href={favicon.src} />
