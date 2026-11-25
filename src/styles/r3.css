@@ -1,0 +1,53 @@
+/* Cinematic Experience 3.0 — сцена «Войти в дом» (стили поверх r2.css; остальные разделы — дизайн 1a0637c без изменений).
+   Статично (нет JS / «уменьшить движение» / Save-Data): один экран, реальная фотография, заголовок и финальные кнопки. */
+.jr{position:relative;background:#1b1612;color:#F6F1E8;z-index:0}
+.jr-stick{position:relative;height:100svh;min-height:600px;overflow:hidden}
+.jr-stage{position:absolute;inset:0}
+.jr-poster,.jr-cv,.jr-real{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
+.jr-poster,.jr-cv{display:none}
+.jr-real{opacity:1;object-position:50% 50%}
+.jr-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(18,14,10,.32) 0,rgba(18,14,10,0) 18%,rgba(18,14,10,0) 50%,rgba(18,14,10,.5) 74%,rgba(18,14,10,.8) 100%)}
+.jr-vig{position:absolute;inset:0;pointer-events:none;opacity:0;background:radial-gradient(120% 90% at 50% 45%,rgba(0,0,0,0) 55%,rgba(10,8,6,.55) 100%)}
+.jr-top{z-index:4}
+.jr-copy{position:absolute;z-index:3;left:0;right:0;bottom:calc(28px + env(safe-area-inset-bottom))}
+.jr-beat{position:relative}
+.jr-mid{display:none}
+.jr-fin{margin-top:18px}
+.jr-fin-t{margin:0 0 18px;font:400 clamp(26px,7.2vw,52px)/1.08 var(--serif);letter-spacing:-.012em;color:#F6F1E8;max-width:20ch;text-wrap:balance;text-shadow:0 2px 24px rgba(0,0,0,.4)}
+.jr-open .h2o-fact{margin-bottom:0}
+.jr-hint{display:none}
+.jr-cap{position:absolute;z-index:4;right:var(--r2-g);top:78px;margin:0;font:500 11px/1.3 var(--sans);color:rgba(246,241,232,.72);opacity:0}
+.jr-acts{opacity:1;animation:none}
+
+/* ---------- живая сцена ---------- */
+html.cs-on .jr{height:430vh;height:430svh}
+html.cs-on .jr-stick{position:sticky;top:0;height:100vh;height:100lvh}
+html.cs-on .jr-poster{display:block}
+html.cs-on .jr-cv{display:block;opacity:0}
+html.cs-on .jr-cv.ready{opacity:1}
+html.cs-on .jr-poster.gone{visibility:hidden}
+html.cs-on .jr-real{opacity:0;will-change:opacity,transform}
+html.cs-on .jr-cap{opacity:1}
+html.cs-on .jr-copy{bottom:calc(28px + env(safe-area-inset-bottom) + (100lvh - 100svh))}
+html.cs-on .jr-beat{position:absolute;left:var(--r2-g);right:var(--r2-g);bottom:0;margin:0;will-change:opacity,transform}
+html.cs-on .jr-mid{display:block;opacity:0;font:400 clamp(28px,7.6vw,56px)/1.06 var(--serif);letter-spacing:-.012em;color:#F6F1E8;max-width:16ch;text-shadow:0 2px 24px rgba(0,0,0,.35)}
+html.cs-on .jr-fin{opacity:0;visibility:hidden}
+html.cs-on .jr-hint{display:flex;align-items:center;gap:12px;margin:18px 0 0;font:500 13px/1 var(--sans);color:rgba(246,241,232,.82)}
+.jr-hint i{position:relative;width:1px;height:34px;background:rgba(246,241,232,.35);overflow:hidden}
+.jr-hint i::after{content:"";position:absolute;left:0;top:-34px;width:1px;height:34px;background:#F6F1E8;animation:jrCue 2.2s ease-in-out 1.2s infinite}
+@keyframes jrCue{to{transform:translateY(68px)}}
+
+/* следующий раздел (заявление 1a0637c) наезжает на сцену слоем со скруглением */
+.jr+.st2{position:relative;z-index:2;margin-top:-28px;border-radius:28px 28px 0 0}
+
+@media (min-width:761px){
+  .jr-copy{bottom:64px}
+  .jr-fin-t{font-size:clamp(40px,3.6vw,60px)}
+  html.cs-on .jr-mid{font-size:clamp(44px,4.2vw,72px)}
+  .jr-cap{top:auto;bottom:22px}
+  .jr+.st2{margin-top:-36px;border-radius:36px 36px 0 0}
+  /* вертикальная съёмка на широком экране — целиком по центру над размытой копией себя (рисует r3.ts);
+     постер — так же целиком; реальная фотография в финале — во весь экран */
+  html.cs-on .jr-poster{object-fit:contain;background:#1b1612}
+}
+@media (prefers-reduced-motion: reduce){.jr-hint i::after{animation:none}}

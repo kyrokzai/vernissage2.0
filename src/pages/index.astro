@@ -1,11 +1,13 @@
 ---
-// ЭКСПЕРИМЕНТ experiment/cinematic — VERNISSAGE Cinematic Redesign 2.0 (главная).
+// ЭКСПЕРИМЕНТ experiment/cinematic — VERNISSAGE Cinematic Experience 3.0 (главная): первый экран — сцена «Войти в дом» (r3),
+// остальные разделы — Redesign 2.0 (1a0637c) без изменений.
 // Направление — Taste Skill (вид: услуга; только реальные фото; моменты word-highlight и pinned-chapters),
 // анимации — GSAP ScrollTrigger (r2.ts), микровзаимодействия — по Emil Kowalski. 3D-раздел, заявка и подвал — рабочие компоненты v9.
 // Прежние эксперименты: /lab/scroll/ (видео по прокрутке), /lab/ (концепции первого экрана), /lab/arch/.
 import '../styles/r2.css';
+import '../styles/r3.css';
 import V9Site from '../layouts/V9Site.astro';
-import R2Hero from '../components/r2/R2Hero.astro';
+import R3Journey from '../components/r3/R3Journey.astro';
 import R2Statement from '../components/r2/R2Statement.astro';
 import R2Rooms from '../components/r2/R2Rooms.astro';
 import R2Project from '../components/r2/R2Project.astro';
@@ -21,7 +23,7 @@ import Footer from '../components/v9/Footer.astro';
   path=""
 >
   <div class="r2">
-    <R2Hero />
+    <R3Journey n={121} w={1080} h={1912} />
     <R2Statement />
     <R2Rooms />
     <R2Project />
@@ -34,4 +36,5 @@ import Footer from '../components/v9/Footer.astro';
 </V9Site>
 <script>
   import '../scripts/r2';
+  import '../scripts/r3';
 </script>

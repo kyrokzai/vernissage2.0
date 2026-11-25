@@ -57,7 +57,7 @@ async function init() {
   ST.config({ ignoreMobileResize: true });
 
   // 1. первый экран: фото уходит медленнее страницы (глубина), следующий раздел наезжает сверху
-  g.to('[data-r2-hero]', { yPercent: 16, ease: 'none', scrollTrigger: { trigger: '.h2o', start: 'top top', end: 'bottom top', scrub: true } });
+  if ($('[data-r2-hero]')) g.to('[data-r2-hero]', { yPercent: 16, ease: 'none', scrollTrigger: { trigger: '.h2o', start: 'top top', end: 'bottom top', scrub: true } });
 
   // 2. заявление
   words(ST);

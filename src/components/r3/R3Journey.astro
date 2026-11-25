@@ -1,0 +1,55 @@
+---
+// Cinematic Experience 3.0 — «Войти в дом». Первый экран — сцена на ~4 экрана прокрутки по принципу Studio Chenille:
+// кадры видео (Higgsfield / Kling 3.0, 9:16) на <canvas>, камера следует за прокруткой с инерцией «тяжёлой камеры»
+// и останавливается на чистом кадре; в финале — растворение в реальную фотографию VERNISSAGE, текст и две кнопки.
+// Закрепление — CSS sticky, прокрутка родная. «Уменьшить движение» / Save-Data / без JS — реальная фотография и весь текст.
+import { getImage } from 'astro:assets';
+import { waLink } from '../../data/site';
+import realM from '../../assets/vn/res-wide.webp';
+const base = import.meta.env.BASE_URL;
+const wa = waLink('Здравствуйте! Хочу рассчитать мебель на заказ.');
+const F = `${base}journey/`;
+const real = await getImage({ src: realM, widths: [960, 1280, 1600, realM.width], format: 'webp', quality: 92 });
+interface Props { n: number; w: number; h: number }
+const { n, w, h } = Astro.props;
+---
+<section class="jr" data-jr data-r2 data-dir={`${F}f/`} data-n={n} data-fw={w} data-fh={h} aria-labelledby="jr-h">
+  <div class="jr-stick">
+    <div class="jr-stage" data-jr-stage>
+      <img class="jr-poster" src={`${F}poster.webp`} width={w} height={h} alt="" aria-hidden="true" fetchpriority="high" decoding="async" />
+      <canvas class="jr-cv" aria-hidden="true"></canvas>
+      <img class="jr-real" src={real.src} srcset={real.srcSet.attribute} sizes="100vw" width={realM.width} height={realM.height}
+        alt="Кухня-гостиная со встроенными шкафами, световыми линиями и обеденной зоной — реальная квартира в Астане, работа VERNISSAGE" decoding="async" />
+      <span class="jr-shade" aria-hidden="true"></span>
+      <span class="jr-vig" aria-hidden="true"></span>
+    </div>
+
+    <header class="h2o-top jr-top">
+      <a class="h2o-logo" href={base} aria-label="VERNISSAGE — на главную"></a>
+      <nav class="h2o-nav" aria-label="Разделы">
+        <a href="#cats">Мебель</a><a href="#works">Работы</a><a href="#how">Как заказать</a><a href={base + 'create-3d/'}>3D-конструктор</a><a href="#contact">Контакты</a>
+      </nav>
+      <div class="h2o-ic">
+        <a class="r2-ic" href={wa} target="_blank" rel="noopener noreferrer" aria-label="Написать в WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.6 19.4l1.1-3.4a8 8 0 1 1 3 2.8z"/><path d="M9.3 8.6c.2 2.6 3.4 5.8 6 6l1.1-1.4-1.9-1-1 .8a5 5 0 0 1-2.5-2.5l.8-1-1-1.9z"/></svg></a>
+        <button class="r2-ic" type="button" data-menu-open aria-controls="x-menu" aria-expanded="false" aria-label="Открыть меню"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M5 9h14M5 15h9"/></svg></button>
+      </div>
+    </header>
+
+    <div class="jr-copy r2-wrap">
+      <div class="jr-beat jr-open" data-beat="open">
+        <h1 class="h2o-h" id="jr-h"><span class="r2-l"><span>Мебель на&nbsp;заказ</span></span> <span class="r2-l"><span>по&nbsp;вашим размерам</span></span></h1>
+        <p class="h2o-fact">Астана, с&nbsp;2003 года. Замер бесплатный.</p>
+        <p class="jr-hint"><span>Листайте, чтобы войти</span><i aria-hidden="true"></i></p>
+      </div>
+      <p class="jr-beat jr-mid" data-beat="mid">Каждая деталь — по&nbsp;размерам вашего дома.</p>
+      <div class="jr-beat jr-fin" data-beat="fin">
+        <p class="jr-fin-t">Это реальная квартира в&nbsp;Астане. Мы&nbsp;сделали в&nbsp;ней всю мебель.</p>
+        <div class="h2o-acts jr-acts" data-hero-acts>
+          <a class="r2-btn r2-btn--light" href="#contact">Рассчитать стоимость</a>
+          <a class="r2-btn r2-btn--glass" href={base + 'create-3d/'}>Собрать в&nbsp;3D</a>
+        </div>
+      </div>
+    </div>
+    <p class="jr-cap" data-jr-cap>Иллюстрация — не работа VERNISSAGE</p>
+  </div>
+</section>
