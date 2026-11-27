@@ -36,13 +36,7 @@ const full = frameSrc('', false);
         <button class="v-ic" type="button" data-menu-open aria-controls="c3-menu" aria-expanded="false" aria-label="Открыть меню"><Fragment set:html={svg(ico.menu)} /></button>
       </div>
     </header>
-    <div class="c3-intro">
-      <div>
-        <h1>Создайте мебель в 3D</h1>
-        <p>Выберите модель, размеры и цвет — и отправьте проект на расчёт. Стоимость считает менеджер после бесплатного замера.</p>
-      </div>
-      <nav class="c3-pick" aria-label="Что создать"><span>Что создать:</span>{STARTS.map(([start, label]) => <a href={createLink(base, start)} data-start={start}>{label}</a>)}</nav>
-    </div>
+    <div class="c3-intro"><p><strong>Создайте мебель в 3D</strong> — модель, размеры, цвет и заявка на расчёт. Стоимость считает менеджер после бесплатного замера.</p></div>
     <main class="c3-stage" style="view-transition-name:k3">
       <h1 class="sr">Создайте мебель в 3D</h1>
       <iframe class="c3-frame" id="c3-frame" title="3D-конструктор VERNISSAGE" allow="fullscreen; clipboard-write" referrerpolicy="strict-origin-when-cross-origin" data-src={frameSrc('')}></iframe>

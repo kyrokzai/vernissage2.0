@@ -46,3 +46,17 @@ html.c3-page,html.c3-page body{height:100%;overflow:hidden}
   .c3-frame{border:0;border-radius:0}
   .c3-wait,.c3-fallback{inset:0}
 }
+/* iPad (27.11): выбор мебели — только внутри конструктора; компактная шапка страницы, вводная строка, без горизонтального переполнения */
+.c3{width:100%;max-width:100vw;overflow-x:hidden;grid-template-columns:minmax(0,1fr)}
+.c3-intro{grid-template-columns:minmax(0,1fr);padding-block:8px}
+@media (min-width:701px) and (min-height:501px){.c3>.v-hdr{height:64px}}
+.c3-intro p{margin:0;max-width:none;font-size:14px;line-height:1.4}
+.c3-intro strong{font:500 20px/1.2 var(--serif);color:var(--ink)}
+.c3-ftr{padding-block:4px calc(4px + env(safe-area-inset-bottom,0px))}
+.c3-stage,.c3-frame{min-width:0;max-width:100%}
+/* планшет горизонтально (Safari с клавиатурой и без): всё место по высоте — конструктору */
+@media (orientation:landscape) and (pointer:coarse) and (min-width:701px) and (min-height:501px){
+  .c3-intro{display:none}
+  .c3-stage{padding-inline:max(8px,env(safe-area-inset-left,0px)) max(8px,env(safe-area-inset-right,0px))}
+}
+
